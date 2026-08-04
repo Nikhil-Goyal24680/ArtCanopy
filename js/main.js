@@ -6,8 +6,15 @@ function renderProducts() {
   const grid = document.getElementById("product-grid");
   grid.innerHTML = PRODUCTS.map((p) => `
     <article class="product-card">
-      <div class="product-image placeholder">
+      <div class="product-image placeholder" id="img-wrap-${p.id}">
         <span>Photo coming soon</span>
+        <img
+          src="images/${p.image}"
+          alt="${p.name}"
+          loading="lazy"
+          onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
+          onerror="this.remove()"
+        >
       </div>
       <div class="product-body">
         <h3>${p.name}</h3>

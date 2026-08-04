@@ -129,8 +129,12 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   flex-direction: column;
 }
 
-.product-image.placeholder {
+.product-image {
   aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+}
+.product-image.placeholder {
   background: repeating-linear-gradient(
     135deg,
     var(--paper-alt),
@@ -143,6 +147,18 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   justify-content: center;
   color: var(--ink-soft);
   font-size: 0.85rem;
+}
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+.product-image img.loaded {
+  display: block;
+}
+.product-image:not(.placeholder) span {
+  display: none;
 }
 
 .product-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
