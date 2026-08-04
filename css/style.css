@@ -1,0 +1,188 @@
+:root {
+  --ink: #2b241d;
+  --ink-soft: #6b5f52;
+  --paper: #faf6f0;
+  --paper-alt: #f1e8db;
+  --accent: #b5652c;
+  --accent-dark: #8f4d1f;
+  --whatsapp: #25a75b;
+  --whatsapp-dark: #1c8548;
+  --border: #e4d9c6;
+  --radius: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f2ece2;
+    --ink-soft: #c4b7a4;
+    --paper: #1c1712;
+    --paper-alt: #241d16;
+    --accent: #e08a4a;
+    --accent-dark: #f2a05e;
+    --whatsapp: #2fbf6a;
+    --whatsapp-dark: #3fd67c;
+    --border: #3a3024;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); opacity: 0.92; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-whatsapp {
+  background: var(--whatsapp);
+  color: #fff;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+.brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+}
+.header-cta { padding: 8px 16px; font-size: 0.85rem; }
+
+/* Hero */
+.hero {
+  padding: 72px 0 56px;
+  background: linear-gradient(180deg, var(--paper-alt), var(--paper));
+  text-align: center;
+}
+.hero h1 { font-size: 2.4rem; }
+.hero-sub { font-size: 1.05rem; margin-bottom: 28px; }
+
+/* About */
+.about {
+  padding: 56px 0;
+  text-align: center;
+}
+.about .container { max-width: 680px; }
+
+/* Products */
+.products {
+  padding: 40px 0 64px;
+  background: var(--paper-alt);
+}
+.products h2 { text-align: center; margin-bottom: 32px; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-image.placeholder {
+  aspect-ratio: 4 / 3;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--paper-alt),
+    var(--paper-alt) 10px,
+    var(--border) 10px,
+    var(--border) 20px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.product-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.product-desc { font-size: 0.9rem; flex: 1; margin-bottom: 16px; }
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.product-price { font-weight: 700; color: var(--accent-dark); }
+.product-footer .btn { padding: 9px 16px; font-size: 0.85rem; white-space: nowrap; }
+
+/* Custom CTA */
+.custom-cta {
+  padding: 64px 0;
+  text-align: center;
+}
+.custom-cta .container { max-width: 600px; }
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.9rem; }
+.footer-links a:hover { color: var(--accent); }
+.footer-note { font-size: 0.8rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.9rem; }
+  .header-cta { display: none; }
+}
