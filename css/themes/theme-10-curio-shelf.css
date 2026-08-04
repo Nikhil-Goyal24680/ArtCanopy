@@ -1,0 +1,171 @@
+/* THEME 10 — Curio Shelf
+   Vibe: a museum curiosity cabinet — each piece sits on its own little shelf,
+   with a placard underneath, like objects in a display case */
+
+:root {
+  --wall: #24352f;
+  --wall-alt: #1b2925;
+  --ink: #f1ece0;
+  --ink-soft: #b7ad9a;
+  --wood: #8a5a34;
+  --wood-dark: #5f3c22;
+  --brass: #c9a04e;
+  --border: #3a4b44;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Jost", -apple-system, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  background: var(--wall);
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--brass);
+  color: #23190a;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: "Yeseva One", serif;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  color: var(--brass);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--brass);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--brass); color: #23190a; }
+.btn-primary:hover { background: #dcb567; }
+.btn-whatsapp { background: transparent; color: var(--brass); }
+.btn-whatsapp:hover { background: rgba(201,160,78,0.12); }
+
+/* Header */
+.site-header { background: var(--wall-alt); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; }
+.brand { font-family: "Yeseva One", serif; font-size: 1.3rem; color: var(--brass); }
+.header-cta { padding: 8px 16px; font-size: 0.72rem; }
+
+/* Hero */
+.hero { padding: 88px 0 60px; text-align: center; background: var(--wall-alt); border-bottom: 1px solid var(--border); }
+.hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 18px; font-style: italic; }
+.hero h1 { font-size: 2.6rem; color: var(--ink); }
+.hero-sub { font-size: 1.02rem; margin: 0 auto 30px; max-width: 460px; }
+
+/* About */
+.about { padding: 56px 0; text-align: center; }
+.about .container { max-width: 620px; }
+
+/* Products — curio shelves */
+.products { padding: 20px 0 90px; }
+.products h2 { text-align: center; margin-bottom: 56px; font-size: 2rem; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 48px 24px;
+}
+
+.product-card {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 22px;
+  position: relative;
+}
+
+/* the shelf plank beneath each object */
+.product-card::after {
+  content: "";
+  position: absolute;
+  left: -14px;
+  right: -14px;
+  bottom: 8px;
+  height: 14px;
+  background: linear-gradient(180deg, var(--wood), var(--wood-dark));
+  border-radius: 2px;
+  box-shadow: 0 10px 16px rgba(0,0,0,0.45);
+}
+
+.product-image {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--brass);
+  border-radius: 4px;
+  box-shadow: 0 14px 20px rgba(0,0,0,0.35);
+  z-index: 1;
+}
+.product-image.placeholder {
+  background: var(--wall-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+/* placard */
+.product-body {
+  margin-top: 26px;
+  padding: 12px 16px;
+  background: var(--wall-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  z-index: 1;
+}
+.product-body h3 { font-size: 1.05rem; margin-bottom: 4px; color: var(--ink); }
+.product-desc { font-size: 0.8rem; margin-bottom: 12px; color: var(--ink-soft); }
+
+.product-footer { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.product-price { font-family: "Yeseva One", serif; color: var(--brass); font-size: 1.05rem; }
+.product-footer .btn { padding: 7px 16px; font-size: 0.68rem; }
+
+/* Custom CTA */
+.custom-cta { padding: 60px 0 88px; text-align: center; background: var(--wall-alt); border-top: 1px solid var(--border); }
+.custom-cta .container { max-width: 580px; }
+
+/* Footer */
+.site-footer { padding: 32px 0; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.88rem; }
+.footer-links a:hover { color: var(--brass); }
+.footer-note { font-size: 0.76rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2rem; }
+  .header-cta { display: none; }
+}
