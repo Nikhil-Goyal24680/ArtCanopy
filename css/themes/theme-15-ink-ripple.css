@@ -8,8 +8,8 @@
   --ink: #f3eef7;
   --ink-soft: #c2b7cf;
   --base: #0d0912;
-  --glass: rgba(24, 16, 32, 0.55);
-  --glass-strong: rgba(24, 16, 32, 0.72);
+  --glass: rgba(20, 14, 26, 0.72);
+  --glass-strong: rgba(20, 14, 26, 0.85);
   --card-glass: rgba(255, 255, 255, 0.06);
   --border: rgba(255, 255, 255, 0.12);
   --gold: #f4c542;
@@ -83,8 +83,8 @@ p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
   top: 0;
   z-index: 10;
   background: var(--glass-strong);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
   border-bottom: 1px solid var(--border);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
@@ -109,8 +109,8 @@ p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
 .about .container {
   max-width: 680px;
   background: var(--glass);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 44px 40px;
@@ -120,8 +120,8 @@ p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
 .products { padding: 56px 0; position: relative; z-index: 2; }
 .products .container {
   background: var(--glass);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
   border: 1px solid var(--border);
   border-radius: 28px;
   padding: 48px 36px;
@@ -193,15 +193,15 @@ p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
 .custom-cta .container {
   max-width: 600px;
   background: var(--glass);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 44px 40px;
 }
 
 /* Footer */
-.site-footer { padding: 36px 0; position: relative; z-index: 2; background: var(--glass-strong); backdrop-filter: blur(16px); border-top: 1px solid var(--border); }
+.site-footer { padding: 36px 0; position: relative; z-index: 2; background: var(--glass-strong); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border-top: 1px solid var(--border); }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
