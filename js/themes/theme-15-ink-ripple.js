@@ -1,27 +1,29 @@
-// A real (lightweight) fluid simulation: a low-resolution velocity field and
-// a color/dye field, advected each frame (semi-Lagrangian, the core idea
-// behind "stable fluids" — the same technique behind those Van Gogh-style
-// fluid demos). The page loads already fully covered in marbled color,
-// moving the pointer stirs a velocity field that swirls the paint through
-// itself and leaves fresh color behind it, like a finger dragged through
-// wet paint. No WebGL needed — it runs on plain canvas + typed arrays.
+// A lightweight fluid simulation: a velocity field and a color/dye field,
+// each advected every frame via semi-Lagrangian sampling (the core idea
+// behind "stable fluids"). The missing ingredient for real Van-Gogh-style
+// turbulence is VORTICITY CONFINEMENT — without it, advection alone just
+// smears color into soft blur. Confinement re-injects rotational energy at
+// each step so swirls stay tight and detailed instead of dissipating. A
+// second sparse "gold vein" field rides the same flow and gets stretched
+// into thin metallic filaments, the way real marbling picks up gold leaf.
 (function () {
   const canvas = document.getElementById("liquid-bg");
   const ctx = canvas.getContext("2d");
 
   const isSmall = window.innerWidth < 700;
-  const simW = isSmall ? 110 : 168;
-  const simH = isSmall ? 62 : 94;
+  const simW = isSmall ? 130 : 208;
+  const simH = isSmall ? 74 : 118;
   const N = simW * simH;
 
   const PALETTE = [
-    [240, 169, 79],  // amber
-    [224, 86, 143],  // rose
-    [52, 209, 181],  // teal
-    [139, 92, 246],  // violet
-    [244, 197, 66],  // gold
-    [255, 122, 89],  // coral
+    [30, 136, 130],   // deep teal
+    [88, 60, 168],    // indigo violet
+    [214, 48, 122],   // magenta
+    [20, 110, 100],   // emerald
+    [168, 50, 120],   // plum pink
+    [40, 90, 150],    // deep blue
   ];
+  const GOLD = [232, 186, 90];
 
   function lerpColor(a, b, f) {
     return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
@@ -38,17 +40,20 @@
   let vy = new Float32Array(N);
   let nvx = new Float32Array(N);
   let nvy = new Float32Array(N);
+  let curl = new Float32Array(N);
   let dye = new Uint8ClampedArray(N * 4);
   let ndye = new Uint8ClampedArray(N * 4);
+  let gold = new Float32Array(N);
+  let ngold = new Float32Array(N);
 
-  // paint the whole grid with a smooth, randomized marbled color field —
+  // paint the whole grid with a randomized marbled color field up front —
   // "spilled all over the page," not a few tidy blobs, with no blank gaps
-  (function seedDye() {
-    const f1 = 0.05 + Math.random() * 0.04;
-    const f2 = 0.05 + Math.random() * 0.04;
-    const f3 = 0.04 + Math.random() * 0.03;
-    const f4 = 0.04 + Math.random() * 0.03;
-    const f5 = 0.03 + Math.random() * 0.03;
+  (function seedFields() {
+    const f1 = 0.06 + Math.random() * 0.05;
+    const f2 = 0.06 + Math.random() * 0.05;
+    const f3 = 0.05 + Math.random() * 0.04;
+    const f4 = 0.05 + Math.random() * 0.04;
+    const f5 = 0.04 + Math.random() * 0.03;
     const phase = Math.random() * Math.PI * 2;
     for (let y = 0; y < simH; y++) {
       for (let x = 0; x < simW; x++) {
@@ -60,11 +65,21 @@
         const [r, g, b] = paletteColor(t);
         const idx = (y * simW + x) * 4;
         dye[idx] = r; dye[idx + 1] = g; dye[idx + 2] = b; dye[idx + 3] = 255;
+
+        // sparse gold speckles — advection will stretch these into veins
+        gold[y * simW + x] = Math.random() < 0.035 ? 0.6 + Math.random() * 0.4 : 0;
       }
+    }
+    // a little starting swirl energy so the first few seconds aren't flat
+    for (let i = 0; i < 5; i++) {
+      const cx = Math.random() * simW, cy = Math.random() * simH;
+      const ang = Math.random() * Math.PI * 2;
+      splatVelocity(cx, cy, Math.cos(ang) * 1.4, Math.sin(ang) * 1.4, Math.min(simW, simH) * 0.28);
     }
   })();
 
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+  function IX(x, y) { return y * simW + x; }
 
   function sampleScalar(field, x, y) {
     x = clamp(x, 0, simW - 1.001);
@@ -121,15 +136,62 @@
     }
   }
 
+  function splatGold(cx, cy, radius, amount) {
+    const r2 = radius * radius;
+    const x0 = Math.max(0, Math.floor(cx - radius)), x1 = Math.min(simW - 1, Math.ceil(cx + radius));
+    const y0 = Math.max(0, Math.floor(cy - radius)), y1 = Math.min(simH - 1, Math.ceil(cy + radius));
+    for (let y = y0; y <= y1; y++) {
+      for (let x = x0; x <= x1; x++) {
+        const dx = x - cx, dy = y - cy, d2 = dx * dx + dy * dy;
+        if (d2 > r2) continue;
+        if (Math.random() < 0.2) {
+          const idx = y * simW + x;
+          gold[idx] = Math.min(1, gold[idx] + amount * Math.exp(-d2 / (r2 * 0.5)));
+        }
+      }
+    }
+  }
+
+  // vorticity confinement: compute curl, then push each cell along the
+  // gradient of |curl| (perpendicular to it) to keep rotation from dissipating
+  const CONFINEMENT = 5.5;
+  function applyVorticityConfinement(dt) {
+    for (let y = 1; y < simH - 1; y++) {
+      for (let x = 1; x < simW - 1; x++) {
+        const dvydx = vy[IX(x + 1, y)] - vy[IX(x - 1, y)];
+        const dvxdy = vx[IX(x, y + 1)] - vx[IX(x, y - 1)];
+        curl[IX(x, y)] = (dvydx - dvxdy) * 0.5;
+      }
+    }
+    for (let y = 1; y < simH - 1; y++) {
+      for (let x = 1; x < simW - 1; x++) {
+        const idx = IX(x, y);
+        const cL = Math.abs(curl[IX(x - 1, y)]);
+        const cR = Math.abs(curl[IX(x + 1, y)]);
+        const cB = Math.abs(curl[IX(x, y - 1)]);
+        const cT = Math.abs(curl[IX(x, y + 1)]);
+        let nx = (cR - cL) * 0.5;
+        let ny = (cT - cB) * 0.5;
+        const len = Math.sqrt(nx * nx + ny * ny) + 1e-5;
+        nx /= len; ny /= len;
+        const c = curl[idx];
+        vx[idx] += ny * -c * CONFINEMENT * dt;
+        vy[idx] += nx * c * CONFINEMENT * dt;
+      }
+    }
+  }
+
   const DT = 1.1;
   function step() {
+    applyVorticityConfinement(0.6);
+
     for (let y = 0; y < simH; y++) {
       for (let x = 0; x < simW; x++) {
         const idx = y * simW + x;
         const px = x - vx[idx] * DT;
         const py = y - vy[idx] * DT;
-        nvx[idx] = sampleScalar(vx, px, py) * 0.994;
-        nvy[idx] = sampleScalar(vy, px, py) * 0.994;
+        nvx[idx] = sampleScalar(vx, px, py) * 0.988;
+        nvy[idx] = sampleScalar(vy, px, py) * 0.988;
       }
     }
     let tmp = vx; vx = nvx; nvx = tmp;
@@ -145,9 +207,11 @@
         ndye[o + 1] = sampleDyeChannel(px, py, 1);
         ndye[o + 2] = sampleDyeChannel(px, py, 2);
         ndye[o + 3] = 255;
+        ngold[idx] = sampleScalar(gold, px, py) * 0.997;
       }
     }
     tmp = dye; dye = ndye; ndye = tmp;
+    tmp = gold; gold = ngold; ngold = tmp;
   }
 
   // a couple of slow fixed gyres so the paint keeps drifting even when idle
@@ -158,8 +222,8 @@
   function applyGyres(t) {
     gyres.forEach((g) => {
       const angle = t * g.speed * g.dir;
-      const fx = Math.cos(angle) * 0.35;
-      const fy = Math.sin(angle) * 0.35;
+      const fx = Math.cos(angle) * 0.3;
+      const fy = Math.sin(angle) * 0.3;
       splatVelocity(g.x, g.y, fx, fy, g.r);
     });
   }
@@ -187,10 +251,11 @@
       const dy = p.y - lastPointer.y;
       const dist = Math.hypot(dx, dy);
       if (dist > 0.05) {
-        splatVelocity(p.x, p.y, dx * 2.6, dy * 2.6, 9);
-        if (dist > 0.3) {
-          colorPhase += dist * 0.01;
-          splatDye(p.x, p.y, paletteColor(colorPhase), 6, Math.min(0.5, dist * 0.05));
+        splatVelocity(p.x, p.y, dx * 3.2, dy * 3.2, 11);
+        if (dist > 0.25) {
+          colorPhase += dist * 0.008;
+          splatDye(p.x, p.y, paletteColor(colorPhase), 7, Math.min(0.55, dist * 0.06));
+          splatGold(p.x, p.y, 5, 0.5);
         }
       }
     }
@@ -200,11 +265,12 @@
   let frame = 0;
   function maybeResplash() {
     frame++;
-    if (frame % 340 === 0) {
+    if (frame % 320 === 0) {
       const cx = Math.random() * simW;
       const cy = Math.random() * simH;
       colorPhase += 0.15 + Math.random() * 0.2;
-      splatDye(cx, cy, paletteColor(colorPhase), Math.min(simW, simH) * 0.22, 0.35);
+      splatDye(cx, cy, paletteColor(colorPhase), Math.min(simW, simH) * 0.2, 0.32);
+      splatGold(cx, cy, Math.min(simW, simH) * 0.12, 0.7);
     }
   }
 
@@ -212,6 +278,11 @@
   offscreen.width = simW;
   offscreen.height = simH;
   const offCtx = offscreen.getContext("2d");
+  const goldCanvas = document.createElement("canvas");
+  goldCanvas.width = simW;
+  goldCanvas.height = simH;
+  const goldCtx = goldCanvas.getContext("2d");
+  const goldImageBuffer = new Uint8ClampedArray(N * 4);
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -223,11 +294,25 @@
   resize();
 
   function render() {
-    const imageData = new ImageData(dye, simW, simH);
-    offCtx.putImageData(imageData, 0, 0);
-    ctx.imageSmoothingEnabled = true;
+    offCtx.putImageData(new ImageData(dye, simW, simH), 0, 0);
+
+    for (let i = 0; i < N; i++) {
+      const o = i * 4;
+      const a = clamp(gold[i], 0, 1) * 210;
+      goldImageBuffer[o] = GOLD[0];
+      goldImageBuffer[o + 1] = GOLD[1];
+      goldImageBuffer[o + 2] = GOLD[2];
+      goldImageBuffer[o + 3] = a;
+    }
+    goldCtx.putImageData(new ImageData(goldImageBuffer, simW, simH), 0, 0);
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.imageSmoothingEnabled = true;
+    ctx.globalCompositeOperation = "source-over";
     ctx.drawImage(offscreen, 0, 0, simW, simH, 0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = "lighter";
+    ctx.drawImage(goldCanvas, 0, 0, simW, simH, 0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = "source-over";
   }
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -38,6 +38,7 @@ body {
   z-index: 0;
   pointer-events: none;
   display: block;
+  filter: saturate(1.3) contrast(1.1) brightness(1.03);
 }
 
 .theme-tag {
@@ -92,28 +93,30 @@ p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
 .header-cta { padding: 9px 18px; font-size: 0.85rem; }
 
 /* Hero — kept open so the liquid shows through vividly */
-.hero { position: relative; padding: 110px 0 80px; text-align: center; z-index: 2; }
-.hero .container::before {
-  content: "";
-  position: absolute;
-  inset: -30px -24px;
-  background: radial-gradient(ellipse at center, rgba(13,9,18,0.55), transparent 70%);
-  z-index: -1;
+.hero { position: relative; padding: 130px 0 100px; text-align: center; z-index: 2; }
+.hero .container {
+  max-width: 460px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 36px 34px;
 }
 .hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--gold); margin-bottom: 18px; font-style: italic; }
-.hero h1 { font-size: 3rem; text-shadow: 0 2px 24px rgba(0,0,0,0.5); }
-.hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; color: #e8dff0; }
+.hero h1 { font-size: 2.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.5); }
+.hero-sub { font-size: 1rem; margin: 0 auto 26px; max-width: 400px; color: #e8dff0; }
 
 /* About */
 .about { padding: 56px 0; text-align: center; position: relative; z-index: 2; }
 .about .container {
-  max-width: 680px;
+  max-width: 520px;
   background: var(--glass);
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 44px 40px;
+  border-radius: 28px;
+  padding: 34px 38px;
 }
 
 /* Products */
@@ -191,13 +194,13 @@ p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
 /* Custom CTA */
 .custom-cta { padding: 56px 0 90px; text-align: center; position: relative; z-index: 2; }
 .custom-cta .container {
-  max-width: 600px;
+  max-width: 480px;
   background: var(--glass);
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 44px 40px;
+  border-radius: 28px;
+  padding: 34px 38px;
 }
 
 /* Footer */
