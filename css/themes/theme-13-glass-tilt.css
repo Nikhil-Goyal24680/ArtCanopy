@@ -1,0 +1,158 @@
+/* THEME 13 — Glass Tilt Gallery
+   Vibe: each piece tilts in 3D toward the cursor with a moving glass highlight,
+   like light shifting across a poured resin surface. */
+
+:root {
+  --ink: #eef0f5;
+  --ink-soft: #a7acb8;
+  --paper: #0f1420;
+  --paper-alt: #161d2c;
+  --gold: #d8b26a;
+  --border: #2a3348;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Jost", -apple-system, sans-serif;
+  font-weight: 300;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--gold);
+  color: #14100e;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: "Cormorant", serif;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
+
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--gold); color: #14100e; box-shadow: 0 10px 24px rgba(216,178,106,0.28); }
+.btn-whatsapp { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+.btn-whatsapp:hover { background: rgba(216,178,106,0.1); }
+
+/* Header */
+.site-header { background: rgba(15,20,32,0.85); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; }
+.brand { font-family: "Cormorant", serif; font-size: 1.5rem; color: var(--gold); }
+.header-cta { padding: 8px 18px; font-size: 0.82rem; }
+
+/* Hero */
+.hero { padding: 96px 0 64px; text-align: center; }
+.hero-kicker { display: inline-block; font-size: 0.82rem; color: var(--gold); margin-bottom: 20px; letter-spacing: 0.04em; }
+.hero h1 { font-size: 2.9rem; }
+.hero-sub { font-size: 1.02rem; margin: 0 auto 30px; max-width: 460px; }
+
+/* About */
+.about { padding: 20px 0 60px; text-align: center; }
+.about .container { max-width: 630px; }
+
+/* Products */
+.products { padding: 20px 0 90px; }
+.products h2 { text-align: center; margin-bottom: 44px; font-size: 2.1rem; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+  perspective: 1200px;
+}
+
+.product-card {
+  background: var(--paper-alt);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  will-change: transform;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* glossy highlight that follows the cursor, set via --mx/--my in JS */
+.product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle 160px at var(--mx, 50%) var(--my, 50%),
+    rgba(255,255,255,0.35),
+    transparent 60%
+  );
+  transition: opacity 0.25s ease;
+}
+.product-card:hover::before { opacity: 1; }
+
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; }
+.product-image.placeholder {
+  background: linear-gradient(135deg, #1d2536, #202b40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+.product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.product-desc { font-size: 0.88rem; flex: 1; margin-bottom: 18px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price { font-weight: 600; color: var(--gold); font-family: "Cormorant", serif; font-size: 1.15rem; }
+.product-footer .btn { padding: 9px 18px; font-size: 0.78rem; white-space: nowrap; }
+
+/* Custom CTA */
+.custom-cta { padding: 60px 0 90px; text-align: center; border-top: 1px solid var(--border); }
+.custom-cta .container { max-width: 590px; }
+
+/* Footer */
+.site-footer { padding: 36px 0; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.9rem; }
+.footer-links a:hover { color: var(--gold); }
+.footer-note { font-size: 0.78rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.1rem; }
+  .header-cta { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-card { transition: none !important; }
+}
