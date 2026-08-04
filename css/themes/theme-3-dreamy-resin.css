@@ -1,0 +1,182 @@
+/* THEME 3 — Dreamy Resin
+   Vibe: glassy, translucent, ocean/lavender pour — resin's own look, echoed in the UI */
+
+:root {
+  --ink: #2b2a4a;
+  --ink-soft: #5f5d85;
+  --paper: #f4f2ff;
+  --border: rgba(255,255,255,0.6);
+  --lilac: #a78bfa;
+  --teal: #5eead4;
+  --rose: #fda4c8;
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Quicksand", -apple-system, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(167,139,250,0.35), transparent 45%),
+    radial-gradient(circle at 90% 20%, rgba(94,234,212,0.30), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(253,164,200,0.30), transparent 50%),
+    var(--paper);
+  background-attachment: fixed;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
+  color: var(--ink);
+  font-size: 0.72rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(90, 80, 160, 0.15);
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--lilac), var(--teal));
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(167,139,250,0.35);
+}
+.btn-whatsapp {
+  background: linear-gradient(135deg, #34d399, #5eead4);
+  color: #06382c;
+  box-shadow: 0 8px 20px rgba(94,234,212,0.3);
+}
+
+/* Glass card helper */
+.glass-card {
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 48px;
+}
+
+/* Header */
+.site-header {
+  background: rgba(244,242,255,0.6);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.brand { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.5rem; }
+.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+
+/* Hero */
+.hero { padding: 90px 0 60px; text-align: center; }
+.hero-kicker {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.hero h1 { font-size: 2.8rem; }
+.hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; }
+
+/* About */
+.about { padding: 30px 0 60px; }
+.about .container { max-width: 680px; text-align: center; }
+
+/* Products */
+.products { padding: 20px 0 68px; }
+.products h2 { text-align: center; margin-bottom: 36px; font-size: 2.1rem; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 26px;
+}
+
+.product-card {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(120, 100, 200, 0.18);
+}
+
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; }
+.product-image.placeholder {
+  background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(94,234,212,0.25));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+.product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.2rem; margin-bottom: 6px; font-style: normal; font-family: "Quicksand", sans-serif; font-weight: 600; }
+.product-desc { font-size: 0.9rem; flex: 1; margin-bottom: 18px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price { font-weight: 700; color: #6d4fd6; font-size: 1.05rem; }
+.product-footer .btn { padding: 9px 18px; font-size: 0.82rem; white-space: nowrap; }
+
+/* Custom CTA */
+.custom-cta { padding: 60px 0 90px; text-align: center; }
+.custom-cta .container { max-width: 600px; }
+
+/* Footer */
+.site-footer { padding: 36px 0; }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+.footer-links a:hover { color: #6d4fd6; }
+.footer-note { font-size: 0.8rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2rem; }
+  .header-cta { display: none; }
+  .glass-card { padding: 32px 24px; }
+}
