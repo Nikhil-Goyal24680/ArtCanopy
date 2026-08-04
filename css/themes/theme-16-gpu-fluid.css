@@ -1,0 +1,235 @@
+/* THEME 16 — GPU Fluid
+   Same idea as Theme 15 (Liquid Bloom) — full-page swirling resin-color
+   paint that mixes under the pointer — but the simulation itself runs on
+   the GPU via raw WebGL (real velocity + pressure + dye fields, vorticity
+   confinement), instead of the CPU canvas2D version. Compare the two:
+   this one can run at higher resolution and smoother motion, at the cost
+   of needing WebGL float-texture support. */
+
+:root {
+  --ink: #f3eef7;
+  --ink-soft: #c2b7cf;
+  --base: #0d0912;
+  --glass: rgba(20, 14, 26, 0.72);
+  --glass-strong: rgba(20, 14, 26, 0.85);
+  --card-glass: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --gold: #f4c542;
+  --rose: #e0568f;
+  --teal: #34d1b5;
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--base);
+}
+
+body {
+  font-family: "Jost", -apple-system, sans-serif;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+#gpu-fluid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+  filter: saturate(1.3) contrast(1.1) brightness(1.03);
+}
+
+#webgl-fallback {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--gold);
+  color: #1a1308;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 3; }
+
+h1, h2, h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); font-weight: 300; }
+
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--gold); color: #1a1308; font-weight: 600; box-shadow: 0 10px 26px rgba(244,197,66,0.3); }
+.btn-whatsapp { background: var(--teal); color: #06322a; font-weight: 600; box-shadow: 0 8px 18px rgba(52,209,181,0.3); }
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--glass-strong);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.brand { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.5rem; color: var(--gold); }
+.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+
+/* Hero */
+.hero { position: relative; padding: 130px 0 100px; text-align: center; z-index: 2; }
+.hero .container {
+  max-width: 460px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 36px 34px;
+}
+.hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--gold); margin-bottom: 18px; font-style: italic; }
+.hero h1 { font-size: 2.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.5); }
+.hero-sub { font-size: 1rem; margin: 0 auto 26px; max-width: 400px; color: #e8dff0; }
+
+/* About */
+.about { padding: 56px 0; text-align: center; position: relative; z-index: 2; }
+.about .container {
+  max-width: 520px;
+  background: var(--glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 34px 38px;
+}
+
+/* Products */
+.products { padding: 56px 0; position: relative; z-index: 2; }
+.products .container {
+  background: var(--glass);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 48px 36px;
+}
+.products h2 { text-align: center; margin-bottom: 36px; font-size: 2.1rem; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 26px;
+}
+
+.product-card {
+  background: var(--card-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 36px rgba(0,0,0,0.35);
+  border-color: rgba(244,197,66,0.4);
+}
+
+/* click ripple */
+.ink-ripple {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  pointer-events: none;
+  animation: rippleExpand 0.75s ease-out forwards;
+  z-index: 6;
+}
+@keyframes rippleExpand {
+  0%   { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: scale(18); opacity: 0; }
+}
+
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; }
+.product-image.placeholder {
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+.product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.15rem; margin-bottom: 6px; color: var(--ink); }
+.product-desc { font-size: 0.88rem; flex: 1; margin-bottom: 18px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price { font-weight: 600; color: var(--gold); font-family: "Playfair Display", serif; font-size: 1.05rem; }
+.product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
+
+/* Custom CTA */
+.custom-cta { padding: 56px 0 90px; text-align: center; position: relative; z-index: 2; }
+.custom-cta .container {
+  max-width: 480px;
+  background: var(--glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 34px 38px;
+}
+
+/* Footer */
+.site-footer { padding: 36px 0; position: relative; z-index: 2; background: var(--glass-strong); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border-top: 1px solid var(--border); }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
+.footer-links a:hover { color: var(--gold); }
+.footer-note { font-size: 0.8rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.2rem; }
+  .header-cta { display: none; }
+  .about .container, .products .container, .custom-cta .container { padding: 32px 22px; border-radius: 18px; }
+}
