@@ -71,11 +71,16 @@ Each row = one product. Row order = display order on the site.
 3. For each photo: right-click → **Share** → change access to **"Anyone with the
    link"** → **Copy link**. Paste that link into the `photo` column for that row.
 
-**3. Publish the sheet as CSV.**
-1. In the Google Sheet: **File → Share → Publish to web**.
-2. Under "Link", choose the specific sheet tab (not "Entire document") and select
-   **Comma-separated values (.csv)** as the format.
-3. Click **Publish**, confirm, and copy the resulting URL.
+**3. Get the sheet's CSV link.**
+1. Make sure the sheet's sharing is set to **"Anyone with the link"** (Share button,
+   top right) — same as the Drive photos above.
+2. Copy the sheet's ID from its normal URL — the long string between `/d/` and
+   `/edit`, e.g. `docs.google.com/spreadsheets/d/`**`THIS_PART`**`/edit`.
+3. The CSV link is: `https://docs.google.com/spreadsheets/d/THE_ID/export?format=csv&gid=0`
+
+   (If that doesn't work — e.g. sharing is more locked down than "anyone with the
+   link" — use **File → Share → Publish to web**, choose the sheet tab, format
+   **CSV**, and use that URL instead.)
 
 **4. Wire it up in GitHub.**
 1. In the GitHub repo: **Settings → Secrets and variables → Actions → Variables tab →
