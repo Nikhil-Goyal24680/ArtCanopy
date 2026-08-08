@@ -107,13 +107,6 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 /* the rest of the page — bigger, bolder, full-color copies so they actually
    read as artwork rather than disappearing (previous pass was too small/faint) */
-.motif-flower {
-  top: 50%;
-  right: -70px;
-  transform: translateY(-50%);
-  width: 220px;
-  opacity: 0.5;
-}
 .motif-parchment {
   top: 50%;
   left: -70px;
@@ -121,11 +114,26 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   width: 200px;
   opacity: 0.55;
 }
+
+/* Products — a growing grid, so mid-section accents use top:% (scales with
+   however tall the grid gets) rather than only anchoring the two ends */
 .motif-peacock-flower {
   top: -60px;
   right: -50px;
   width: 320px;
   opacity: 0.45;
+}
+.motif-flower-mid {
+  top: 38%;
+  right: -60px;
+  width: 230px;
+  opacity: 0.4;
+}
+.motif-paisley-mid {
+  top: 68%;
+  left: -50px;
+  width: 210px;
+  opacity: 0.35;
 }
 .motif-gold-lotus {
   bottom: -60px;
