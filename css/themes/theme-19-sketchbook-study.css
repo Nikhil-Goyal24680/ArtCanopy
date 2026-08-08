@@ -14,6 +14,8 @@
   --graphite: #4a4640;
   --sienna: #c1642e;
   --wash: #8fa3ad;
+  --ochre: #c9973f;
+  --moss: #7c8f5e;
   --border: #ddd4c4;
   --radius: 3px;
 }
@@ -110,9 +112,22 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
    headline instead of a printed underline. */
 .hero { position: relative; overflow: hidden; padding: 70px 0 60px; text-align: center; background: var(--paper-alt); }
 .hero .container { position: relative; z-index: 1; }
+.hero-wash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 640px;
+  height: 340px;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  filter: blur(14px);
+}
+.hero-wash svg { width: 100%; height: 100%; }
 .hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--sienna); margin-bottom: 16px; font-style: italic; }
 .hero h1 { font-size: 2.5rem; }
-.hero-underline { display: block; width: 220px; height: 18px; margin: 4px auto 22px; opacity: 0.6; }
+.hero-underline { display: block; width: 260px; height: 30px; margin: 6px auto 22px; }
 .hero-underline svg { width: 100%; height: 100%; }
 .hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; }
 
@@ -163,6 +178,25 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   position: relative;
 }
 .product-card:hover { transform: translateY(-3px); }
+
+/* a daub of palette colors along the top edge, like a brush wiped
+   across the card before starting the next piece */
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--sienna) 0 25%,
+    var(--ochre) 25% 50%,
+    var(--moss) 50% 75%,
+    var(--wash) 75% 100%
+  );
+  z-index: 3;
+}
 
 /* dog-eared corner fold, same trick as the hero's page-fold — a pure
    CSS pseudo-element so it applies to every JS-rendered card with no
