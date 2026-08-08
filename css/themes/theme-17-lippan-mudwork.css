@@ -1,0 +1,198 @@
+/* THEME 17 — Lippan Mud & Mirror
+   Vibe: real Lippan kaam — white/cream mud relief pressed onto a deep
+   terracotta ground, tiny mirror chips glinting at the edges, folk-art
+   boldness. Not a generic "warm craft" look — this one is specifically
+   mud-relief + mirror-inlay. */
+
+:root {
+  --ink: #4a2f1f;
+  --ink-soft: #8a6a4e;
+  --mud: #f1e6cd;
+  --mud-dark: #dcc79a;
+  --paper: #faf3e3;
+  --paper-alt: #f1e6cd;
+  --terracotta: #a5462e;
+  --terracotta-dark: #7a2e1f;
+  --mustard: #c9982f;
+  --mirror: #e3edf2;
+  --border: #dcc79a;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Mukta", -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--terracotta);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+h1, h2, h3 {
+  font-family: "Rakkas", serif;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 16px;
+  color: var(--terracotta-dark);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--terracotta); color: #fff; box-shadow: 0 8px 18px rgba(122,46,31,0.3); }
+.btn-whatsapp { background: var(--mustard); color: #3a2a0f; box-shadow: 0 8px 18px rgba(201,152,47,0.3); }
+
+/* Header */
+.site-header {
+  background: var(--paper);
+  border-bottom: 3px solid var(--mustard);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.brand { font-family: "Rakkas", serif; font-size: 1.7rem; color: var(--terracotta-dark); }
+.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+
+/* Hero */
+.hero {
+  position: relative;
+  padding: 0 0 8px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0 3px, transparent 3px),
+    radial-gradient(circle at 60% 70%, rgba(255,255,255,0.05) 0 2px, transparent 2px),
+    radial-gradient(circle at 85% 20%, rgba(255,255,255,0.06) 0 3px, transparent 3px),
+    var(--terracotta);
+  background-size: 50px 50px, 60px 60px, 45px 45px, auto;
+}
+.hero .container { padding: 70px 24px 56px; }
+.mirror-border {
+  height: 18px;
+  background-image:
+    repeating-linear-gradient(45deg, var(--mirror) 0 5px, transparent 5px 18px),
+    repeating-linear-gradient(-45deg, var(--mirror) 0 5px, transparent 5px 18px);
+  background-color: var(--terracotta-dark);
+  opacity: 0.9;
+}
+.hero-kicker { display: inline-block; font-size: 0.9rem; color: var(--mud); margin-bottom: 18px; font-style: italic; }
+.hero h1 { font-size: 2.7rem; color: var(--mud); }
+.hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; color: rgba(241,230,205,0.85); }
+
+/* About */
+.about { padding: 56px 0; text-align: center; }
+.about .container { max-width: 640px; }
+
+/* Products */
+.products { padding: 20px 0 68px; background: var(--paper-alt); }
+.products h2 { text-align: center; margin-bottom: 8px; font-size: 2.4rem; }
+.product-search-wrap { display: flex; justify-content: center; margin: 16px 0 12px; }
+.product-search {
+  width: 100%; max-width: 360px; padding: 10px 18px; border-radius: 4px;
+  border: 2px solid var(--mud-dark); background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.92rem;
+}
+.product-search:focus { outline: none; border-color: var(--terracotta); }
+.no-results { text-align: center; color: var(--ink-soft); margin: -8px 0 24px; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+  margin-top: 24px;
+}
+
+.product-card {
+  background: var(--mud);
+  border: 3px solid var(--mud-dark);
+  border-radius: var(--radius);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,0.6),
+    inset 0 -3px 5px rgba(122,46,31,0.15),
+    0 8px 16px rgba(74,47,31,0.2);
+}
+
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; border-radius: 3px 3px 0 0; }
+.product-image.placeholder {
+  background: repeating-linear-gradient(
+    135deg, var(--paper-alt), var(--paper-alt) 12px, var(--mud-dark) 12px, var(--mud-dark) 24px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+/* mirror-chip badge, pinned at the image's corner like an inlaid mirror piece */
+.product-image::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #fff, var(--mirror) 45%, #a9b9c2 75%, #fff);
+  transform: rotate(45deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+  z-index: 2;
+}
+
+.product-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.25rem; margin-bottom: 6px; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.product-tags .tag {
+  background: var(--terracotta); color: #fff; font-size: 0.68rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 999px;
+}
+.product-desc { font-size: 0.9rem; flex: 1; margin-bottom: 16px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price { font-weight: 700; color: var(--terracotta-dark); font-family: "Rakkas", serif; font-size: 1.2rem; }
+.product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
+
+/* Custom CTA */
+.custom-cta { padding: 60px 0 88px; text-align: center; }
+.custom-cta .container { max-width: 600px; }
+
+/* Footer */
+.site-footer { border-top: 3px solid var(--mustard); padding: 32px 0; }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
+.footer-links a:hover { color: var(--terracotta); }
+.footer-note { font-size: 0.8rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.1rem; }
+  .header-cta { display: none; }
+}
