@@ -129,20 +129,14 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   width: 230px;
   opacity: 0.4;
 }
-.motif-paisley-mid {
-  top: 68%;
-  left: -50px;
-  width: 210px;
-  opacity: 0.35;
-}
 .motif-gold-lotus {
-  bottom: -60px;
+  bottom: -20px;
   left: -50px;
   width: 300px;
   opacity: 0.5;
 }
 .motif-bflower {
-  top: 8%;
+  top: 18%;
   left: -60px;
   width: 220px;
   opacity: 0.4;
@@ -153,16 +147,27 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   width: 190px;
   opacity: 0.35;
 }
-.motif-rangoli {
-  top: 18%;
-  right: -50px;
+/* these three sit centered, directly behind the card grid rather than in the
+   margins — the "backside of the products / in between the products"
+   placement — staggered vertically so they don't stack on one another */
+.motif-paisley-mid {
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 200px;
-  opacity: 0.4;
+  opacity: 0.16;
+  z-index: 0;
 }
-/* sits centered, directly behind the card grid rather than in the margins —
-   the "backside of the products" placement */
-.motif-green-rangoli {
+.motif-rangoli {
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 190px;
+  opacity: 0.16;
+  z-index: 0;
+}
+.motif-green-rangoli {
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 210px;
@@ -183,13 +188,6 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   width: 340px;
   filter: invert(1);
   opacity: 0.16;
-}
-.motif-peacock {
-  bottom: 0;
-  right: 4%;
-  width: 170px;
-  filter: invert(1);
-  opacity: 0.22;
 }
 
 /* Hero */
