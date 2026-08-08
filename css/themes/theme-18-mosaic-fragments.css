@@ -141,13 +141,6 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 .about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
 .about .container { max-width: 640px; position: relative; z-index: 1; }
-.motif-cat {
-  top: 90%;
-  left: 16px;
-  transform: translateY(-50%);
-  width: 190px;
-  opacity: 0.5;
-}
 .motif-sparrow-panel {
   top: 50%;
   right: 16px;
@@ -156,6 +149,12 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 
 /* Products — a growing grid, balanced left/right + centered-behind pieces */
+.motif-cat {
+  top: -20px;
+  left: 16px;
+  width: 170px;
+  opacity: 0.5;
+}
 .motif-penguin-panel {
   top: 24%;
   right: 16px;
