@@ -288,4 +288,18 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   .hero h1 { font-size: 2rem; }
   .header-cta { display: none; }
   .product-card { transform: none !important; }
+
+  /* On a phone-width screen there's no page margin outside the container
+     for these real photo accents to sit in the way they do on desktop —
+     they'd otherwise land right on top of centered text. Shrink them and
+     tuck each into its section's corner (clipped by that section's
+     overflow:hidden, same trick .corner-motif already uses) so they read
+     as a small corner flourish instead of covering the copy. */
+  .motif-tree-hero { top: -30px; left: -40px; width: 90px; }
+  .motif-sparrow-panel { top: auto; bottom: -20px; right: -40px; transform: rotate(4deg); width: 85px; }
+  .motif-cat { top: -30px; left: -40px; width: 85px; }
+  .motif-penguin-panel { top: -20px; right: -40px; width: 80px; }
+  .motif-pondfish-panel { top: auto; bottom: -20px; left: -40px; width: 80px; }
+  .motif-women-panel { bottom: -30px; right: -40px; width: 80px; }
+  .motif-cocktail-panel { top: -20px; bottom: auto; left: -40px; transform: rotate(-5deg); width: 80px; }
 }

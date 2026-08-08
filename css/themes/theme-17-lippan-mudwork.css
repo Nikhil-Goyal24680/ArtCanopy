@@ -308,4 +308,18 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 @media (max-width: 600px) {
   .hero h1 { font-size: 2.1rem; }
   .header-cta { display: none; }
+
+  /* Same fix as Theme 18: no page margin left outside the container on a
+     phone-width screen, so these accents would otherwise sit on top of
+     centered text. Shrink and tuck each into its section's corner (clipped
+     by that section's overflow:hidden) instead. Maroon mandala is hidden
+     outright since Products already has 4 corners spoken for. */
+  .motif-mandala { top: -20px; left: -50px; width: 110px; }
+  .motif-sun { bottom: -50px; right: -50px; width: 120px; }
+  .motif-parchment { top: auto; bottom: -20px; left: -50px; transform: none; width: 90px; }
+  .motif-peacock-flower { top: -40px; right: -60px; width: 110px; }
+  .motif-flower-mid { top: auto; bottom: -20px; right: -50px; width: 90px; }
+  .motif-gold-lotus { bottom: -30px; left: -60px; width: 110px; }
+  .motif-bflower { top: -20px; left: -50px; width: 90px; }
+  .motif-maroon-mandala { display: none; }
 }
