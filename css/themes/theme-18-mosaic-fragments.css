@@ -142,7 +142,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
 .about .container { max-width: 640px; position: relative; z-index: 1; }
 .motif-cat {
-  top: 50%;
+  top: 72%;
   left: 16px;
   transform: translateY(-50%);
   width: 190px;
@@ -157,7 +157,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 /* Products — a growing grid, balanced left/right + centered-behind pieces */
 .motif-penguin-panel {
-  top: 10%;
+  top: 24%;
   right: 16px;
   width: 160px;
   transform: rotate(5deg);
