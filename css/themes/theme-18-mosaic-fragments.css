@@ -125,12 +125,76 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .corner-motif.top-left { top: -45px; left: -45px; }
 .corner-motif.bottom-right { bottom: -45px; right: -45px; }
 
-/* About */
-.about { padding: 56px 0; text-align: center; }
-.about .container { max-width: 640px; }
+/* Decorative mosaic artwork — real images (images/decor/mosaic-art/).
+   Two kinds: transparent cut-outs (cat, strawberry) used like the Lippan
+   background accents, and full rectangular scenes shown as small "framed
+   panel" photos (white border + shadow + slight tilt) since those pieces
+   are complete compositions rather than motifs meant to blend in. */
+.decor-img {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  width: 200px;
+  height: auto;
+}
+.motif-panel {
+  border: 8px solid #fdfcf8;
+  box-shadow: 0 10px 24px rgba(43,43,43,0.25);
+  z-index: 0;
+}
+
+.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
+.about .container { max-width: 640px; position: relative; z-index: 1; }
+.motif-cat {
+  top: 50%;
+  left: -60px;
+  transform: translateY(-50%);
+  width: 190px;
+  opacity: 0.5;
+}
+.motif-sparrow-panel {
+  top: 50%;
+  right: -50px;
+  transform: translateY(-50%) rotate(4deg);
+  width: 170px;
+}
+
+/* Products — a growing grid, balanced left/right + centered-behind pieces */
+.motif-tree-panel {
+  top: -30px;
+  left: -40px;
+  width: 150px;
+  transform: rotate(-6deg);
+}
+.motif-penguin-panel {
+  top: 10%;
+  right: -40px;
+  width: 160px;
+  transform: rotate(5deg);
+}
+.motif-pondfish-panel {
+  top: 55%;
+  left: -50px;
+  width: 150px;
+  transform: rotate(4deg);
+}
+.motif-women-panel {
+  bottom: -20px;
+  right: -40px;
+  width: 155px;
+  transform: rotate(-4deg);
+}
+.motif-strawberry {
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 170px;
+  opacity: 0.16;
+  z-index: 0;
+}
 
 /* Products */
-.products { padding: 20px 0 72px; }
+.products { position: relative; overflow: hidden; padding: 20px 0 72px; }
 .products h2 { text-align: center; margin-bottom: 8px; font-size: 2.3rem; }
 .product-search-wrap { display: flex; justify-content: center; margin: 16px 0 12px; }
 .product-search {
@@ -213,8 +277,14 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.78rem; white-space: nowrap; }
 
 /* Custom CTA */
-.custom-cta { padding: 60px 0 88px; text-align: center; background: var(--paper-alt); }
-.custom-cta .container { max-width: 600px; }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); }
+.custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
+.motif-cocktail-panel {
+  top: 50%;
+  left: -50px;
+  transform: translateY(-50%) rotate(-5deg);
+  width: 160px;
+}
 
 /* Footer */
 .site-footer { border-top: 3px solid var(--grout); padding: 32px 0; }
