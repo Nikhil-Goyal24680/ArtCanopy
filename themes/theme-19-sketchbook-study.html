@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArtCanopy — Theme 19: Sketchbook Study</title>
+<meta name="description" content="Hand-sketched resin art pieces from ArtCanopy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/themes/theme-19-sketchbook-study.css">
+</head>
+<body>
+
+  <div class="theme-tag">Theme 19 — Sketchbook Study</div>
+
+  <div class="scribble-strip" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">ArtCanopy</div>
+      <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Message us</a>
+    </div>
+  </header>
+
+  <div class="decor-motif corner-motif top-left" aria-hidden="true">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#2e2a26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="30" y="8" width="10" height="55" transform="rotate(20 35 35)"/>
+        <polygon points="24,58 46,58 35,78" transform="rotate(20 35 35)" fill="#c1642e" stroke="none"/>
+        <path d="M15 82 Q22 88 30 82 T45 82" />
+        <path d="M55 30 Q62 25 58 18" />
+        <path d="M62 45 Q70 42 68 34" />
+      </g>
+    </svg>
+  </div>
+  <div class="decor-motif corner-motif bottom-right" aria-hidden="true">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#2e2a26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="30" y="8" width="10" height="55" transform="rotate(20 35 35)"/>
+        <polygon points="24,58 46,58 35,78" transform="rotate(20 35 35)" fill="#c1642e" stroke="none"/>
+        <path d="M15 82 Q22 88 30 82 T45 82" />
+        <path d="M55 30 Q62 25 58 18" />
+        <path d="M62 45 Q70 42 68 34" />
+      </g>
+    </svg>
+  </div>
+
+  <section class="hero">
+    <div class="page-fold" aria-hidden="true"></div>
+    <div class="container">
+      <span class="hero-kicker">sketched by hand, sealed in resin</span>
+      <h1>Handcrafted resin art,<br>made to be kept.</h1>
+      <span class="hero-underline" aria-hidden="true">
+        <svg viewBox="0 0 220 18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 10 Q30 2 55 10 T105 10 T155 10 T216 9" fill="none" stroke="#c1642e" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand.</p>
+      <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">Browse &amp; order on WhatsApp</a>
+    </div>
+  </section>
+
+  <div class="scribble-strip" aria-hidden="true"></div>
+
+  <section class="about">
+    <div class="container">
+      <span class="about-icon" aria-hidden="true">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#4a4640" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="45" y="10" width="12" height="60" transform="rotate(35 51 40)"/>
+            <polygon points="38,66 64,66 51,90" transform="rotate(35 51 40)" fill="#c1642e" stroke="none"/>
+            <ellipse cx="30" cy="80" rx="18" ry="7" stroke="#8fa3ad"/>
+          </g>
+        </svg>
+      </span>
+      <h2>Made with care, piece by piece</h2>
+      <p>Every piece is poured, cured, and finished by hand — no two are exactly alike. We make resin art for gifting, preserving memories, and decorating spaces you love. Have something specific in mind — a photo, a flower, a name? We do custom orders too.</p>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="container">
+      <h2>Painting Sketch</h2>
+      <div class="product-search-wrap">
+        <input type="search" id="product-search" class="product-search" placeholder="Search this category…" aria-label="Search products">
+      </div>
+      <p class="no-results" id="no-results" hidden>No pieces match your search.</p>
+      <div class="product-grid" id="product-grid">
+        <!-- Populated by js/main.js from js/products-data.js -->
+      </div>
+    </div>
+  </section>
+
+  <section class="custom-cta">
+    <div class="container">
+      <h2>Want something custom?</h2>
+      <p>Tell us the occasion, the colors, or the memory you want preserved — we'll work with you on a one-of-a-kind piece.</p>
+      <a class="btn btn-primary" id="custom-whatsapp-link" href="#" target="_blank" rel="noopener">Ask about a custom order</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand">ArtCanopy</div>
+      <div class="footer-links">
+        <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="footer-note">&copy; <span id="footer-year"></span> ArtCanopy. All pieces handmade to order.</p>
+    </div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/products-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script>renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();</script>
+</body>
+</html>

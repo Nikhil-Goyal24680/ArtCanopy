@@ -1,0 +1,231 @@
+/* THEME 19 — Sketchbook Study
+   Vibe: Painting sketch category — a hand-sketched design on real
+   sketchbook paper, sealed under resin. Pencil/charcoal linework, a
+   dog-eared page corner on cards, hand-drawn scribble dividers instead
+   of a printed rule. No real product photos yet (placeholder trial) —
+   built with illustrated SVG/CSS motifs, same slots ready for real
+   photos later like Lippan/Mosaic got. */
+
+:root {
+  --ink: #2e2a26;
+  --ink-soft: #746b60;
+  --paper: #faf7f0;
+  --paper-alt: #f1ece1;
+  --graphite: #4a4640;
+  --sienna: #c1642e;
+  --wash: #8fa3ad;
+  --border: #ddd4c4;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Work Sans", -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--sienna);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: "Architects Daughter", cursive;
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  font-family: "Work Sans", sans-serif;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--sienna); color: #fff; box-shadow: 0 8px 18px rgba(193,100,46,0.3); }
+.btn-whatsapp { background: var(--graphite); color: #fff; box-shadow: 0 8px 18px rgba(74,70,64,0.25); }
+
+/* Hand-drawn scribble divider — a wavy pencil-stroke line instead of a
+   printed rule, repeated along the strip. */
+.scribble-strip {
+  height: 14px;
+  background-image: repeating-linear-gradient(
+    -8deg, transparent 0 6px, var(--graphite) 6px 7px, transparent 7px 13px
+  );
+  background-size: 26px 14px;
+  opacity: 0.35;
+}
+
+/* Header */
+.site-header {
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.brand { font-family: "Architects Daughter", cursive; font-size: 1.5rem; color: var(--ink); }
+.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+
+/* Fixed corner doodles — a small hand-drawn pencil, same technique as
+   the other category themes' corner accents: fixed + faint + mostly
+   bleeding off the edge, so it never competes with page content. */
+.decor-motif { pointer-events: none; }
+.decor-motif svg { display: block; width: 100%; height: 100%; }
+.corner-motif {
+  position: fixed;
+  width: 130px;
+  height: 130px;
+  opacity: 0.16;
+  z-index: 0;
+}
+.corner-motif.top-left { top: -30px; left: -30px; transform: rotate(-8deg); }
+.corner-motif.bottom-right { bottom: -30px; right: -30px; transform: rotate(172deg); }
+
+/* Hero — a dog-eared sketchbook-page corner fold (two overlaid
+   triangles, a classic CSS trick) and a hand-drawn squiggle under the
+   headline instead of a printed underline. */
+.hero { position: relative; overflow: hidden; padding: 70px 0 60px; text-align: center; background: var(--paper-alt); }
+.hero .container { position: relative; z-index: 1; }
+.hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--sienna); margin-bottom: 16px; font-style: italic; }
+.hero h1 { font-size: 2.5rem; }
+.hero-underline { display: block; width: 220px; height: 18px; margin: 4px auto 22px; opacity: 0.6; }
+.hero-underline svg { width: 100%; height: 100%; }
+.hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; }
+
+.page-fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 46px 46px 0;
+  border-color: transparent var(--paper) transparent transparent;
+  filter: drop-shadow(-2px 2px 3px rgba(46,42,38,0.2));
+  z-index: 2;
+}
+
+.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
+.about .container { max-width: 640px; position: relative; z-index: 1; }
+.about-icon { display: block; width: 74px; height: 74px; margin: 0 auto 18px; opacity: 0.7; }
+.about-icon svg { width: 100%; height: 100%; }
+
+/* Products */
+.products { position: relative; overflow: hidden; padding: 20px 0 72px; background: var(--paper-alt); }
+.products h2 { text-align: center; margin-bottom: 6px; font-size: 2.2rem; }
+.product-search-wrap { display: flex; justify-content: center; margin: 16px 0 12px; }
+.product-search {
+  width: 100%; max-width: 360px; padding: 10px 18px; border-radius: var(--radius);
+  border: 2px solid var(--ink); background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.92rem;
+}
+.product-search:focus { outline: none; border-color: var(--sienna); }
+.no-results { text-align: center; color: var(--ink-soft); margin: -8px 0 24px; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+  margin-top: 26px;
+}
+
+.product-card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 0 rgba(46,42,38,0.12);
+  position: relative;
+}
+.product-card:hover { transform: translateY(-3px); }
+
+/* dog-eared corner fold, same trick as the hero's page-fold — a pure
+   CSS pseudo-element so it applies to every JS-rendered card with no
+   markup changes needed */
+.product-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent var(--paper-alt) transparent transparent;
+  z-index: 3;
+}
+
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; border-bottom: 2px solid var(--ink); }
+.product-image.placeholder {
+  background: repeating-linear-gradient(
+    -8deg, var(--paper-alt) 0 10px, #e6ddc9 10px 11px, var(--paper-alt) 11px 20px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+.product-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.product-tags .tag {
+  background: var(--wash); color: #1c2b30; font-size: 0.68rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 999px;
+}
+.product-desc { font-size: 0.88rem; flex: 1; margin-bottom: 16px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price {
+  font-weight: 700;
+  color: var(--sienna);
+  font-family: "Architects Daughter", cursive;
+  font-size: 1.15rem;
+}
+.product-footer .btn { padding: 9px 18px; font-size: 0.78rem; white-space: nowrap; }
+
+/* Custom CTA */
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; }
+.custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
+
+/* Footer */
+.site-footer { border-top: 2px solid var(--ink); padding: 32px 0; }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
+.footer-links a:hover { color: var(--sienna); }
+.footer-note { font-size: 0.8rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2rem; }
+  .header-cta { display: none; }
+  .page-fold { border-width: 0 32px 32px 0; }
+}
