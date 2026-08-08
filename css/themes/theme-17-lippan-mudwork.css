@@ -141,6 +141,34 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   width: 300px;
   opacity: 0.5;
 }
+.motif-bflower {
+  top: 8%;
+  left: -60px;
+  width: 220px;
+  opacity: 0.4;
+}
+.motif-maroon-mandala {
+  top: 85%;
+  right: -40px;
+  width: 190px;
+  opacity: 0.35;
+}
+.motif-rangoli {
+  top: 18%;
+  right: -50px;
+  width: 200px;
+  opacity: 0.4;
+}
+/* sits centered, directly behind the card grid rather than in the margins —
+   the "backside of the products" placement */
+.motif-green-rangoli {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 210px;
+  opacity: 0.16;
+  z-index: 0;
+}
 .motif-arrow {
   top: -18px;
   left: 50%;
