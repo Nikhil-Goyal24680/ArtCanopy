@@ -94,10 +94,36 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .header-cta { padding: 9px 18px; font-size: 0.85rem; }
 
 /* Hero */
-.hero { padding: 70px 0 56px; text-align: center; background: var(--paper-alt); }
+.hero { position: relative; overflow: hidden; padding: 70px 0 56px; text-align: center; background: var(--paper-alt); }
+.hero .container { position: relative; z-index: 1; }
 .hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--coral); margin-bottom: 18px; letter-spacing: 0.06em; text-transform: uppercase; }
 .hero h1 { font-size: 2.6rem; }
 .hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; }
+
+/* Decorative mosaic sun-face motifs (SVG in the markup) */
+.decor-motif { pointer-events: none; }
+.decor-motif svg { display: block; width: 100%; height: 100%; }
+
+.hero-motif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 420px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.corner-motif {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  opacity: 0.16;
+  z-index: 0;
+}
+.corner-motif.top-left { top: -45px; left: -45px; }
+.corner-motif.bottom-right { bottom: -45px; right: -45px; }
 
 /* About */
 .about { padding: 56px 0; text-align: center; }
