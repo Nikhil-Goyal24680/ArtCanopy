@@ -66,16 +66,17 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .btn-primary { background: var(--sienna); color: #fff; box-shadow: 0 8px 18px rgba(193,100,46,0.3); }
 .btn-whatsapp { background: var(--graphite); color: #fff; box-shadow: 0 8px 18px rgba(74,70,64,0.25); }
 
-/* Hand-drawn scribble divider — a wavy pencil-stroke line instead of a
-   printed rule, repeated along the strip. */
+/* Hand-drawn divider strip — a repeating illustrated tile (pencil
+   scribble, paint dab, brush stroke) instead of a printed rule or a
+   flat repeating gradient. */
 .scribble-strip {
-  height: 14px;
-  background-image: repeating-linear-gradient(
-    -8deg, transparent 0 6px, var(--graphite) 6px 7px, transparent 7px 13px
-  );
-  background-size: 26px 14px;
-  opacity: 0.35;
+  height: 26px;
+  line-height: 0;
+  background: var(--paper-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
+.scribble-strip svg { display: block; width: 100%; height: 26px; }
 
 /* Header */
 .site-header {
