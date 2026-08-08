@@ -1,0 +1,263 @@
+/* THEME 21 — Canvas & Palette
+   Vibe: Studio Fine Art — Raw canvas linen tones, Deep Ultramarine,
+   Cadmium Crimson, Ochre Yellow, textured brush-stroke ribbons, and
+   paint-splatter background ambiance. */
+
+:root {
+  --ink: #1d1e22;
+  --ink-soft: #5a5e6b;
+  --paper: #fcfaf7;          /* Fine art canvas paper color */
+  --paper-alt: #f3ede2;      /* Raw linen hue */
+  --ultramarine: #2b4c7e;    /* Rich studio pigment blue */
+  --crimson: #d94e34;        /* Bold cadmium red/crimson */
+  --ochre: #e0a93b;          /* Ochre yellow pigment */
+  --viridian: #2a8c71;       /* Deep studio green */
+  --border: #e2d7c5;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--ultramarine);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: var(--crimson);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(217, 78, 52, 0.3);
+}
+.btn-whatsapp {
+  background: var(--ultramarine);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(43, 76, 126, 0.25);
+}
+
+/* Multi-color Paint Stroke Ribbon Line */
+.paint-stroke-strip {
+  height: 12px;
+  background: linear-gradient(
+    90deg,
+    var(--ultramarine) 0%,
+    var(--ultramarine) 30%,
+    var(--ochre) 30%,
+    var(--ochre) 55%,
+    var(--crimson) 55%,
+    var(--crimson) 80%,
+    var(--viridian) 80%,
+    var(--viridian) 100%
+  );
+}
+
+/* Header */
+.site-header {
+  background: var(--paper);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.brand { font-family: "Playfair Display", serif; font-size: 1.5rem; font-weight: 700; color: var(--ultramarine); }
+.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+
+/* Fixed Palette Motifs in Corners */
+.decor-motif { pointer-events: none; }
+.decor-motif svg { display: block; width: 100%; height: 100%; }
+.corner-motif {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  opacity: 0.12;
+  z-index: 0;
+}
+.corner-motif.top-left { top: -25px; left: -25px; transform: rotate(-15deg); }
+.corner-motif.bottom-right { bottom: -25px; right: -25px; transform: rotate(165deg); }
+
+/* Hero — Artist Canvas Texture with Pigment Splatters */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 60px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(43, 76, 126, 0.07) 0 3px, transparent 3px),
+    radial-gradient(circle at 80% 70%, rgba(217, 78, 52, 0.07) 0 4px, transparent 4px),
+    radial-gradient(circle at 50% 20%, rgba(224, 169, 59, 0.08) 0 2px, transparent 2px),
+    var(--paper-alt);
+  background-size: 50px 50px, 70px 70px, 30px 30px, auto;
+}
+.hero .container { position: relative; z-index: 1; }
+.hero-kicker {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--crimson);
+  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero h1 { font-size: 2.75rem; color: var(--ink); }
+.hero-sub { font-size: 1.1rem; margin: 0 auto 32px; max-width: 500px; color: var(--ink-soft); }
+.hero-icon { display: block; width: 52px; height: 52px; margin: 0 auto 16px; }
+.hero-icon svg { width: 100%; height: 100%; }
+
+.about { position: relative; overflow: hidden; padding: 60px 0; text-align: center; }
+.about .container { max-width: 660px; position: relative; z-index: 1; }
+
+/* Products Section */
+.products { position: relative; overflow: hidden; padding: 20px 0 72px; }
+.paint-splash-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  opacity: 0.03;
+  z-index: 0;
+  pointer-events: none;
+}
+.paint-splash-bg svg { width: 100%; height: 100%; }
+.products h2 { text-align: center; margin-bottom: 8px; font-size: 2.4rem; position: relative; z-index: 1; }
+.product-search-wrap { display: flex; justify-content: center; margin: 18px 0 16px; position: relative; z-index: 1; }
+.product-search {
+  width: 100%; max-width: 380px; padding: 11px 20px; border-radius: 999px;
+  border: 2px solid var(--border); background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.92rem;
+  transition: border-color 0.2s ease;
+}
+.product-search:focus { outline: none; border-color: var(--ultramarine); }
+.no-results { text-align: center; color: var(--ink-soft); margin: -8px 0 24px; position: relative; z-index: 1; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+  margin-top: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.product-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(29, 30, 34, 0.06);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(29, 30, 34, 0.12);
+}
+
+/* Artistic Paint-Drip Badge on Card Corner */
+.product-card::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  background: var(--crimson);
+  border-radius: 50%;
+  box-shadow: -14px 4px 0 -2px var(--ochre), -6px 14px 0 -3px var(--ultramarine);
+  z-index: 2;
+}
+
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; }
+.product-image.placeholder {
+  background: radial-gradient(circle at 50% 50%, var(--paper-alt) 0%, #e8decb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+.product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.product-tags .tag {
+  background: var(--paper-alt);
+  color: var(--ultramarine);
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.product-desc { font-size: 0.88rem; flex: 1; margin-bottom: 18px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price {
+  font-weight: 700;
+  color: var(--ultramarine);
+  font-family: "Playfair Display", serif;
+  font-size: 1.1rem;
+}
+.product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
+
+/* Custom CTA Section */
+.custom-cta { position: relative; overflow: hidden; padding: 64px 0 88px; text-align: center; background: var(--paper-alt); }
+.custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
+
+/* Footer */
+.site-footer { border-top: 2px solid var(--border); padding: 36px 0; background: var(--paper); }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+.footer-links a:hover { color: var(--crimson); }
+.footer-note { font-size: 0.82rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.1rem; }
+  .header-cta { display: none; }
+  .paint-splash-bg { width: 300px; height: 300px; }
+}

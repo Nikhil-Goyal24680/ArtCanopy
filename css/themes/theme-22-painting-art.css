@@ -1,0 +1,2135 @@
+/* ============================================================
+   ART CANOPY — PAINTING & ART THEME
+   ============================================================
+
+   Concept:
+   Contemporary artist studio / handmade gallery.
+
+   Visual language:
+   - warm canvas paper
+   - charcoal ink
+   - terracotta pigment
+   - muted studio green
+   - ochre / yellow pigment
+   - cobalt blue accents
+   - imperfect brush strokes
+   - gallery-style whitespace
+   - hand-written notes
+
+   ============================================================ */
+
+
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+
+:root {
+
+  --ink: #1d1d1b;
+  --ink-soft: #66635d;
+
+  --paper: #f4efe5;
+  --canvas: #f4efe5;
+  --canvas-light: #faf7f0;
+  --canvas-dark: #e9dfcf;
+
+  --terracotta: #d86b45;
+  --terracotta-dark: #a84c32;
+
+  --ochre: #d8a63b;
+
+  --studio-green: #395c54;
+  --studio-green-light: #607c72;
+
+  --cobalt: #355f91;
+
+  --rose: #c77b7a;
+
+  --white: #fffdf8;
+
+  --border: #d8cdbb;
+
+  --radius: 4px;
+
+}
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+
+  margin: 0;
+
+  font-family:
+    "Karla",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: var(--canvas);
+  color: var(--ink);
+
+  line-height: 1.65;
+
+  overflow-x: hidden;
+}
+
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+
+h1,
+h2,
+h3 {
+
+  font-family:
+    "DM Serif Display",
+    Georgia,
+    serif;
+
+  font-weight: 400;
+
+  line-height: 1.15;
+
+  color: var(--ink);
+
+  margin: 0 0 18px;
+
+}
+
+h1 em,
+h2 em {
+
+  font-style: italic;
+
+  color: var(--terracotta);
+
+}
+
+
+p {
+  margin: 0 0 18px;
+  color: var(--ink-soft);
+}
+
+
+.container {
+
+  width: 100%;
+
+  max-width: 1120px;
+
+  margin: 0 auto;
+
+  padding-left: 28px;
+  padding-right: 28px;
+
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+
+  display: inline-block;
+
+  padding: 13px 25px;
+
+  border-radius: 2px;
+
+  text-decoration: none;
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.01em;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+
+}
+
+
+.btn:hover {
+
+  transform: translateY(-3px);
+
+}
+
+
+.btn-primary {
+
+  background: var(--terracotta);
+
+  color: #fff;
+
+  box-shadow:
+    7px 7px 0 var(--ochre);
+
+}
+
+
+.btn-primary:hover {
+
+  background: var(--terracotta-dark);
+
+  box-shadow:
+    9px 9px 0 var(--ochre);
+
+}
+
+
+.btn-dark {
+
+  background: var(--ink);
+
+  color: var(--white);
+
+  box-shadow:
+    5px 5px 0 var(--terracotta);
+
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.site-header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 20;
+
+  background:
+    rgba(244, 239, 229, 0.94);
+
+  backdrop-filter: blur(10px);
+
+  border-bottom:
+    1px solid var(--border);
+
+}
+
+
+.header-inner {
+
+  min-height: 76px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+}
+
+
+.brand {
+
+  font-family:
+    "DM Serif Display",
+    Georgia,
+    serif;
+
+  font-size: 1.55rem;
+
+  color: var(--ink);
+
+  text-decoration: none;
+
+}
+
+
+.header-art-mark {
+
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+}
+
+
+.header-art-mark span {
+
+  display: block;
+
+  width: 7px;
+
+  height: 7px;
+
+  border-radius: 50%;
+
+}
+
+
+.header-art-mark span:nth-child(1) {
+  background: var(--terracotta);
+}
+
+.header-art-mark span:nth-child(2) {
+  background: var(--ochre);
+}
+
+.header-art-mark span:nth-child(3) {
+  background: var(--studio-green);
+}
+
+
+/* ============================================================
+   PAINT STRIP
+   ============================================================ */
+
+.paint-strip {
+
+  position: relative;
+
+  height: 11px;
+
+  overflow: hidden;
+
+  background: var(--ink);
+
+}
+
+
+.paint-dab {
+
+  position: absolute;
+
+  display: block;
+
+  height: 7px;
+
+  top: 2px;
+
+  border-radius: 50%;
+
+  opacity: 0.95;
+
+}
+
+
+.dab-1 {
+
+  width: 190px;
+
+  left: 4%;
+
+  background: var(--terracotta);
+
+  transform: rotate(-1deg);
+
+}
+
+
+.dab-2 {
+
+  width: 130px;
+
+  left: 27%;
+
+  background: var(--ochre);
+
+  transform: rotate(2deg);
+
+}
+
+
+.dab-3 {
+
+  width: 230px;
+
+  left: 48%;
+
+  background: var(--studio-green);
+
+  transform: rotate(-1deg);
+
+}
+
+
+.dab-4 {
+
+  width: 160px;
+
+  left: 78%;
+
+  background: var(--cobalt);
+
+  transform: rotate(2deg);
+
+}
+
+
+/* ============================================================
+   DECORATIVE CORNER MOTIFS
+   ============================================================ */
+
+.art-motif {
+
+  position: fixed;
+
+  width: 160px;
+
+  height: 160px;
+
+  pointer-events: none;
+
+  z-index: 1;
+
+  opacity: 0.28;
+
+}
+
+
+.motif-top-left {
+
+  top: 72px;
+
+  left: -38px;
+
+}
+
+
+.motif-bottom-right {
+
+  bottom: -35px;
+
+  right: -30px;
+
+  transform: rotate(180deg);
+
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hero {
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 70px 0 56px;
+
+  text-align: center;
+
+  background: var(--canvas);
+
+}
+
+.hero .container {
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+
+.hero-paper-texture {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.45;
+
+  background-image:
+
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(29,29,27,0.035) 0 1px,
+      transparent 1.5px
+    ),
+
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(29,29,27,0.025) 0 1px,
+      transparent 1.5px
+    );
+
+  background-size:
+    25px 25px,
+    37px 37px;
+
+}
+
+
+.hero-kicker {
+
+  display: inline-block;
+
+  font-family: "Caveat", cursive;
+
+  font-size: 1.2rem;
+
+  color: var(--terracotta);
+
+  margin-bottom: 6px;
+
+}
+
+
+.brush-line {
+
+  width: 95px;
+
+  height: 7px;
+
+  margin: 0 auto 22px;
+
+  background: var(--terracotta);
+
+  border-radius: 50%;
+
+  transform:
+    rotate(-2deg)
+    skewX(-15deg);
+
+}
+
+
+.hero h1 {
+
+  font-size: 2.7rem;
+
+  letter-spacing: -0.01em;
+
+  max-width: 620px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+
+.hero-sub {
+
+  max-width: 460px;
+
+  font-size: 1.05rem;
+
+  margin: 0 auto 30px;
+
+  color: var(--ink-soft);
+
+}
+
+
+/* ============================================================
+   HERO ART / ABSTRACT CANVAS
+   ============================================================ */
+
+.hero-art {
+
+  position: absolute;
+
+  z-index: 1;
+
+  top: 50%;
+
+  right: 4%;
+
+  width: 220px;
+
+  max-width: 220px;
+
+  height: 230px;
+
+  transform: translateY(-50%);
+
+  margin: 0;
+
+}
+
+
+.canvas-shadow {
+
+  position: absolute;
+
+  width: 88%;
+
+  height: 88%;
+
+  left: 9%;
+
+  top: 9%;
+
+  background: rgba(29,29,27,0.14);
+
+  transform: rotate(4deg);
+
+  filter: blur(1px);
+
+}
+
+
+.canvas {
+
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  background: #e8dfce;
+
+  border: 12px solid #f9f5ec;
+
+  box-shadow:
+    0 20px 45px rgba(29,29,27,0.18);
+
+  transform:
+    rotate(-3deg);
+
+}
+
+
+/* subtle canvas grain */
+
+.canvas::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.3;
+
+  background-image:
+
+    radial-gradient(
+      circle,
+      rgba(29,29,27,0.07) 0 0.8px,
+      transparent 1px
+    );
+
+  background-size: 5px 5px;
+
+}
+
+
+/* ============================================================
+   PAINT SHAPES
+   ============================================================ */
+
+.paint-shape {
+
+  position: absolute;
+
+  border-radius: 45% 55% 50% 42%;
+
+}
+
+
+.shape-orange {
+
+  width: 220px;
+
+  height: 230px;
+
+  background: var(--terracotta);
+
+  top: 70px;
+
+  left: 55px;
+
+  transform:
+    rotate(-17deg);
+
+  opacity: 0.88;
+
+}
+
+
+.shape-green {
+
+  width: 210px;
+
+  height: 240px;
+
+  background: var(--studio-green);
+
+  bottom: -40px;
+
+  right: 35px;
+
+  transform:
+    rotate(25deg);
+
+  opacity: 0.92;
+
+}
+
+
+.shape-blue {
+
+  width: 95px;
+
+  height: 150px;
+
+  background: var(--cobalt);
+
+  right: 55px;
+
+  top: 45px;
+
+  transform:
+    rotate(20deg);
+
+  opacity: 0.88;
+
+}
+
+
+.shape-yellow {
+
+  width: 90px;
+
+  height: 95px;
+
+  background: var(--ochre);
+
+  left: 30px;
+
+  bottom: 40px;
+
+  border-radius: 50%;
+
+}
+
+
+/* ============================================================
+   BRUSH STROKES
+   ============================================================ */
+
+.paint-stroke {
+
+  position: absolute;
+
+  height: 17px;
+
+  border-radius: 50%;
+
+  transform-origin: left center;
+
+}
+
+
+.stroke-one {
+
+  width: 330px;
+
+  top: 165px;
+
+  left: 30px;
+
+  background: rgba(255,253,248,0.72);
+
+  transform:
+    rotate(19deg);
+
+}
+
+
+.stroke-two {
+
+  width: 280px;
+
+  top: 285px;
+
+  left: 95px;
+
+  background: rgba(216,166,59,0.8);
+
+  transform:
+    rotate(-28deg);
+
+}
+
+
+.stroke-three {
+
+  width: 220px;
+
+  top: 340px;
+
+  left: 30px;
+
+  background: rgba(53,95,145,0.65);
+
+  transform:
+    rotate(12deg);
+
+}
+
+
+/* ============================================================
+   CANVAS CIRCLES
+   ============================================================ */
+
+.canvas-circle {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  border: 9px solid rgba(255,253,248,0.7);
+
+}
+
+
+.circle-one {
+
+  width: 115px;
+
+  height: 115px;
+
+  top: 35px;
+
+  right: 80px;
+
+}
+
+
+.circle-two {
+
+  width: 65px;
+
+  height: 65px;
+
+  bottom: 70px;
+
+  left: 120px;
+
+  border-width: 6px;
+
+}
+
+
+/* ============================================================
+   SIGNATURE
+   ============================================================ */
+
+.canvas-signature {
+
+  position: absolute;
+
+  right: 28px;
+
+  bottom: 23px;
+
+  font-family: "Caveat", cursive;
+
+  font-size: 1.8rem;
+
+  color: rgba(29,29,27,0.7);
+
+  transform: rotate(-7deg);
+
+  z-index: 4;
+
+}
+
+
+/* ============================================================
+   PALETTE
+   ============================================================ */
+
+.palette {
+
+  position: absolute;
+
+  right: -4px;
+
+  bottom: 35px;
+
+  width: 115px;
+
+  height: 92px;
+
+  background: #cdbb9e;
+
+  border-radius:
+    55% 45% 60% 40%;
+
+  transform:
+    rotate(17deg);
+
+  box-shadow:
+    5px 8px 0 rgba(29,29,27,0.12);
+
+}
+
+
+.palette-dot {
+
+  position: absolute;
+
+  width: 18px;
+
+  height: 18px;
+
+  border-radius: 50%;
+
+}
+
+
+.dot-red {
+
+  background: var(--terracotta);
+
+  top: 22px;
+
+  left: 30px;
+
+}
+
+
+.dot-yellow {
+
+  background: var(--ochre);
+
+  top: 47px;
+
+  left: 48px;
+
+}
+
+
+.dot-green {
+
+  background: var(--studio-green);
+
+  top: 22px;
+
+  left: 67px;
+
+}
+
+
+.dot-blue {
+
+  background: var(--cobalt);
+
+  top: 50px;
+
+  left: 78px;
+
+}
+
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+
+.about {
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 105px 0;
+
+  background: var(--canvas-light);
+
+  border-top:
+    1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
+
+}
+
+
+.about-container {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 750px;
+
+  text-align: center;
+
+}
+
+
+.section-kicker {
+
+  display: inline-block;
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+
+  color: var(--studio-green);
+
+  margin-bottom: 16px;
+
+}
+
+
+.about h2 {
+
+  font-size: clamp(2.5rem, 5vw, 4rem);
+
+}
+
+
+.about p {
+
+  max-width: 620px;
+
+  margin:
+    25px auto 0;
+
+  font-size: 1.05rem;
+
+}
+
+
+.about-background-mark {
+
+  position: absolute;
+
+  left: 50%;
+
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-7deg);
+
+  font-family:
+    "DM Serif Display",
+    serif;
+
+  font-size: 17rem;
+
+  line-height: 1;
+
+  color: var(--canvas-dark);
+
+  pointer-events: none;
+
+  user-select: none;
+
+}
+
+
+.about-strokes {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-top: 38px;
+
+}
+
+
+.about-strokes span {
+
+  display: block;
+
+  height: 5px;
+
+  border-radius: 50%;
+
+}
+
+
+.about-strokes span:nth-child(1) {
+
+  width: 45px;
+
+  background: var(--terracotta);
+
+  transform: rotate(-4deg);
+
+}
+
+
+.about-strokes span:nth-child(2) {
+
+  width: 65px;
+
+  background: var(--ochre);
+
+  transform: rotate(2deg);
+
+}
+
+
+.about-strokes span:nth-child(3) {
+
+  width: 38px;
+
+  background: var(--studio-green);
+
+  transform: rotate(-3deg);
+
+}
+
+
+/* ============================================================
+   PRODUCTS
+   ============================================================ */
+
+.products {
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 95px 0 115px;
+
+}
+
+
+.gallery-watermark {
+
+  position: absolute;
+
+  width: 500px;
+
+  height: 500px;
+
+  right: -170px;
+
+  top: 230px;
+
+  opacity: 0.07;
+
+  transform: rotate(12deg);
+
+  pointer-events: none;
+
+}
+
+
+.gallery-watermark span {
+
+  position: absolute;
+
+  display: block;
+
+  border-radius: 50%;
+
+}
+
+
+.gallery-watermark span:nth-child(1) {
+
+  width: 330px;
+
+  height: 130px;
+
+  background: var(--terracotta);
+
+  transform:
+    rotate(28deg);
+
+}
+
+
+.gallery-watermark span:nth-child(2) {
+
+  width: 280px;
+
+  height: 150px;
+
+  background: var(--studio-green);
+
+  top: 160px;
+
+  left: 120px;
+
+  transform:
+    rotate(-35deg);
+
+}
+
+
+.gallery-watermark span:nth-child(3) {
+
+  width: 120px;
+
+  height: 120px;
+
+  background: var(--ochre);
+
+  top: 80px;
+
+  left: 260px;
+
+}
+
+
+/* ============================================================
+   PRODUCT HEADING
+   ============================================================ */
+
+.products h2 {
+
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+
+  font-size: clamp(2.7rem, 5vw, 4.2rem);
+
+  margin-bottom: 0;
+
+}
+
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+
+.product-search-wrap {
+
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  justify-content: center;
+
+  margin:
+    38px 0 35px;
+
+}
+
+
+.product-search {
+
+  width: 100%;
+
+  max-width: 390px;
+
+  padding:
+    13px 20px 13px 44px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 2px;
+
+  background:
+    rgba(255,253,248,0.8);
+
+  color: var(--ink);
+
+  font-family: inherit;
+
+  font-size: 0.92rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+}
+
+
+.product-search::placeholder {
+
+  color: #99948b;
+
+}
+
+
+.product-search:focus {
+
+  outline: none;
+
+  border-color: var(--terracotta);
+
+  box-shadow:
+    4px 4px 0 var(--ochre);
+
+}
+
+
+.search-icon {
+
+  position: absolute;
+
+  z-index: 3;
+
+  margin-left: 17px;
+
+  margin-top: 12px;
+
+  color: var(--terracotta);
+
+  pointer-events: none;
+
+}
+
+
+.no-results {
+
+  text-align: center;
+
+  color: var(--ink-soft);
+
+}
+
+
+/* ============================================================
+   PRODUCT GRID
+   ============================================================ */
+
+.product-grid {
+
+  position: relative;
+
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(245px, 1fr));
+
+  gap: 32px;
+
+  margin-top: 25px;
+
+}
+
+
+/* ============================================================
+   PRODUCT CARD
+   ============================================================ */
+
+.product-card {
+
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: var(--canvas-light);
+
+  border:
+    1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  box-shadow:
+    7px 9px 0 rgba(29,29,27,0.055);
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+
+}
+
+
+.product-card:nth-child(2n) {
+
+  transform:
+    rotate(0.5deg);
+
+}
+
+
+.product-card:nth-child(3n) {
+
+  transform:
+    rotate(-0.45deg);
+
+}
+
+
+.product-card:hover {
+
+  transform:
+    translateY(-7px)
+    rotate(0deg);
+
+  box-shadow:
+    10px 14px 0 rgba(29,29,27,0.08);
+
+}
+
+
+/* ============================================================
+   CARD PAINT MARK
+   ============================================================ */
+
+.product-card::after {
+
+  content: "";
+
+  position: absolute;
+
+  top: 12px;
+
+  right: 12px;
+
+  width: 23px;
+
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: var(--terracotta);
+
+  transform:
+    rotate(-18deg);
+
+  opacity: 0.8;
+
+  z-index: 3;
+
+}
+
+
+.product-card:nth-child(2n)::after {
+
+  background: var(--studio-green);
+
+  transform:
+    rotate(13deg);
+
+}
+
+
+.product-card:nth-child(3n)::after {
+
+  background: var(--ochre);
+
+}
+
+
+/* ============================================================
+   PRODUCT IMAGE
+   ============================================================ */
+
+.product-image {
+
+  position: relative;
+
+  aspect-ratio: 4 / 3;
+
+  overflow: hidden;
+
+  background: #e8dfce;
+
+}
+
+
+.product-image.placeholder {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: var(--ink-soft);
+
+  font-family: "Caveat", cursive;
+
+  font-size: 1.15rem;
+
+  background:
+
+    linear-gradient(
+      130deg,
+      #eee4d3,
+      #e4d5bd
+    );
+
+}
+
+
+.product-image.placeholder::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 140px;
+
+  height: 55px;
+
+  border-radius: 50%;
+
+  background: var(--terracotta);
+
+  opacity: 0.13;
+
+  transform: rotate(-20deg);
+
+}
+
+
+.product-image img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  display: none;
+
+}
+
+
+.product-image img.loaded {
+
+  display: block;
+
+}
+
+
+.product-image:not(.placeholder) span {
+
+  display: none;
+
+}
+
+
+/* ============================================================
+   PRODUCT BODY
+   ============================================================ */
+
+.product-body {
+
+  display: flex;
+
+  flex-direction: column;
+
+  flex: 1;
+
+  padding: 21px;
+
+}
+
+
+.product-body h3 {
+
+  font-size: 1.3rem;
+
+  margin-bottom: 8px;
+
+}
+
+
+.product-tags {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-bottom: 10px;
+
+}
+
+
+.product-tags .tag {
+
+  background: var(--ink);
+
+  color: var(--white);
+
+  font-size: 0.66rem;
+
+  font-weight: 700;
+
+  padding:
+    4px 10px;
+
+  border-radius: 2px;
+
+  letter-spacing: 0.02em;
+
+}
+
+
+.product-desc {
+
+  font-size: 0.87rem;
+
+  flex: 1;
+
+  margin-bottom: 20px;
+
+}
+
+
+.product-footer {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+}
+
+
+.product-price {
+
+  font-family:
+    "DM Serif Display",
+    serif;
+
+  font-size: 1.2rem;
+
+  color: var(--studio-green);
+
+}
+
+
+.product-footer .btn {
+
+  padding:
+    9px 17px;
+
+  font-size: 0.78rem;
+
+}
+
+
+/* ============================================================
+   CUSTOM CTA
+   ============================================================ */
+
+.custom-cta {
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    110px 0 125px;
+
+  background:
+    var(--studio-green);
+
+  color: var(--white);
+
+}
+
+
+.custom-container {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 680px;
+
+  text-align: center;
+
+}
+
+
+.custom-cta .section-kicker {
+
+  color: var(--ochre);
+
+}
+
+
+.custom-cta h2 {
+
+  color: var(--white);
+
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+
+}
+
+
+.custom-cta h2 em {
+
+  color: var(--ochre);
+
+}
+
+
+.custom-cta p {
+
+  max-width: 590px;
+
+  margin:
+    25px auto 35px;
+
+  color:
+    rgba(255,253,248,0.76);
+
+  font-size: 1.05rem;
+
+}
+
+
+.custom-scribble {
+
+  position: absolute;
+
+  right: 8%;
+
+  top: 35px;
+
+  font-family: "Caveat", cursive;
+
+  font-size: 9rem;
+
+  color: rgba(255,255,255,0.06);
+
+  transform: rotate(14deg);
+
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+
+  padding:
+    42px 0;
+
+  background:
+    var(--ink);
+
+  color:
+    var(--white);
+
+}
+
+
+.footer-inner {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  gap: 14px;
+
+}
+
+
+.footer-inner .brand {
+
+  color: var(--white);
+
+}
+
+
+.footer-links {
+
+  display: flex;
+
+  gap: 14px;
+
+  align-items: center;
+
+}
+
+
+.footer-links a {
+
+  color:
+    rgba(255,255,255,0.72);
+
+  text-decoration: none;
+
+  font-size: 0.88rem;
+
+}
+
+
+.footer-links a:hover {
+
+  color:
+    var(--ochre);
+
+}
+
+
+.footer-links span {
+
+  color:
+    rgba(255,255,255,0.3);
+
+}
+
+
+.footer-note {
+
+  margin: 0;
+
+  color:
+    rgba(255,255,255,0.45);
+
+  font-size: 0.75rem;
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 1000px) {
+
+  .hero {
+
+    min-height: auto;
+
+  }
+
+
+  .hero-container {
+
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+
+  }
+
+
+  .hero-left {
+
+    padding:
+      70px 0 25px;
+
+    text-align: center;
+
+  }
+
+
+  .brush-line {
+
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+
+  .hero h1 {
+
+    max-width: 700px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+
+  .hero-sub {
+
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+
+  .hero-actions {
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+  }
+
+
+  .hero-art {
+
+    right: 1%;
+
+    transform: translateY(-50%) scale(0.78);
+
+  }
+
+
+  .products-heading {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+  }
+
+
+  .collection-note {
+
+    max-width: 400px;
+
+  }
+
+
+  .footer-inner {
+
+    flex-direction: column;
+
+    text-align: center;
+
+  }
+
+
+  .footer-brand {
+
+    align-items: center;
+
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .container {
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+  }
+
+
+  .header-inner {
+
+    min-height: 68px;
+
+  }
+
+
+  .header-art-mark {
+
+    display: none;
+
+  }
+
+
+  .header-cta {
+
+    padding:
+      9px 14px;
+
+    font-size: 0.78rem;
+
+  }
+
+
+  .hero-left {
+
+    padding-top: 55px;
+
+  }
+
+
+  .hero h1 {
+
+    font-size: 2rem;
+
+  }
+
+
+  .hero-sub {
+
+    font-size: 0.98rem;
+
+  }
+
+
+  .hero-art {
+
+    right: -85px;
+
+    top: 40%;
+
+    transform: translateY(-50%) scale(0.24);
+
+  }
+
+
+  .shape-orange {
+
+    width: 155px;
+    height: 175px;
+
+    left: 40px;
+    top: 45px;
+
+  }
+
+
+  .shape-green {
+
+    width: 155px;
+    height: 175px;
+
+  }
+
+
+  .shape-blue {
+
+    width: 70px;
+    height: 105px;
+
+  }
+
+
+  .paint-stroke {
+
+    height: 12px;
+
+  }
+
+
+  .stroke-one {
+
+    width: 230px;
+
+  }
+
+
+  .stroke-two {
+
+    width: 190px;
+
+  }
+
+
+  .stroke-three {
+
+    width: 155px;
+
+  }
+
+
+  .about {
+
+    padding:
+      75px 0;
+
+  }
+
+
+  .about-background-mark {
+
+    font-size: 9rem;
+
+  }
+
+
+  .products {
+
+    padding:
+      75px 0 90px;
+
+  }
+
+
+  .products h2 {
+
+    font-size: 2.9rem;
+
+  }
+
+
+  .product-grid {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 25px;
+
+  }
+
+
+  .product-card:nth-child(2n),
+  .product-card:nth-child(3n) {
+
+    transform: none;
+
+  }
+
+
+  .product-card:hover {
+
+    transform:
+      translateY(-5px);
+
+  }
+
+
+  .custom-cta {
+
+    padding:
+      80px 0 95px;
+
+  }
+
+
+  .custom-scribble {
+
+    right: -20px;
+
+    font-size: 7rem;
+
+  }
+
+}

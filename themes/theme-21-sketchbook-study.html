@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paintings &amp; Fine Art — ArtCanopy</title>
+<meta name="description" content="Hand-painted resin canvas pieces, artisan coaster sets, and wall art from ArtCanopy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/themes/theme-21-sketchbook-study.css">
+<link rel="stylesheet" href="../css/category-nav.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">ArtCanopy</div>
+      <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Message us</a>
+    </div>
+  </header>
+
+  <nav class="category-nav" id="category-nav"></nav>
+
+  <div class="paint-stroke-strip" aria-hidden="true"></div>
+
+  <!-- Decorative Paint Palette Corner Motifs -->
+  <div class="decor-motif corner-motif top-left" aria-hidden="true">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 20 20 C 50 5, 95 20, 85 55 C 75 90, 35 95, 15 70 C 0 50, 0 30, 20 20 Z" fill="#2b4c7e"/>
+      <circle cx="35" cy="35" r="6" fill="#d94e34"/>
+      <circle cx="55" cy="30" r="6" fill="#e0a93b"/>
+      <circle cx="70" cy="48" r="6" fill="#2a8c71"/>
+      <circle cx="60" cy="70" r="6" fill="#ffffff"/>
+    </svg>
+  </div>
+  <div class="decor-motif corner-motif bottom-right" aria-hidden="true">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 20 20 C 50 5, 95 20, 85 55 C 75 90, 35 95, 15 70 C 0 50, 0 30, 20 20 Z" fill="#d94e34"/>
+      <circle cx="35" cy="35" r="6" fill="#2b4c7e"/>
+      <circle cx="55" cy="30" r="6" fill="#e0a93b"/>
+      <circle cx="70" cy="48" r="6" fill="#2a8c71"/>
+      <circle cx="60" cy="70" r="6" fill="#ffffff"/>
+    </svg>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <span class="hero-icon" aria-hidden="true">
+        <!-- Paintbrush Icon -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 65 15 L 85 35 L 45 75 L 25 55 Z" fill="#2b4c7e"/>
+          <path d="M 25 55 L 45 75 L 30 90 C 20 95 10 85 15 75 Z" fill="#e0a93b"/>
+          <path d="M 70 10 L 90 30 L 82 38 L 62 18 Z" fill="#1d1e22"/>
+        </svg>
+      </span>
+      <span class="hero-kicker">Original Works &amp; Pigment Casts</span>
+      <h1>Where fluid paint meets<br>crystal resin.</h1>
+      <p class="hero-sub">Original abstract canvases, resin-poured landscapes, and hand-pigmented studio pieces.</p>
+      <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">Browse gallery &amp; order</a>
+    </div>
+  </section>
+
+  <div class="paint-stroke-strip" aria-hidden="true"></div>
+
+  <section class="about">
+    <div class="container">
+      <h2>Crafted with pigments, resin, and passion</h2>
+      <p>Every piece starts with a blank canvas or mold and pure color pigments. Layered gradually over days, our resin artwork captures depth, fluid motion, and light reflection. Looking for a custom colorway to match your interior space?</p>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <!-- Fluid Paint Splash Background Watermark -->
+    <span class="paint-splash-bg" aria-hidden="true">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160,-210C205,-180,240,-135,255,-85C270,-35,265,20,245,70C225,120,190,165,145,195C100,225,45,240,-10,252C-65,264,-120,273,-165,245C-210,217,-245,152,-260,85C-275,18,-270,-51,-242,-108C-214,-165,-163,-210,-108,-235 C-53,-260,6,-265,60,-250C114,-235,115,-240,160,-210Z" transform="translate(200 200)" fill="#2b4c7e" />
+      </svg>
+    </span>
+    <div class="container">
+      <h2>Studio Collection</h2>
+      <div class="product-search-wrap">
+        <input type="search" id="product-search" class="product-search" placeholder="Search artwork, colors, or styles…" aria-label="Search products">
+      </div>
+      <p class="no-results" id="no-results" hidden>No artwork matches your search.</p>
+      <div class="product-grid" id="product-grid">
+        <!-- Populated by js/main.js from js/products-data.js -->
+      </div>
+    </div>
+  </section>
+
+  <section class="custom-cta">
+    <div class="container">
+      <h2>Commission a custom piece</h2>
+      <p>Have a specific color scheme, canvas dimension, or room aesthetic in mind? We collaborate directly with you to craft bespoke art.</p>
+      <a class="btn btn-primary" id="custom-whatsapp-link" href="#" target="_blank" rel="noopener">Commission your design</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand">ArtCanopy</div>
+      <div class="footer-links">
+        <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="footer-note">&copy; <span id="footer-year"></span> ArtCanopy. Hand-painted &amp; cast originals.</p>
+    </div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/products-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script>initCategoryPage("Painting sketch", "category-nav");</script>
+</body>
+</html>
