@@ -2,9 +2,42 @@ function whatsappLink(message) {
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
+let activeCategory = "All";
+
+function renderCategoryFilters() {
+  const filters = document.getElementById("category-filters");
+  if (!filters || typeof CATEGORIES === "undefined") return;
+
+  const present = CATEGORIES.filter((c) =>
+    PRODUCTS.some((p) => (p.categories || []).includes(c))
+  );
+  const chips = ["All", ...present];
+
+  filters.innerHTML = chips
+    .map(
+      (c) => `
+    <button class="filter-chip${c === activeCategory ? " active" : ""}" data-category="${c}">${c}</button>
+  `
+    )
+    .join("");
+
+  filters.querySelectorAll(".filter-chip").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      activeCategory = btn.dataset.category;
+      renderCategoryFilters();
+      renderProducts();
+    });
+  });
+}
+
 function renderProducts() {
   const grid = document.getElementById("product-grid");
-  grid.innerHTML = PRODUCTS.map((p) => `
+  const visible =
+    activeCategory === "All"
+      ? PRODUCTS
+      : PRODUCTS.filter((p) => (p.categories || []).includes(activeCategory));
+
+  grid.innerHTML = visible.map((p) => `
     <article class="product-card">
       <div class="product-image placeholder" id="img-wrap-${p.id}">
         <span>Photo coming soon</span>
@@ -18,6 +51,11 @@ function renderProducts() {
       </div>
       <div class="product-body">
         <h3>${p.name}</h3>
+        ${
+          (p.categories || []).length
+            ? `<div class="product-tags">${p.categories.map((c) => `<span class="tag">${c}</span>`).join("")}</div>`
+            : ""
+        }
         <p class="product-desc">${p.description}</p>
         <div class="product-footer">
           <span class="product-price">${p.price}</span>
@@ -47,5 +85,6 @@ function wireStaticLinks() {
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 }
 
+renderCategoryFilters();
 renderProducts();
 wireStaticLinks();
