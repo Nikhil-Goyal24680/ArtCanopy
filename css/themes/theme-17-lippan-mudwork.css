@@ -105,23 +105,33 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   filter: brightness(0) invert(1);
   opacity: 0.14;
 }
-.motif-paisley {
-  top: -25px;
-  right: -25px;
-  width: 190px;
-  opacity: 0.12;
+/* the rest of the page — bigger, bolder, full-color copies so they actually
+   read as artwork rather than disappearing (previous pass was too small/faint) */
+.motif-flower {
+  top: 50%;
+  right: -70px;
+  transform: translateY(-50%);
+  width: 220px;
+  opacity: 0.5;
 }
-.motif-cross {
-  top: 6px;
-  left: -30px;
-  width: 150px;
-  opacity: 0.14;
+.motif-parchment {
+  top: 50%;
+  left: -70px;
+  transform: translateY(-50%);
+  width: 200px;
+  opacity: 0.55;
 }
-.motif-snowflake {
-  bottom: 0;
-  right: -25px;
-  width: 160px;
-  opacity: 0.14;
+.motif-peacock-flower {
+  top: -60px;
+  right: -50px;
+  width: 320px;
+  opacity: 0.45;
+}
+.motif-gold-lotus {
+  bottom: -60px;
+  left: -50px;
+  width: 300px;
+  opacity: 0.5;
 }
 .motif-arrow {
   top: -18px;
@@ -129,6 +139,21 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   transform: translateX(-50%);
   width: 260px;
   opacity: 0.13;
+}
+.motif-circle-mandala {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  filter: invert(1);
+  opacity: 0.16;
+}
+.motif-peacock {
+  bottom: 0;
+  right: 4%;
+  width: 170px;
+  filter: invert(1);
+  opacity: 0.22;
 }
 
 /* Hero */
@@ -239,7 +264,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .custom-cta .container { max-width: 600px; }
 
 /* Footer */
-.site-footer { border-top: 3px solid var(--mustard); padding: 32px 0; }
+.site-footer { position: relative; overflow: hidden; border-top: 3px solid var(--mustard); padding: 32px 0; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
