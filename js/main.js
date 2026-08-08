@@ -3,6 +3,7 @@ function whatsappLink(message) {
 }
 
 let activeCategory = "All";
+let searchQuery = "";
 
 function renderCategoryFilters() {
   const filters = document.getElementById("category-filters");
@@ -32,10 +33,23 @@ function renderCategoryFilters() {
 
 function renderProducts() {
   const grid = document.getElementById("product-grid");
-  const visible =
+  const noResults = document.getElementById("no-results");
+
+  const byCategory =
     activeCategory === "All"
       ? PRODUCTS
       : PRODUCTS.filter((p) => (p.categories || []).includes(activeCategory));
+
+  const q = searchQuery.trim().toLowerCase();
+  const visible = q
+    ? byCategory.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q)
+      )
+    : byCategory;
+
+  if (noResults) noResults.hidden = visible.length > 0;
 
   grid.innerHTML = visible.map((p) => `
     <article class="product-card">
@@ -85,6 +99,16 @@ function wireStaticLinks() {
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 }
 
+function wireSearch() {
+  const input = document.getElementById("product-search");
+  if (!input) return;
+  input.addEventListener("input", () => {
+    searchQuery = input.value;
+    renderProducts();
+  });
+}
+
 renderCategoryFilters();
 renderProducts();
 wireStaticLinks();
+wireSearch();
