@@ -1658,7 +1658,7 @@ p {
   overflow: hidden;
 
   padding:
-    110px 0 125px;
+    60px 0 88px;
 
   background:
     var(--studio-green);
@@ -1691,8 +1691,6 @@ p {
 .custom-cta h2 {
 
   color: var(--white);
-
-  font-size: clamp(2.8rem, 5vw, 4.6rem);
 
 }
 
@@ -2112,14 +2110,6 @@ p {
 
     transform:
       translateY(-5px);
-
-  }
-
-
-  .custom-cta {
-
-    padding:
-      80px 0 95px;
 
   }
 
