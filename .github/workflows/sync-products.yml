@@ -35,3 +35,4 @@ jobs:
             git commit -m "Sync products from Google Sheet [automated]"
             git push
           fi
+
