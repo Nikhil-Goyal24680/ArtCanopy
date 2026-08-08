@@ -9,10 +9,14 @@ every product.
 You don't need to install anything special. From this folder, run:
 
 ```
-python3 -m http.server 8000
+python3 -m http.server 8123
 ```
 
-Then open http://localhost:8000 in your browser. Stop it later with Ctrl+C.
+Then open http://localhost:8123 in your browser. Stop it later with Ctrl+C.
+
+(Using 8123 rather than the more common 8000 on purpose — 8000 is already used by
+an unrelated project on this machine. If 8123 is ever busy too, just pick another
+free port, e.g. `python3 -m http.server 8124`.)
 
 (Double-clicking `index.html` also works in a pinch, but some browsers block loading
 the product list that way — the command above avoids that.)
