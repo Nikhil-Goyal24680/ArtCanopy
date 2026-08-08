@@ -63,7 +63,7 @@ doesn't matter, but the names must match exactly, lowercase):
 - **id**: leave blank — it's generated automatically from the name. Only fill it in if
   you want a specific web-friendly ID.
 - **categories**: comma-separated, using this list (a product can have more than one):
-  `Painting sketch, Resin art, Lippan art, Mosaic art, Mirror, Home deco, Festival special, Gift`
+  `Painting sketch, Resin art, Lippan art, Mosaic art, Home deco, Festival special, Gift, Mirror`
 - **photo**: a Google Drive share link (see step 2).
 - **whatsapp_message**: leave blank to auto-generate a reasonable default from the name.
 

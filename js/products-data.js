@@ -13,10 +13,10 @@ const CATEGORIES = [
   "Resin art",
   "Lippan art",
   "Mosaic art",
-  "Mirror",
   "Home deco",
   "Festival special",
   "Gift",
+  "Mirror",
 ];
 
 const PRODUCTS = [
