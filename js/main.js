@@ -108,7 +108,55 @@ function wireSearch() {
   });
 }
 
-renderCategoryFilters();
-renderProducts();
-wireStaticLinks();
-wireSearch();
+// ---------------------------------------------------------------
+// Category pages (categories/*.html) — each is locked to one
+// category and themed differently; no "All"/other-category chips,
+// just that category's products, a search box, and a nav to the
+// other 7 category pages.
+// ---------------------------------------------------------------
+function categorySlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function renderCategoryNav(navId, currentCategory) {
+  const nav = document.getElementById(navId);
+  if (!nav || typeof CATEGORIES === "undefined") return;
+  const links = CATEGORIES.map((c) => {
+    const isCurrent = c === currentCategory;
+    return isCurrent
+      ? `<span class="category-nav-item current">${c}</span>`
+      : `<a class="category-nav-item" href="${categorySlug(c)}.html">${c}</a>`;
+  }).join("");
+  nav.innerHTML = `<a class="category-nav-item all" href="../index.html">All pieces</a>${links}`;
+}
+
+function initCategoryPage(categoryName, navId) {
+  activeCategory = categoryName;
+  renderProducts();
+  wireStaticLinks();
+  wireSearch();
+  if (navId) renderCategoryNav(navId, categoryName);
+}
+
+// index.html specifically: chips are links out to each category's own
+// themed page (categories/*.html), not an in-page filter — "All" stays
+// on the homepage since that's where everything is already shown.
+function renderHomeCategoryLinks() {
+  const filters = document.getElementById("category-filters");
+  if (!filters || typeof CATEGORIES === "undefined") return;
+
+  const present = CATEGORIES.filter((c) =>
+    PRODUCTS.some((p) => (p.categories || []).includes(c))
+  );
+
+  const allChip = `<span class="filter-chip active">All</span>`;
+  const links = present
+    .map((c) => `<a class="filter-chip" href="categories/${categorySlug(c)}.html">${c}</a>`)
+    .join("");
+  filters.innerHTML = allChip + links;
+}
+
+// Pages call one of these after this script loads:
+//   renderHomeCategoryLinks(); renderProducts(); wireStaticLinks(); wireSearch();  (index.html — chips link out to themed category pages)
+//   renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();    (themes/ previews only — in-page filter, for comparing themes)
+//   initCategoryPage("Gift", "category-nav");                                      (categories/*.html — locked to one category)

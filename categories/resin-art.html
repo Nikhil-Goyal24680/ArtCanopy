@@ -3,35 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArtCanopy — Theme 7: Moonlit Geode</title>
-<meta name="description" content="Handcrafted resin art for gifting, memories, and decor.">
+<title>Resin Art — ArtCanopy</title>
+<meta name="description" content="Abstract, hand-poured resin art pieces from ArtCanopy.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/themes/theme-7-moonlit-geode.css">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/themes/theme-3-dreamy-resin.css">
+<link rel="stylesheet" href="../css/category-nav.css">
 </head>
 <body>
-
-  <div class="theme-tag">Theme 7 — Moonlit Geode</div>
 
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand">ArtCanopy</div>
-      <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Message us</a>
+      <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Say hi</a>
     </div>
   </header>
 
+  <nav class="category-nav" id="category-nav"></nav>
+
   <section class="hero">
     <div class="container">
-      <span class="hero-kicker">✦ cast in resin, lit from within ✦</span>
+      <span class="hero-kicker">Poured like waves, sealed like memories</span>
       <h1>Handcrafted resin art,<br>made to be kept.</h1>
-      <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand.</p>
+      <p class="hero-sub">Dreamy, one-of-a-kind pieces for gifting, keeping, and decorating.</p>
       <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">Browse &amp; order on WhatsApp</a>
     </div>
   </section>
 
   <section class="about">
-    <div class="container">
+    <div class="container glass-card">
       <h2>Made with care, piece by piece</h2>
       <p>Every piece is poured, cured, and finished by hand — no two are exactly alike. We make resin art for gifting, preserving memories, and decorating spaces you love. Have something specific in mind — a photo, a flower, a name? We do custom orders too.</p>
     </div>
@@ -39,7 +40,11 @@
 
   <section class="products" id="products">
     <div class="container">
-      <h2>Our pieces</h2>
+      <h2>Resin Art</h2>
+      <div class="product-search-wrap">
+        <input type="search" id="product-search" class="product-search" placeholder="Search this category…" aria-label="Search products">
+      </div>
+      <p class="no-results" id="no-results" hidden>No pieces match your search.</p>
       <div class="product-grid" id="product-grid">
         <!-- Populated by js/main.js from js/products-data.js -->
       </div>
@@ -47,7 +52,7 @@
   </section>
 
   <section class="custom-cta">
-    <div class="container">
+    <div class="container glass-card">
       <h2>Want something custom?</h2>
       <p>Tell us the occasion, the colors, or the memory you want preserved — we'll work with you on a one-of-a-kind piece.</p>
       <a class="btn btn-primary" id="custom-whatsapp-link" href="#" target="_blank" rel="noopener">Ask about a custom order</a>
@@ -68,6 +73,6 @@
   <script src="../js/config.js"></script>
   <script src="../js/products-data.js"></script>
   <script src="../js/main.js"></script>
-  <script>renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();</script>
+  <script>initCategoryPage("Resin art", "category-nav");</script>
 </body>
 </html>

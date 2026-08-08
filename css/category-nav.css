@@ -1,0 +1,66 @@
+/* Shared cross-category navigation strip, used on every categories/*.html
+   page. Deliberately uses only variables every theme defines (--ink,
+   --ink-soft, --border, --paper) so it blends into whichever theme it's
+   loaded alongside without per-theme tuning. */
+
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 14px 20px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+}
+.category-nav-item {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.category-nav-item:hover {
+  color: var(--ink);
+  border-color: var(--ink-soft);
+}
+.category-nav-item.current {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.category-nav-item.all {
+  font-style: italic;
+}
+
+/* Shared search box + empty-state, used on every categories/*.html page
+   alongside whichever theme is loaded — same variable-only approach as
+   the nav above. */
+.product-search-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+.product-search {
+  width: 100%;
+  max-width: 360px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-family: inherit;
+}
+.product-search:focus {
+  outline: none;
+  border-color: var(--ink-soft);
+}
+.no-results {
+  text-align: center;
+  color: var(--ink-soft);
+  margin: -8px 0 32px;
+}

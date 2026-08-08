@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArtCanopy — Theme 7: Moonlit Geode</title>
-<meta name="description" content="Handcrafted resin art for gifting, memories, and decor.">
+<title>Lippan Art — ArtCanopy</title>
+<meta name="description" content="Traditional Lippan mud-mirror work, hand finished in resin, from ArtCanopy.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/themes/theme-7-moonlit-geode.css">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/themes/theme-4-kraft-memories.css">
+<link rel="stylesheet" href="../css/category-nav.css">
 </head>
 <body>
-
-  <div class="theme-tag">Theme 7 — Moonlit Geode</div>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -21,9 +20,11 @@
     </div>
   </header>
 
+  <nav class="category-nav" id="category-nav"></nav>
+
   <section class="hero">
     <div class="container">
-      <span class="hero-kicker">✦ cast in resin, lit from within ✦</span>
+      <span class="hero-kicker">handmade, one memory at a time</span>
       <h1>Handcrafted resin art,<br>made to be kept.</h1>
       <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand.</p>
       <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">Browse &amp; order on WhatsApp</a>
@@ -39,7 +40,11 @@
 
   <section class="products" id="products">
     <div class="container">
-      <h2>Our pieces</h2>
+      <h2>Lippan Art</h2>
+      <div class="product-search-wrap">
+        <input type="search" id="product-search" class="product-search" placeholder="Search this category…" aria-label="Search products">
+      </div>
+      <p class="no-results" id="no-results" hidden>No pieces match your search.</p>
       <div class="product-grid" id="product-grid">
         <!-- Populated by js/main.js from js/products-data.js -->
       </div>
@@ -68,6 +73,6 @@
   <script src="../js/config.js"></script>
   <script src="../js/products-data.js"></script>
   <script src="../js/main.js"></script>
-  <script>renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();</script>
+  <script>initCategoryPage("Lippan art", "category-nav");</script>
 </body>
 </html>
