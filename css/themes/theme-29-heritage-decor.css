@@ -1,0 +1,267 @@
+/* THEME 29 — Home Decoration & Heritage Crafts
+   Vibe: Warm Festive Entryway — Terracotta Clay, Antique Brass Gold,
+   Deep Mango Green, Crimson Red, Toran Arch Scallops, and Warm Parchment. */
+
+:root {
+  --ink: #321e17;
+  --ink-soft: #6d544b;
+  --paper: #fdfaf3;          /* Warm parchment paper */
+  --paper-alt: #f6efe0;      /* Warm clay linen */
+  --terracotta: #b33927;     /* Traditional crimson/terracotta */
+  --brass-gold: #c28e2b;     /* Antique temple brass gold */
+  --mango-leaf: #2d5a27;     /* Deep festive foliage green */
+  --border: #e8d9c0;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--terracotta);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+  border: 1px solid var(--brass-gold);
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: "Rozha One", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: var(--terracotta);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(179, 57, 39, 0.3);
+}
+.btn-primary:hover {
+  background: #962c1d;
+}
+.btn-whatsapp {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(50, 30, 23, 0.06);
+}
+.btn-whatsapp:hover {
+  border-color: var(--brass-gold);
+}
+
+/* Hanging Toran Scalloped Ribbon Strip */
+.toran-garland-strip {
+  height: 14px;
+  background-image:
+    radial-gradient(circle at 12px 0px, var(--mango-leaf) 0 6px, transparent 6.5px 12px),
+    radial-gradient(circle at 24px 0px, var(--terracotta) 0 5px, transparent 5.5px 12px),
+    radial-gradient(circle at 36px 0px, var(--brass-gold) 0 4px, transparent 4.5px 12px);
+  background-size: 48px 14px;
+  background-color: var(--paper-alt);
+  border-bottom: 2px solid var(--brass-gold);
+}
+
+/* Header */
+.site-header {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.brand {
+  font-family: "Rozha One", serif;
+  font-size: 1.7rem;
+  color: var(--terracotta);
+}
+.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+
+/* Fixed Leaf Corner Motifs */
+.decor-motif { pointer-events: none; }
+.decor-motif svg { display: block; width: 100%; height: 100%; }
+.corner-motif {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  z-index: 0;
+}
+.corner-motif.top-left { top: -10px; left: -10px; }
+.corner-motif.bottom-right { bottom: -10px; right: -10px; transform: rotate(180deg); }
+
+/* Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 76px 0 64px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(194, 142, 43, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(179, 57, 39, 0.1) 0%, transparent 45%),
+    var(--paper-alt);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.25);
+}
+.hero .container { position: relative; z-index: 1; }
+.hero-kicker {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--terracotta);
+  margin-bottom: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero h1 { font-size: 2.9rem; color: var(--ink); }
+.hero-sub { font-size: 1.08rem; margin: 0 auto 34px; max-width: 520px; color: var(--ink-soft); }
+.hero-icon { display: block; width: 64px; height: 64px; margin: 0 auto 18px; }
+.hero-icon svg { width: 100%; height: 100%; }
+
+.about { position: relative; overflow: hidden; padding: 64px 0; text-align: center; }
+.about .container { max-width: 650px; position: relative; z-index: 1; }
+
+/* Products Section */
+.products { position: relative; overflow: hidden; padding: 20px 0 76px; }
+.mandala-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+}
+.mandala-bg svg { width: 100%; height: 100%; }
+.products h2 { text-align: center; margin-bottom: 8px; font-size: 2.5rem; position: relative; z-index: 1; }
+.product-search-wrap { display: flex; justify-content: center; margin: 20px 0 16px; position: relative; z-index: 1; }
+.product-search {
+  width: 100%; max-width: 380px; padding: 11px 20px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.92rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(50, 30, 23, 0.04);
+}
+.product-search:focus { outline: none; border-color: var(--terracotta); box-shadow: 0 4px 16px rgba(179, 57, 39, 0.15); }
+.no-results { text-align: center; color: var(--ink-soft); margin: -8px 0 24px; position: relative; z-index: 1; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+  margin-top: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.product-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 24px rgba(50, 30, 23, 0.06);
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brass-gold);
+  box-shadow: 0 16px 32px rgba(50, 30, 23, 0.12);
+}
+
+/* Brass Bell Pin Badge on Card Corner */
+.product-card::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  background: var(--brass-gold);
+  border-radius: 50% 50% 20% 20%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+.product-image.placeholder {
+  background: linear-gradient(135deg, var(--paper-alt) 0%, #ede2cb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+.product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.25rem; margin-bottom: 6px; font-family: "Rozha One", serif; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.product-tags .tag {
+  background: var(--paper-alt);
+  color: var(--terracotta);
+  border: 1px solid var(--border);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.product-desc { font-size: 0.88rem; flex: 1; margin-bottom: 18px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price {
+  font-weight: 600;
+  color: var(--terracotta);
+  font-family: "Rozha One", serif;
+  font-size: 1.2rem;
+}
+.product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
+
+/* Custom CTA Section */
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); border-top: 1px solid var(--border); }
+.custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--border); padding: 36px 0; background: var(--paper); }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+.footer-links a:hover { color: var(--terracotta); }
+.footer-note { font-size: 0.82rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.2rem; }
+  .header-cta { display: none; }
+}
