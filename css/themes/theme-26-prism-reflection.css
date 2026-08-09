@@ -99,7 +99,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   top: 0;
   z-index: 10;
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 81px; }
 .brand {
   font-family: "Italiana", serif;
   font-size: 1.75rem;
@@ -133,6 +133,10 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
     radial-gradient(circle at 15% 85%, rgba(223, 171, 148, 0.15) 0%, transparent 40%),
     radial-gradient(circle at 85% 15%, rgba(205, 168, 70, 0.12) 0%, transparent 45%),
     var(--paper-alt);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 540px;
 }
 .hero .container { position: relative; z-index: 1; }
 .hero-kicker {
@@ -146,10 +150,15 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 .hero h1 { font-size: 3rem; color: var(--ink); }
 .hero-sub { font-size: 1.08rem; margin: 0 auto 34px; max-width: 530px; color: var(--ink-soft); }
-.hero-icon { display: block; width: 60px; height: 60px; margin: 0 auto 18px; }
+.hero-icon {
+  display: block;
+  margin: 0 auto 18px;
+  width: 60px;
+  height: 60px;
+}
 .hero-icon svg { width: 100%; height: 100%; }
 
-.about { position: relative; overflow: hidden; padding: 64px 0; text-align: center; }
+.about { position: relative; overflow: hidden; padding: 64px 0; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 320px; }
 .about .container { max-width: 650px; position: relative; z-index: 1; }
 
 /* Products Section */
@@ -255,11 +264,11 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
 
 /* Custom CTA Section */
-.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); border-top: 1px solid var(--border); }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); border-top: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
 
 /* Footer */
-.site-footer { border-top: 1px solid var(--border); padding: 36px 0; background: var(--paper); }
+.site-footer { border-top: 1px solid var(--border); padding: 36px 0; background: var(--paper); display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
 .footer-links { display: flex; gap: 24px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; font-weight: 500; }

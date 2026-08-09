@@ -87,7 +87,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   top: 0;
   z-index: 10;
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 79px; }
 .brand { font-family: "Yeseva One", serif; font-size: 1.4rem; color: var(--maroon-dark); }
 .header-cta { padding: 9px 18px; font-size: 0.85rem; }
 
@@ -117,15 +117,25 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
     radial-gradient(circle at 55% 15%, rgba(232,163,61,0.08) 0 2px, transparent 2px),
     var(--maroon);
   background-size: 46px 46px, 60px 60px, 38px 38px, auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 540px;
 }
 .hero .container { position: relative; z-index: 1; }
 .hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--marigold); margin-bottom: 18px; letter-spacing: 0.05em; text-transform: uppercase; }
 .hero h1 { font-size: 2.6rem; color: var(--paper); }
 .hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; color: rgba(253,246,238,0.8); }
-.hero-diya { display: block; width: 56px; height: 56px; margin: 0 auto 16px; opacity: 0.9; }
+.hero-diya {
+  display: block;
+  margin: 0 auto 16px;
+  width: 56px;
+  height: 56px;
+  opacity: 0.9;
+}
 .hero-diya svg { width: 100%; height: 100%; }
 
-.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
+.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 320px; }
 .about .container { max-width: 640px; position: relative; z-index: 1; }
 
 /* Products — a faint centered rangoli-mandala watermark, low enough
@@ -220,11 +230,11 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.78rem; white-space: nowrap; }
 
 /* Custom CTA */
-.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
 
 /* Footer */
-.site-footer { border-top: 3px solid var(--maroon); padding: 32px 0; }
+.site-footer { border-top: 3px solid var(--maroon); padding: 32px 0; display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }

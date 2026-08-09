@@ -233,7 +233,7 @@ p {
 
 .header-inner {
 
-  min-height: 76px;
+  min-height: 81px;
 
   display: flex;
 
@@ -445,6 +445,14 @@ p {
   text-align: center;
 
   background: var(--canvas);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-height: 540px;
 
 }
 
@@ -965,7 +973,7 @@ p {
 
   overflow: hidden;
 
-  padding: 105px 0;
+  padding: 56px 0;
 
   background: var(--canvas-light);
 
@@ -974,6 +982,14 @@ p {
 
   border-bottom:
     1px solid var(--border);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-height: 320px;
 
 }
 
@@ -1009,9 +1025,6 @@ p {
 
 
 .about h2 {
-
-  font-size: clamp(2.5rem, 5vw, 4rem);
-
 }
 
 
@@ -1022,7 +1035,7 @@ p {
   margin:
     25px auto 0;
 
-  font-size: 1.05rem;
+  font-size: 1rem;
 
 }
 
@@ -1665,6 +1678,14 @@ p {
 
   color: var(--white);
 
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-height: 345px;
+
 }
 
 
@@ -1750,6 +1771,14 @@ p {
 
   color:
     var(--white);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-height: 200px;
 
 }
 

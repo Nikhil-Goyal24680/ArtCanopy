@@ -74,7 +74,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   top: 0;
   z-index: 10;
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 79px; }
 .brand { font-family: "Rakkas", serif; font-size: 1.7rem; color: var(--terracotta-dark); }
 .header-cta { padding: 9px 18px; font-size: 0.85rem; }
 
@@ -202,6 +202,10 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
     radial-gradient(circle at 85% 20%, rgba(255,255,255,0.06) 0 3px, transparent 3px),
     var(--terracotta);
   background-size: 50px 50px, 60px 60px, 45px 45px, auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 540px;
 }
 .hero .container { padding: 70px 24px 56px; }
 .mirror-border {
@@ -217,7 +221,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; color: rgba(241,230,205,0.85); }
 
 /* About */
-.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
+.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 320px; }
 .about .container { max-width: 640px; }
 
 /* Products */
@@ -294,11 +298,11 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
 
 /* Custom CTA */
-.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; }
 
 /* Footer */
-.site-footer { position: relative; overflow: hidden; border-top: 3px solid var(--mustard); padding: 32px 0; }
+.site-footer { position: relative; overflow: hidden; border-top: 3px solid var(--mustard); padding: 32px 0; display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }

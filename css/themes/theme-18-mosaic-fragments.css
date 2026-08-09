@@ -90,12 +90,12 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   top: 0;
   z-index: 10;
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 79px; }
 .brand { font-family: "Cinzel", serif; font-size: 1.4rem; letter-spacing: 0.02em; color: var(--cobalt); }
 .header-cta { padding: 9px 18px; font-size: 0.85rem; }
 
 /* Hero */
-.hero { position: relative; overflow: hidden; padding: 70px 0 56px; text-align: center; background: var(--paper-alt); }
+.hero { position: relative; overflow: hidden; padding: 70px 0 56px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; min-height: 540px; }
 .hero .container { position: relative; z-index: 1; }
 .hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--coral); margin-bottom: 18px; letter-spacing: 0.06em; text-transform: uppercase; }
 .hero h1 { font-size: 2.6rem; }
@@ -140,7 +140,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   z-index: 0;
 }
 
-.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
+.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 320px; }
 .about .container { max-width: 640px; position: relative; z-index: 1; }
 .motif-sparrow-panel {
   top: 50%;
@@ -267,7 +267,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.78rem; white-space: nowrap; }
 
 /* Custom CTA */
-.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
 .motif-cocktail-panel {
   top: 50%;
@@ -277,7 +277,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 
 /* Footer */
-.site-footer { border-top: 3px solid var(--grout); padding: 32px 0; }
+.site-footer { border-top: 3px solid var(--grout); padding: 32px 0; display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
