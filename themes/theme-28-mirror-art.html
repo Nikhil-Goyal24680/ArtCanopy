@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Painting Sketch — ArtCanopy</title>
+  <title>Mirror Art — ArtCanopy</title>
   <meta
     name="description"
-    content="Hand-sketched and painted resin pieces from ArtCanopy."
+    content="Hand-painted and shell-adorned mirror art, wall pieces, keepsakes and custom orders from ArtCanopy."
   >
 
   <!-- Fonts -->
@@ -15,18 +15,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
   <!-- Theme -->
-  <link rel="stylesheet" href="../css/themes/theme-22-painting-art.css">
+  <link rel="stylesheet" href="../css/themes/theme-28-mirror-art.css">
 
   <!-- Existing category navigation -->
   <link rel="stylesheet" href="../css/category-nav.css">
 </head>
 
 <body>
+
+  <div class="theme-tag">Theme 28 — Mirror Art</div>
 
   <!-- =========================================================
        HEADER
@@ -39,7 +41,7 @@
         ArtCanopy
       </a>
 
-      <div class="header-art-mark" aria-hidden="true">
+      <div class="header-mirror-mark" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
@@ -71,14 +73,14 @@
 
 
   <!-- =========================================================
-       ARTIST TAPE / TOP DECORATION
+       PAINT STRIP
        ========================================================= -->
 
   <div class="paint-strip" aria-hidden="true">
-    <span class="paint-dab dab-1"></span>
-    <span class="paint-dab dab-2"></span>
-    <span class="paint-dab dab-3"></span>
-    <span class="paint-dab dab-4"></span>
+    <span class="paint-swatch swatch-1"></span>
+    <span class="paint-swatch swatch-2"></span>
+    <span class="paint-swatch swatch-3"></span>
+    <span class="paint-swatch swatch-4"></span>
   </div>
 
 
@@ -86,70 +88,51 @@
        DECORATIVE CORNER ART
        ========================================================= -->
 
-  <div class="art-motif motif-top-left" aria-hidden="true">
+  <div class="mirror-motif motif-top-left" aria-hidden="true">
     <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
 
       <path
-        d="M18 124
-           C42 92 55 61 94 30
-           C108 19 126 14 141 17
-           C128 28 116 42 109 59
-           C96 90 70 115 35 137"
+        d="M20 130 C46 108 60 84 70 56 C76 40 88 26 106 20"
         fill="none"
-        stroke="#1d1d1b"
-        stroke-width="5"
+        stroke="#b9705f"
+        stroke-width="4"
         stroke-linecap="round"
       />
 
-      <path
-        d="M45 111
-           C67 97 83 78 91 56"
-        fill="none"
-        stroke="#d86b45"
-        stroke-width="13"
-        stroke-linecap="round"
-        opacity="0.7"
-      />
+      <circle cx="112" cy="24" r="9" fill="#c69a5a" opacity="0.85" />
+      <circle cx="58" cy="90" r="6" fill="#7c8f6e" opacity="0.75" />
 
-      <circle
-        cx="118"
-        cy="28"
-        r="8"
-        fill="#d8a63b"
-      />
+      <!-- little shell fan -->
+      <g stroke="#8f4f42" stroke-width="3" stroke-linecap="round" opacity="0.8">
+        <path d="M34 138 L34 108" fill="none" />
+        <path d="M34 138 L50 112" fill="none" />
+        <path d="M34 138 L18 112" fill="none" />
+      </g>
+      <path d="M18 112 A16 16 0 0 1 50 112" fill="none" stroke="#c69a5a" stroke-width="3" opacity="0.8" />
 
     </svg>
   </div>
 
 
-  <div class="art-motif motif-bottom-right" aria-hidden="true">
+  <div class="mirror-motif motif-bottom-right" aria-hidden="true">
     <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
 
-      <circle
-        cx="110"
-        cy="108"
-        r="31"
-        fill="#395c54"
-        opacity="0.15"
-      />
-
       <path
-        d="M32 132
-           C53 106 65 80 71 49
-           C74 34 83 23 98 18"
+        d="M24 132 C52 118 70 96 80 68 C86 50 98 34 118 26"
         fill="none"
-        stroke="#d86b45"
-        stroke-width="7"
+        stroke="#7c8f6e"
+        stroke-width="4"
         stroke-linecap="round"
       />
 
-      <circle
-        cx="103"
-        cy="34"
-        r="10"
-        fill="#d8a63b"
-        opacity="0.85"
-      />
+      <circle cx="122" cy="30" r="7" fill="#b9705f" opacity="0.8" />
+
+      <g stroke="#8f4f42" stroke-width="3" stroke-linecap="round" opacity="0.75">
+        <path d="M114 96 L114 66" fill="none" />
+        <path d="M114 96 L130 70" fill="none" />
+        <path d="M114 96 L98 70" fill="none" />
+      </g>
+      <path d="M98 70 A16 16 0 0 1 130 70" fill="none" stroke="#c69a5a" stroke-width="3" opacity="0.75" />
 
     </svg>
   </div>
@@ -160,70 +143,85 @@
        ========================================================= -->
 
   <section class="hero">
-    <div class="hero-paper-texture" aria-hidden="true"></div>
+
     <div class="container">
+
+      <span class="hero-kicker">painted by hand, framed with shell</span>
+
       <div class="brush-line" aria-hidden="true"></div>
-      <span class="hero-kicker">painted by hand, sealed in resin</span>
-      <h1 style="margin-bottom: 25px;">Handcrafted resin art,<br>made to be kept.</h1>
-      <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand.</p>
-      <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">
+
+      <h1>Mirrors<br>worth <em>a second look.</em></h1>
+
+      <p class="hero-sub">Hand-painted motifs and shell-set borders turn a plain mirror into a piece you want on display — for hallways, dressers and gifting.</p>
+
+      <a
+        class="btn btn-primary"
+        id="hero-whatsapp-link"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
         Browse &amp; order on WhatsApp
       </a>
 
-      <!-- Abstract artist's canvas -->
+      <!-- Painted, shell-adorned mirror illustration -->
+
       <div class="hero-art" aria-hidden="true">
-        <div class="canvas-shadow"></div>
-        <div class="canvas">
-          <div class="paint-shape shape-orange"></div>
-          <div class="paint-shape shape-green"></div>
-          <div class="paint-shape shape-blue"></div>
-          <div class="paint-shape shape-yellow"></div>
 
-          <div class="paint-stroke stroke-one"></div>
-          <div class="paint-stroke stroke-two"></div>
-          <div class="paint-stroke stroke-three"></div>
+        <div class="mirror-shadow"></div>
 
-          <div class="canvas-circle circle-one"></div>
-          <div class="canvas-circle circle-two"></div>
+        <div class="mirror-piece">
 
-          <div class="canvas-signature">AC</div>
+          <div class="mirror-glass">
+            <span class="glass-shine"></span>
+          </div>
+
+          <span class="frame-bloom bloom-one"></span>
+          <span class="frame-bloom bloom-two"></span>
+          <span class="frame-bloom bloom-three"></span>
+          <span class="frame-bloom bloom-four"></span>
+
+          <span class="frame-shell shell-one"></span>
+          <span class="frame-shell shell-two"></span>
+          <span class="frame-shell shell-three"></span>
+
+          <div class="mirror-signature">hand-painted</div>
+
         </div>
 
-        <div class="palette" aria-hidden="true">
-          <span class="palette-dot dot-red"></span>
-          <span class="palette-dot dot-yellow"></span>
-          <span class="palette-dot dot-green"></span>
-          <span class="palette-dot dot-blue"></span>
-        </div>
       </div>
+
     </div>
+
   </section>
 
   <div class="paint-strip" aria-hidden="true">
-    <span class="paint-dab dab-1"></span>
-    <span class="paint-dab dab-2"></span>
-    <span class="paint-dab dab-3"></span>
-    <span class="paint-dab dab-4"></span>
+    <span class="paint-swatch swatch-1"></span>
+    <span class="paint-swatch swatch-2"></span>
+    <span class="paint-swatch swatch-3"></span>
+    <span class="paint-swatch swatch-4"></span>
   </div>
 
 
   <!-- =========================================================
-       INTRO
+       ABOUT
        ========================================================= -->
 
   <section class="about">
 
     <div class="about-background-mark" aria-hidden="true">
-      ART
+      MIRROR
     </div>
 
     <div class="container about-container">
 
-      <h2>Made with care, piece by piece</h2>
+      <span class="section-kicker">the craft</span>
 
-      <p>Every piece is poured, cured, and finished by hand — no two are exactly alike. We make resin art for gifting, preserving memories, and decorating spaces you love. Have something specific in mind — a photo, a flower, a name? We do custom orders too.</p>
+      <h2>Painted, adorned, <em>finished by hand</em></h2>
 
-      <div class="about-strokes" aria-hidden="true">
+      <p>Every mirror starts plain. We paint the motifs, set the shells and finish each border by hand, so no two frames turn out quite the same. We make mirror art for hallways, dressers, gifting and spaces that could use a little more light bounced back at them. Have a colour palette or motif in mind? We do custom orders too.</p>
+
+      <div class="about-dabs" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
@@ -240,8 +238,7 @@
 
   <section class="products" id="products">
 
-    <!-- Large faint artistic background -->
-    <div class="gallery-watermark" aria-hidden="true">
+    <div class="bloom-field" aria-hidden="true">
       <span></span>
       <span></span>
       <span></span>
@@ -249,7 +246,7 @@
 
     <div class="container">
 
-      <h2>Painting Sketch</h2>
+      <h2>Mirror Art</h2>
 
 
       <!-- Search -->
@@ -257,7 +254,7 @@
       <div class="product-search-wrap">
 
         <div class="search-icon" aria-hidden="true">
-          ✦
+          ⌕
         </div>
 
         <input
@@ -299,20 +296,20 @@
 
 
   <!-- =========================================================
-       CUSTOM ART CTA
+       CUSTOM CTA
        ========================================================= -->
 
   <section class="custom-cta">
 
-    <div class="custom-scribble" aria-hidden="true">
-      ✎
-    </div>
+    <div class="custom-brushstroke" aria-hidden="true"></div>
 
     <div class="container custom-container">
 
-      <h2>Want something custom?</h2>
+      <span class="section-kicker">made for you</span>
 
-      <p>Tell us the occasion, the colors, or the memory you want preserved — we'll work with you on a one-of-a-kind piece.</p>
+      <h2>Want a custom <em>mirror?</em></h2>
+
+      <p>A colour palette, a motif, a shape for that empty wall — tell us what you have in mind and we'll paint and adorn a piece around it.</p>
 
       <a
         class="btn btn-primary"
@@ -384,7 +381,7 @@
   <script src="../js/main.js"></script>
 
   <script>
-    initCategoryPage("Painting sketch", "category-nav");
+    initCategoryPage("Mirror", "category-nav");
   </script>
 
 </body>

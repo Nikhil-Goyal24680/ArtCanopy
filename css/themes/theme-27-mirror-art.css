@@ -1,0 +1,2463 @@
+/* ============================================================
+   ART CANOPY
+   MIRROR ART — HANDCRAFTED STUDIO
+   ============================================================ */
+
+:root {
+
+  --cream: #f5f0e7;
+  --cream-dark: #e9e0d2;
+
+  --paper: #fbf8f2;
+
+  --brown: #44382f;
+  --brown-light: #75675b;
+
+  --terracotta: #b66f59;
+  --terracotta-light: #d49a83;
+
+  --sage: #7d8a76;
+
+  --rose: #cfa79d;
+
+  --brass: #b49a68;
+
+  --glass: #c9d0cc;
+  --glass-dark: #8d9894;
+
+  --white: #fffdf8;
+
+  --line: rgba(68,56,47,0.16);
+
+  --serif:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  --sans:
+    "DM Sans",
+    sans-serif;
+
+  --mono:
+    "DM Mono",
+    monospace;
+
+}
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+
+  margin: 0;
+
+  background: var(--cream);
+
+  color: var(--brown);
+
+  font-family: var(--sans);
+
+  overflow-x: hidden;
+
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.eyebrow {
+
+  color: var(--brown-light);
+
+  font-family: var(--mono);
+
+  font-size: 0.55rem;
+
+  letter-spacing: 0.14em;
+
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.mirror-header {
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 100;
+
+  height: 72px;
+
+  background:
+    rgba(245,240,231,0.92);
+
+  border-bottom:
+    1px solid var(--line);
+
+  backdrop-filter:
+    blur(12px);
+
+}
+
+.mirror-header-inner {
+
+  width:
+    min(1380px, calc(100% - 70px));
+
+  height: 100%;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+}
+
+.mirror-logo {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  width: fit-content;
+
+  font-family: var(--serif);
+
+  font-size: 1rem;
+
+  text-decoration: none;
+
+}
+
+.logo-mark {
+
+  color: var(--terracotta);
+
+  font-size: 1.1rem;
+
+}
+
+.header-note {
+
+  color: var(--brown-light);
+
+  font-family: var(--mono);
+
+  font-size: 0.48rem;
+
+  letter-spacing: 0.13em;
+
+}
+
+.header-explore {
+
+  justify-self: end;
+
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+
+  color: var(--brown);
+
+  font-size: 0.65rem;
+
+  text-decoration: none;
+
+}
+
+.header-explore span {
+
+  color: var(--terracotta);
+
+}
+
+.header-explore:hover {
+
+  color: var(--terracotta);
+
+}
+
+
+/* ============================================================
+   CATEGORY NAV
+   ============================================================ */
+
+.mirror-nav {
+
+  position: relative;
+
+  z-index: 20;
+
+  margin-top: 72px;
+
+  background: var(--cream);
+
+  border-bottom:
+    1px solid var(--line);
+
+}
+
+.mirror-nav a {
+
+  color: var(--brown-light);
+
+}
+
+.mirror-nav a:hover {
+
+  color: var(--terracotta);
+
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.mirror-hero {
+
+  position: relative;
+
+  min-height:
+    calc(100vh - 72px);
+
+  overflow: hidden;
+
+  background: var(--cream);
+
+}
+
+.hero-texture {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.18;
+
+  background-image:
+    radial-gradient(
+      rgba(68,56,47,0.25) 0.5px,
+      transparent 0.5px
+    );
+
+  background-size:
+    9px 9px;
+
+}
+
+.hero-inner {
+
+  position: relative;
+
+  width:
+    min(1320px, calc(100% - 90px));
+
+  min-height:
+    calc(100vh - 72px);
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    0.9fr 1.15fr 0.2fr;
+
+  align-items: center;
+
+  gap: 45px;
+
+}
+
+
+/* ============================================================
+   HERO COPY
+   ============================================================ */
+
+.hero-copy {
+
+  position: relative;
+
+  z-index: 5;
+
+}
+
+.hero-copy h1 {
+
+  margin-top: 22px;
+
+  font-family: var(--serif);
+
+  font-size:
+    clamp(4.5rem, 7.8vw, 8.5rem);
+
+  font-weight: 400;
+
+  line-height: 0.82;
+
+  letter-spacing: -0.06em;
+
+}
+
+.hero-copy h1 em {
+
+  color: var(--terracotta);
+
+  font-weight: 400;
+
+}
+
+.hero-copy > p {
+
+  max-width: 370px;
+
+  margin-top: 35px;
+
+  color: var(--brown-light);
+
+  font-size: 0.75rem;
+
+  line-height: 1.8;
+
+}
+
+.hero-button {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  margin-top: 35px;
+
+  padding:
+    13px 18px;
+
+  border:
+    1px solid var(--brown);
+
+  color: var(--brown);
+
+  font-size: 0.62rem;
+
+  text-decoration: none;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+
+}
+
+.hero-button span {
+
+  color: var(--terracotta);
+
+}
+
+.hero-button:hover {
+
+  background: var(--brown);
+
+  color: var(--cream);
+
+}
+
+
+/* ============================================================
+   HERO ART
+   ============================================================ */
+
+.hero-art {
+
+  position: relative;
+
+  height: 650px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+/*
+   Slight handmade brush marks behind the mirror.
+*/
+
+.paint-stroke {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  background:
+    var(--terracotta-light);
+
+  opacity: 0.55;
+
+  filter: blur(0.3px);
+
+}
+
+.paint-stroke-one {
+
+  width: 390px;
+  height: 90px;
+
+  transform:
+    rotate(-25deg)
+    translate(-30px, 80px);
+
+}
+
+.paint-stroke-two {
+
+  width: 300px;
+  height: 70px;
+
+  background: var(--sage);
+
+  transform:
+    rotate(35deg)
+    translate(100px, -100px);
+
+  opacity: 0.35;
+
+}
+
+
+/*
+   Main handmade mirror
+*/
+
+.hero-mirror {
+
+  position: relative;
+
+  width:
+    min(520px, 80%);
+
+  aspect-ratio: 0.82 / 1;
+
+  padding: 26px;
+
+  border-radius:
+    47% 53% 48% 52% /
+    51% 46% 54% 49%;
+
+  background:
+
+    radial-gradient(
+      circle at 12% 17%,
+      var(--rose) 0 3%,
+      transparent 3.5%
+    ),
+
+    radial-gradient(
+      circle at 87% 20%,
+      var(--sage) 0 4%,
+      transparent 4.5%
+    ),
+
+    radial-gradient(
+      circle at 12% 80%,
+      var(--terracotta) 0 3%,
+      transparent 3.5%
+    ),
+
+    var(--paper);
+
+  box-shadow:
+    18px 25px 0
+    rgba(68,56,47,0.08),
+
+    0 30px 50px
+    rgba(68,56,47,0.14);
+
+  transform:
+    rotate(-2deg);
+
+}
+
+
+/*
+   Inner painted frame
+*/
+
+.hero-mirror::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 13px;
+
+  border:
+    2px solid var(--terracotta);
+
+  border-radius:
+    inherit;
+
+  opacity: 0.7;
+
+}
+
+.hero-mirror::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 20px;
+
+  border:
+    1px dashed
+    rgba(68,56,47,0.25);
+
+  border-radius:
+    inherit;
+
+}
+
+
+/* ============================================================
+   MIRROR GLASS
+   ============================================================ */
+
+.mirror-glass {
+
+  position: absolute;
+
+  inset: 24% 18% 18%;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(68,56,47,0.25);
+
+  border-radius:
+    48% 52% 50% 50%;
+
+  background:
+
+    linear-gradient(
+      125deg,
+      #d6ddda 0%,
+      #b6c0bc 28%,
+      #dce2df 50%,
+      #a6b1ad 75%,
+      #d0d7d4 100%
+    );
+
+  box-shadow:
+
+    inset 0 0 35px
+    rgba(68,56,47,0.16);
+
+}
+
+
+/*
+   Reflection
+*/
+
+.glass-reflection {
+
+  position: absolute;
+
+  width: 150%;
+
+  height: 22%;
+
+  top: 28%;
+
+  left: -25%;
+
+  background:
+    rgba(255,255,255,0.38);
+
+  transform:
+    rotate(-30deg);
+
+  filter:
+    blur(8px);
+
+}
+
+.glass-highlight {
+
+  position: absolute;
+
+  width: 35%;
+
+  height: 80%;
+
+  left: 18%;
+
+  top: -20%;
+
+  background:
+    rgba(255,255,255,0.16);
+
+  transform:
+    rotate(20deg);
+
+  filter:
+    blur(5px);
+
+}
+
+
+/* ============================================================
+   DECORATIVE FLOWERS
+   ============================================================ */
+
+.flower {
+
+  position: absolute;
+
+  z-index: 5;
+
+  color: var(--terracotta);
+
+  font-family: Georgia, serif;
+
+  text-shadow:
+    1px 2px 0
+    rgba(68,56,47,0.08);
+
+}
+
+.flower-one {
+
+  top: 11%;
+
+  left: 20%;
+
+  font-size: 2.5rem;
+
+  transform: rotate(-20deg);
+
+}
+
+.flower-two {
+
+  top: 13%;
+
+  right: 18%;
+
+  color: var(--sage);
+
+  font-size: 1.7rem;
+
+}
+
+.flower-three {
+
+  bottom: 10%;
+
+  left: 18%;
+
+  color: var(--rose);
+
+  font-size: 2rem;
+
+  transform: rotate(18deg);
+
+}
+
+.flower-four {
+
+  right: 14%;
+
+  bottom: 17%;
+
+  color: var(--terracotta);
+
+  font-size: 2.7rem;
+
+  transform: rotate(-12deg);
+
+}
+
+
+/* ============================================================
+   SHELL DETAILS
+   ============================================================ */
+
+.shell {
+
+  position: absolute;
+
+  z-index: 6;
+
+  color: var(--brass);
+
+  font-family: Georgia, serif;
+
+  font-size: 2.1rem;
+
+}
+
+.shell-one {
+
+  left: 6%;
+
+  top: 33%;
+
+  transform: rotate(30deg);
+
+}
+
+.shell-two {
+
+  right: 4%;
+
+  top: 43%;
+
+  transform: rotate(-20deg);
+
+}
+
+.shell-three {
+
+  left: 5%;
+
+  bottom: 32%;
+
+  transform: rotate(-40deg);
+
+}
+
+.shell-four {
+
+  right: 7%;
+
+  bottom: 30%;
+
+  transform: rotate(35deg);
+
+}
+
+.mirror-label {
+
+  position: absolute;
+
+  right: 18px;
+
+  bottom: 18px;
+
+  z-index: 10;
+
+  color:
+    rgba(68,56,47,0.55);
+
+  font-family: var(--mono);
+
+  font-size: 0.45rem;
+
+  letter-spacing: 0.12em;
+
+}
+
+
+/* ============================================================
+   ART SHADOW
+   ============================================================ */
+
+.art-shadow {
+
+  position: absolute;
+
+  width: 360px;
+
+  height: 30px;
+
+  bottom: 10%;
+
+  border-radius: 50%;
+
+  background:
+    rgba(68,56,47,0.13);
+
+  filter:
+    blur(14px);
+
+}
+
+
+/* ============================================================
+   HERO SIDE NOTE
+   ============================================================ */
+
+.hero-side-note {
+
+  align-self: end;
+
+  margin-bottom: 80px;
+
+}
+
+.vertical-rule {
+
+  display: block;
+
+  width: 1px;
+
+  height: 45px;
+
+  margin-bottom: 17px;
+
+  background: var(--terracotta);
+
+}
+
+.hero-side-note p {
+
+  color: var(--brown-light);
+
+  font-family: var(--serif);
+
+  font-size: 0.7rem;
+
+  font-style: italic;
+
+  line-height: 1.5;
+
+}
+
+
+/* ============================================================
+   INTRO
+   ============================================================ */
+
+.mirror-intro {
+
+  position: relative;
+
+  padding:
+    140px max(7vw, 40px);
+
+  display: grid;
+
+  grid-template-columns:
+    0.2fr 1fr 0.2fr;
+
+  gap: 50px;
+
+  background: var(--paper);
+
+  border-top:
+    1px solid var(--line);
+
+  border-bottom:
+    1px solid var(--line);
+
+}
+
+.intro-small {
+
+  color: var(--brown-light);
+
+  font-family: var(--mono);
+
+  font-size: 0.53rem;
+
+}
+
+.intro-content h2 {
+
+  font-family: var(--serif);
+
+  font-size:
+    clamp(3.4rem, 6.3vw, 7rem);
+
+  font-weight: 400;
+
+  line-height: 0.9;
+
+  letter-spacing: -0.055em;
+
+}
+
+.intro-content h2 em {
+
+  color: var(--terracotta);
+
+}
+
+.intro-content p {
+
+  max-width: 520px;
+
+  margin-top: 45px;
+
+  color: var(--brown-light);
+
+  font-size: 0.72rem;
+
+  line-height: 1.9;
+
+}
+
+.intro-decoration {
+
+  align-self: center;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+}
+
+.intro-decoration span {
+
+  display: block;
+
+  width: 50px;
+
+  height: 50px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid var(--terracotta);
+
+}
+
+.intro-decoration span:nth-child(2) {
+
+  margin-left: 25px;
+
+  border-color: var(--sage);
+
+}
+
+.intro-decoration span:nth-child(3) {
+
+  margin-left: 50px;
+
+  border-color: var(--brass);
+
+}
+
+
+/* ============================================================
+   STYLES
+   ============================================================ */
+
+.mirror-styles {
+
+  width:
+    min(1300px, calc(100% - 90px));
+
+  margin: auto;
+
+  padding:
+    145px 0;
+
+}
+
+.section-heading h2 {
+
+  margin-top: 20px;
+
+  font-family: var(--serif);
+
+  font-size:
+    clamp(3.8rem, 6vw, 6.5rem);
+
+  font-weight: 400;
+
+  line-height: 0.88;
+
+  letter-spacing: -0.055em;
+
+}
+
+
+.style-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 22px;
+
+  margin-top: 75px;
+
+}
+
+
+/* ============================================================
+   STYLE CARDS
+   ============================================================ */
+
+.style-card {
+
+  min-width: 0;
+
+}
+
+.style-art {
+
+  position: relative;
+
+  aspect-ratio: 0.78 / 1;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: var(--cream-dark);
+
+  overflow: hidden;
+
+}
+
+.style-card:nth-child(2) .style-art {
+
+  background: #eee3dc;
+
+}
+
+.style-card:nth-child(3) .style-art {
+
+  background: #e2e5db;
+
+}
+
+.style-card:nth-child(4) .style-art {
+
+  background: #e8ddd0;
+
+}
+
+
+/* ============================================================
+   MINI MIRRORS
+   ============================================================ */
+
+.mini-mirror {
+
+  position: relative;
+
+  width: 63%;
+
+  aspect-ratio: 0.82 / 1;
+
+  padding: 15px;
+
+  border-radius:
+    48% 52% 50% 50%;
+
+  background: var(--paper);
+
+  box-shadow:
+    8px 10px 20px
+    rgba(68,56,47,0.12);
+
+}
+
+.mini-glass {
+
+  position: absolute;
+
+  inset: 20% 17%;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      130deg,
+      #d8dfdc,
+      #aab4b0,
+      #e0e5e2
+    );
+
+  border:
+    1px solid
+    rgba(68,56,47,0.2);
+
+}
+
+
+/* shell mirror */
+
+.shell-mirror {
+
+  background:
+    var(--brass);
+
+}
+
+.shell-mirror i {
+
+  position: absolute;
+
+  z-index: 4;
+
+  color: var(--white);
+
+  font-style: normal;
+
+  font-size: 1.3rem;
+
+}
+
+.shell-mirror i:nth-of-type(1) {
+  top: 4%;
+  left: 20%;
+}
+
+.shell-mirror i:nth-of-type(2) {
+  top: 10%;
+  right: 13%;
+}
+
+.shell-mirror i:nth-of-type(3) {
+  bottom: 15%;
+  right: 10%;
+}
+
+.shell-mirror i:nth-of-type(4) {
+  bottom: 6%;
+  left: 17%;
+}
+
+.shell-mirror i:nth-of-type(5) {
+  left: 4%;
+  top: 43%;
+}
+
+.shell-mirror i:nth-of-type(6) {
+  right: 3%;
+  top: 42%;
+}
+
+
+/* floral mirror */
+
+.floral-mirror {
+
+  background:
+    var(--sage);
+
+}
+
+.floral-mirror b {
+
+  position: absolute;
+
+  z-index: 5;
+
+  color: var(--white);
+
+  font-size: 1.3rem;
+
+}
+
+.floral-mirror b:nth-of-type(1) {
+  top: 5%;
+  left: 18%;
+}
+
+.floral-mirror b:nth-of-type(2) {
+  top: 15%;
+  right: 8%;
+}
+
+.floral-mirror b:nth-of-type(3) {
+  bottom: 7%;
+  right: 18%;
+}
+
+.floral-mirror b:nth-of-type(4) {
+  bottom: 12%;
+  left: 9%;
+}
+
+.floral-mirror b:nth-of-type(5) {
+  left: 2%;
+  top: 44%;
+}
+
+
+/* textured */
+
+.textured-mirror {
+
+  background:
+    var(--terracotta-light);
+
+}
+
+.textured-mirror span {
+
+  position: absolute;
+
+  z-index: 4;
+
+  width: 13px;
+
+  height: 13px;
+
+  border-radius: 50%;
+
+  background: var(--brass);
+
+}
+
+.textured-mirror span:nth-of-type(1) {
+  top: 5%;
+  left: 25%;
+}
+
+.textured-mirror span:nth-of-type(2) {
+  top: 25%;
+  right: 4%;
+}
+
+.textured-mirror span:nth-of-type(3) {
+  bottom: 13%;
+  right: 15%;
+}
+
+.textured-mirror span:nth-of-type(4) {
+  bottom: 4%;
+  left: 25%;
+}
+
+
+/* earth */
+
+.earth-mirror {
+
+  background:
+    var(--brown);
+
+}
+
+.earth-sun {
+
+  position: absolute;
+
+  z-index: 4;
+
+  width: 45px;
+
+  height: 45px;
+
+  top: 7%;
+
+  right: 12%;
+
+  border-radius: 50%;
+
+  background: var(--brass);
+
+}
+
+.earth-line {
+
+  position: absolute;
+
+  z-index: 4;
+
+  width: 70%;
+
+  height: 1px;
+
+  left: 15%;
+
+  bottom: 23%;
+
+  background: var(--terracotta-light);
+
+  transform: rotate(-25deg);
+
+}
+
+
+/* ============================================================
+   STYLE INFO
+   ============================================================ */
+
+.style-info {
+
+  padding:
+    20px 2px 0;
+
+}
+
+.style-info > span {
+
+  color: var(--terracotta);
+
+  font-family: var(--mono);
+
+  font-size: 0.48rem;
+
+}
+
+.style-info h3 {
+
+  margin-top: 10px;
+
+  font-family: var(--serif);
+
+  font-size: 1.25rem;
+
+  font-weight: 400;
+
+}
+
+.style-info p {
+
+  margin-top: 7px;
+
+  color: var(--brown-light);
+
+  font-size: 0.62rem;
+
+  line-height: 1.6;
+
+}
+
+
+/* ============================================================
+   COLLECTION
+   ============================================================ */
+
+.mirror-collection {
+
+  padding:
+    150px max(5vw, 35px);
+
+  background: var(--paper);
+
+  border-top:
+    1px solid var(--line);
+
+}
+
+.collection-heading {
+
+  width:
+    min(1300px, 100%);
+
+  margin: auto;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: end;
+
+  gap: 40px;
+
+}
+
+.collection-heading h2 {
+
+  margin-top: 20px;
+
+  font-family: var(--serif);
+
+  font-size:
+    clamp(4rem, 7vw, 7.5rem);
+
+  font-weight: 400;
+
+  line-height: 0.82;
+
+  letter-spacing: -0.065em;
+
+}
+
+.collection-heading h2 em {
+
+  color: var(--terracotta);
+
+}
+
+.collection-heading > p {
+
+  max-width: 180px;
+
+  padding-bottom: 5px;
+
+  color: var(--brown-light);
+
+  font-family: var(--serif);
+
+  font-size: 0.8rem;
+
+  font-style: italic;
+
+  line-height: 1.5;
+
+}
+
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+
+.mirror-search {
+
+  width:
+    min(1300px, 100%);
+
+  margin:
+    70px auto 55px;
+
+  padding:
+    15px 0;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 17px;
+
+  border-top:
+    1px solid var(--line);
+
+  border-bottom:
+    1px solid var(--line);
+
+}
+
+.mirror-search > span:first-child {
+
+  color: var(--terracotta);
+
+  font-family: var(--mono);
+
+  font-size: 0.48rem;
+
+  letter-spacing: 0.1em;
+
+}
+
+.product-search {
+
+  flex: 1;
+
+  border: 0;
+
+  outline: 0;
+
+  background: transparent;
+
+  color: var(--brown);
+
+  font-family: var(--sans);
+
+  font-size: 0.7rem;
+
+}
+
+.product-search::placeholder {
+
+  color: var(--brown-light);
+
+}
+
+.search-icon {
+
+  color: var(--brown-light);
+
+}
+
+
+/* ============================================================
+   PRODUCTS
+   ============================================================ */
+
+.mirror-product-grid {
+
+  width:
+    min(1300px, 100%);
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap:
+    70px 25px;
+
+}
+
+.mirror-product-grid .product-card {
+
+  background: transparent;
+
+  border: 0;
+
+  border-radius: 0;
+
+  box-shadow: none;
+
+}
+
+.mirror-product-grid .product-card:nth-child(3n + 2) {
+
+  margin-top: 55px;
+
+}
+
+.mirror-product-grid .product-image {
+
+  aspect-ratio:
+    0.9 / 1;
+
+  overflow: hidden;
+
+  border-radius:
+    2px;
+
+  background:
+    var(--cream-dark);
+
+}
+
+.mirror-product-grid .product-image img {
+
+  transition:
+    transform 0.7s
+    cubic-bezier(.2,.7,.2,1);
+
+}
+
+.mirror-product-grid .product-card:hover
+.product-image img {
+
+  transform:
+    scale(1.035);
+
+}
+
+.mirror-product-grid .product-body {
+
+  padding:
+    18px 2px 0;
+
+}
+
+.mirror-product-grid .product-body h3 {
+
+  color: var(--brown);
+
+  font-family: var(--serif);
+
+  font-size: 1.25rem;
+
+  font-weight: 400;
+
+}
+
+.mirror-product-grid .product-tags {
+
+  margin-top: 7px;
+
+}
+
+.mirror-product-grid .product-tags .tag {
+
+  padding: 0;
+
+  color: var(--terracotta);
+
+  background: transparent;
+
+  font-family: var(--mono);
+
+  font-size: 0.46rem;
+
+}
+
+.mirror-product-grid .product-desc {
+
+  margin-top: 7px;
+
+  color: var(--brown-light);
+
+  font-size: 0.61rem;
+
+  line-height: 1.6;
+
+}
+
+.mirror-product-grid .product-footer {
+
+  margin-top: 14px;
+
+  padding-top: 11px;
+
+  border-top:
+    1px solid var(--line);
+
+}
+
+.mirror-product-grid .product-price {
+
+  color: var(--brown);
+
+  font-family: var(--mono);
+
+  font-size: 0.6rem;
+
+}
+
+.mirror-product-grid .product-footer .btn {
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--brown);
+
+  font-family: var(--mono);
+
+  font-size: 0.48rem;
+
+}
+
+.mirror-product-grid .product-footer .btn:hover {
+
+  color: var(--terracotta);
+
+}
+
+
+/* ============================================================
+   CUSTOM MIRROR
+   ============================================================ */
+
+.custom-mirror {
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    150px max(6vw, 40px);
+
+  background:
+    var(--terracotta);
+
+  color: var(--white);
+
+}
+
+.custom-pattern {
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0.12;
+
+  background-image:
+
+    radial-gradient(
+      circle at center,
+      transparent 0 30px,
+      rgba(255,255,255,0.5) 31px,
+      transparent 32px
+    );
+
+  background-size:
+    90px 90px;
+
+}
+
+.custom-inner {
+
+  position: relative;
+
+  width:
+    min(1180px, 100%);
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    0.9fr 1fr;
+
+  align-items: center;
+
+  gap: 90px;
+
+}
+
+
+/* custom mirror */
+
+.custom-image {
+
+  display: flex;
+
+  justify-content: center;
+
+}
+
+.custom-frame {
+
+  position: relative;
+
+  width:
+    min(410px, 85%);
+
+  aspect-ratio:
+    0.82 / 1;
+
+  border-radius:
+    49% 51% 46% 54%;
+
+  background:
+    var(--cream);
+
+  padding: 30px;
+
+  transform:
+    rotate(3deg);
+
+  box-shadow:
+    20px 25px 0
+    rgba(68,56,47,0.14);
+
+}
+
+.custom-glass {
+
+  width: 100%;
+  height: 100%;
+
+  border-radius:
+    50%;
+
+  background:
+    linear-gradient(
+      130deg,
+      #cdd4d1,
+      #a1aca7,
+      #dce2df
+    );
+
+  border:
+    1px solid
+    rgba(68,56,47,0.3);
+
+}
+
+.custom-flower,
+.custom-shell {
+
+  position: absolute;
+
+  z-index: 5;
+
+  font-family: Georgia, serif;
+
+}
+
+.custom-flower {
+
+  color: var(--terracotta);
+
+  font-size: 2rem;
+
+}
+
+.flower-a {
+
+  top: 9%;
+  left: 18%;
+
+}
+
+.flower-b {
+
+  right: 10%;
+  top: 22%;
+
+  color: var(--sage);
+
+}
+
+.flower-c {
+
+  bottom: 12%;
+  left: 14%;
+
+  color: var(--rose);
+
+}
+
+.custom-shell {
+
+  color: var(--brass);
+
+  font-size: 2.2rem;
+
+}
+
+.shell-a {
+
+  right: 5%;
+  bottom: 28%;
+
+}
+
+.shell-b {
+
+  left: 5%;
+  top: 42%;
+
+}
+
+.shell-c {
+
+  right: 17%;
+  bottom: 7%;
+
+}
+
+
+/* custom copy */
+
+.custom-copy h2 {
+
+  margin-top: 20px;
+
+  font-family: var(--serif);
+
+  font-size:
+    clamp(4rem, 7vw, 7rem);
+
+  font-weight: 400;
+
+  line-height: 0.83;
+
+  letter-spacing: -0.06em;
+
+}
+
+.custom-copy h2 em {
+
+  color: var(--cream);
+
+}
+
+.custom-copy p {
+
+  max-width: 420px;
+
+  margin-top: 40px;
+
+  color:
+    rgba(255,253,248,0.82);
+
+  font-size: 0.7rem;
+
+  line-height: 1.9;
+
+}
+
+.custom-button {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  margin-top: 35px;
+
+  padding-bottom: 8px;
+
+  border-bottom:
+    1px solid var(--white);
+
+  color: var(--white);
+
+  font-family: var(--mono);
+
+  font-size: 0.52rem;
+
+  text-decoration: none;
+
+  text-transform: uppercase;
+
+}
+
+.custom-button span {
+
+  color: var(--cream);
+
+}
+
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+
+.mirror-closing {
+
+  position: relative;
+
+  min-height: 570px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background: var(--cream);
+
+}
+
+.closing-decoration {
+
+  margin-bottom: 22px;
+
+  color: var(--terracotta);
+
+  font-size: 2rem;
+
+}
+
+.mirror-closing > p {
+
+  color: var(--brown-light);
+
+  font-family: var(--mono);
+
+  font-size: 0.5rem;
+
+  letter-spacing: 0.15em;
+
+}
+
+.mirror-closing h2 {
+
+  margin-top: 25px;
+
+  font-family: var(--serif);
+
+  font-size:
+    clamp(4.5rem, 9vw, 9rem);
+
+  font-weight: 400;
+
+  line-height: 0.82;
+
+  letter-spacing: -0.07em;
+
+}
+
+.mirror-closing h2 em {
+
+  color: var(--terracotta);
+
+}
+
+.mirror-closing > span {
+
+  position: absolute;
+
+  bottom: 30px;
+
+  color: var(--brown-light);
+
+  font-family: var(--mono);
+
+  font-size: 0.45rem;
+
+  letter-spacing: 0.12em;
+
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.mirror-footer {
+
+  min-height: 145px;
+
+  padding:
+    35px 45px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 30px;
+
+  background: var(--brown);
+
+  color: var(--cream);
+
+}
+
+.footer-brand {
+
+  display: flex;
+
+  gap: 9px;
+
+  align-items: center;
+
+  font-family: var(--serif);
+
+  font-size: 0.9rem;
+
+}
+
+.footer-brand span {
+
+  color: var(--terracotta-light);
+
+}
+
+.footer-links {
+
+  display: flex;
+
+  gap: 25px;
+
+}
+
+.footer-links a {
+
+  color: var(--cream);
+
+  font-family: var(--mono);
+
+  font-size: 0.48rem;
+
+  text-decoration: none;
+
+  text-transform: uppercase;
+
+}
+
+.footer-links a:hover {
+
+  color: var(--terracotta-light);
+
+}
+
+.mirror-footer p {
+
+  justify-self: end;
+
+  max-width: 170px;
+
+  color:
+    rgba(245,240,231,0.6);
+
+  font-family: var(--serif);
+
+  font-size: 0.7rem;
+
+  font-style: italic;
+
+  line-height: 1.5;
+
+  text-align: right;
+
+}
+
+
+/* ============================================================
+   NO RESULTS
+   ============================================================ */
+
+.no-results {
+
+  width:
+    min(1300px, 100%);
+
+  margin: auto;
+
+  padding:
+    70px 0;
+
+  color: var(--brown-light);
+
+  font-family: var(--serif);
+
+  font-size: 1.1rem;
+
+  font-style: italic;
+
+  text-align: center;
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 950px) {
+
+  .hero-inner {
+
+    grid-template-columns:
+      0.85fr 1fr;
+
+  }
+
+  .hero-side-note {
+
+    display: none;
+
+  }
+
+  .hero-copy h1 {
+
+    font-size:
+      clamp(4rem, 9vw, 7rem);
+
+  }
+
+  .style-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+  }
+
+  .mirror-product-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+  }
+
+  .mirror-product-grid
+  .product-card:nth-child(3n + 2) {
+
+    margin-top: 0;
+
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+  .mirror-header-inner {
+
+    width:
+      calc(100% - 35px);
+
+    grid-template-columns:
+      1fr auto;
+
+  }
+
+  .header-note {
+
+    display: none;
+
+  }
+
+  .mirror-nav {
+
+    margin-top: 72px;
+
+  }
+
+  .hero-inner {
+
+    width:
+      calc(100% - 35px);
+
+    padding:
+      90px 0 70px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 55px;
+
+  }
+
+  .hero-copy h1 {
+
+    font-size:
+      clamp(4rem, 19vw, 6rem);
+
+  }
+
+  .hero-copy > p {
+
+    max-width: 320px;
+
+  }
+
+  .hero-art {
+
+    height: 480px;
+
+  }
+
+  .hero-mirror {
+
+    width:
+      min(390px, 85vw);
+
+  }
+
+  .mirror-intro {
+
+    display: block;
+
+    padding:
+      90px 25px;
+
+  }
+
+  .intro-content {
+
+    margin-top: 35px;
+
+  }
+
+  .intro-content h2 {
+
+    font-size:
+      clamp(3.5rem, 16vw, 5.5rem);
+
+  }
+
+  .intro-decoration {
+
+    display: none;
+
+  }
+
+  .mirror-styles {
+
+    width:
+      calc(100% - 35px);
+
+    padding:
+      90px 0;
+
+  }
+
+  .section-heading h2 {
+
+    font-size:
+      clamp(3.5rem, 16vw, 5.5rem);
+
+  }
+
+  .style-grid {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 50px;
+
+  }
+
+  .style-art {
+
+    aspect-ratio:
+      1 / 1.05;
+
+  }
+
+  .mirror-collection {
+
+    padding:
+      100px 20px;
+
+  }
+
+  .collection-heading {
+
+    display: block;
+
+  }
+
+  .collection-heading h2 {
+
+    font-size:
+      clamp(4rem, 18vw, 6rem);
+
+  }
+
+  .collection-heading > p {
+
+    margin-top: 30px;
+
+  }
+
+  .mirror-product-grid {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 55px;
+
+  }
+
+  .mirror-product-grid
+  .product-card:nth-child(3n + 2) {
+
+    margin-top: 0;
+
+  }
+
+  .custom-mirror {
+
+    padding:
+      100px 25px;
+
+  }
+
+  .custom-inner {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 65px;
+
+  }
+
+  .custom-image {
+
+    order: 2;
+
+  }
+
+  .custom-copy {
+
+    order: 1;
+
+  }
+
+  .custom-copy h2 {
+
+    font-size:
+      clamp(4rem, 18vw, 6rem);
+
+  }
+
+  .custom-frame {
+
+    width: 75vw;
+
+  }
+
+  .mirror-closing {
+
+    min-height: 450px;
+
+  }
+
+  .mirror-closing h2 {
+
+    font-size:
+      clamp(4rem, 18vw, 6.5rem);
+
+  }
+
+  .mirror-footer {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding:
+      35px 25px;
+
+  }
+
+  .mirror-footer p {
+
+    text-align: left;
+
+  }
+
+}

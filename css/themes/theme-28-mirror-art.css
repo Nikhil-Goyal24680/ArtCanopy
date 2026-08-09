@@ -1,20 +1,18 @@
 /* ============================================================
-   ART CANOPY — PAINTING & ART THEME
+   ART CANOPY — MIRROR ART THEME
    ============================================================
 
    Concept:
-   Contemporary artist studio / handmade gallery.
+   Art applied ON a mirror — hand-painted motifs and shells
+   set into the frame, not mirror-work / mirror-chip inlay.
 
    Visual language:
-   - warm canvas paper
-   - charcoal ink
-   - terracotta pigment
-   - muted studio green
-   - ochre / yellow pigment
-   - cobalt blue accents
-   - imperfect brush strokes
-   - gallery-style whitespace
-   - hand-written notes
+   - warm ivory paper ground
+   - warm ink brown
+   - dusty rose + sage painted motifs
+   - soft gold accent
+   - cool grey-blue glass reflection (hero illustration only)
+   - one-of-one, hand-finished feel
 
    ============================================================ */
 
@@ -25,29 +23,27 @@
 
 :root {
 
-  --ink: #1d1d1b;
-  --ink-soft: #66635d;
+  --ink: #2c2620;
+  --ink-soft: #7a7167;
 
-  --paper: #f4efe5;
-  --canvas: #f4efe5;
-  --canvas-light: #faf7f0;
-  --canvas-dark: #e9dfcf;
+  --paper: #f6f1e8;
+  --paper-light: #fbf8f2;
+  --paper-alt: #ece3d2;
 
-  --terracotta: #d86b45;
-  --terracotta-dark: #a84c32;
+  --rose: #b9705f;
+  --rose-dark: #8f4f42;
 
-  --ochre: #d8a63b;
+  --sage: #7c8f6e;
 
-  --studio-green: #395c54;
-  --studio-green-light: #607c72;
+  --gold: #c69a5a;
+  --gold-light: #e0bd85;
 
-  --cobalt: #355f91;
+  --glass: #9db0b8;
+  --glass-dark: #5f767d;
 
-  --rose: #c77b7a;
+  --white: #fffdf7;
 
-  --white: #fffdf8;
-
-  --border: #d8cdbb;
+  --border: #e2d8c4;
 
   --radius: 4px;
 
@@ -71,18 +67,41 @@ body {
   margin: 0;
 
   font-family:
-    "Karla",
+    "Manrope",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
 
-  background: var(--canvas);
+  background: var(--paper);
   color: var(--ink);
 
   line-height: 1.65;
 
   overflow-x: hidden;
+
+}
+
+
+.theme-tag {
+
+  position: fixed;
+
+  bottom: 12px;
+  right: 12px;
+
+  background: var(--rose-dark);
+
+  color: var(--white);
+
+  font-size: 0.72rem;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  z-index: 50;
+
 }
 
 
@@ -95,11 +114,11 @@ h2,
 h3 {
 
   font-family:
-    "DM Serif Display",
+    "Cormorant Garamond",
     Georgia,
     serif;
 
-  font-weight: 400;
+  font-weight: 500;
 
   line-height: 1.15;
 
@@ -114,7 +133,7 @@ h2 em {
 
   font-style: italic;
 
-  color: var(--terracotta);
+  color: var(--rose-dark);
 
 }
 
@@ -176,22 +195,22 @@ p {
 
 .btn-primary {
 
-  background: var(--terracotta);
+  background: var(--rose-dark);
 
-  color: #fff;
+  color: var(--white);
 
   box-shadow:
-    7px 7px 0 var(--ochre);
+    7px 7px 0 var(--gold);
 
 }
 
 
 .btn-primary:hover {
 
-  background: var(--terracotta-dark);
+  background: var(--ink);
 
   box-shadow:
-    9px 9px 0 var(--ochre);
+    9px 9px 0 var(--gold);
 
 }
 
@@ -203,7 +222,7 @@ p {
   color: var(--white);
 
   box-shadow:
-    5px 5px 0 var(--terracotta);
+    5px 5px 0 var(--sage);
 
 }
 
@@ -221,7 +240,7 @@ p {
   z-index: 20;
 
   background:
-    rgba(244, 239, 229, 0.94);
+    rgba(246, 241, 232, 0.94);
 
   backdrop-filter: blur(10px);
 
@@ -233,7 +252,7 @@ p {
 
 .header-inner {
 
-  min-height: 81px;
+  min-height: 76px;
 
   display: flex;
 
@@ -247,7 +266,7 @@ p {
 .brand {
 
   font-family:
-    "DM Serif Display",
+    "Cormorant Garamond",
     Georgia,
     serif;
 
@@ -260,7 +279,7 @@ p {
 }
 
 
-.header-art-mark {
+.header-mirror-mark {
 
   position: absolute;
 
@@ -277,7 +296,7 @@ p {
 }
 
 
-.header-art-mark span {
+.header-mirror-mark span {
 
   display: block;
 
@@ -290,16 +309,16 @@ p {
 }
 
 
-.header-art-mark span:nth-child(1) {
-  background: var(--terracotta);
+.header-mirror-mark span:nth-child(1) {
+  background: var(--rose);
 }
 
-.header-art-mark span:nth-child(2) {
-  background: var(--ochre);
+.header-mirror-mark span:nth-child(2) {
+  background: var(--gold);
 }
 
-.header-art-mark span:nth-child(3) {
-  background: var(--studio-green);
+.header-mirror-mark span:nth-child(3) {
+  background: var(--sage);
 }
 
 
@@ -317,75 +336,50 @@ p {
 
   background: var(--ink);
 
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding-left: 4%;
+
 }
 
 
-.paint-dab {
-
-  position: absolute;
+.paint-swatch {
 
   display: block;
 
-  height: 7px;
+  width: 34px;
 
-  top: 2px;
+  height: 6px;
 
-  border-radius: 50%;
+  border-radius: 3px;
 
   opacity: 0.95;
 
 }
 
 
-.dab-1 {
-
-  width: 190px;
-
-  left: 4%;
-
-  background: var(--terracotta);
-
-  transform: rotate(-1deg);
-
+.swatch-1 {
+  background: var(--rose);
 }
 
-
-.dab-2 {
-
-  width: 130px;
-
-  left: 27%;
-
-  background: var(--ochre);
-
-  transform: rotate(2deg);
-
+.swatch-2 {
+  background: var(--gold);
+  width: 50px;
 }
 
-
-.dab-3 {
-
-  width: 230px;
-
-  left: 48%;
-
-  background: var(--studio-green);
-
-  transform: rotate(-1deg);
-
+.swatch-3 {
+  background: var(--sage);
+  width: 26px;
 }
 
-
-.dab-4 {
-
-  width: 160px;
-
-  left: 78%;
-
-  background: var(--cobalt);
-
-  transform: rotate(2deg);
-
+.swatch-4 {
+  background: var(--rose);
+  width: 40px;
+  opacity: 0.6;
 }
 
 
@@ -393,7 +387,7 @@ p {
    DECORATIVE CORNER MOTIFS
    ============================================================ */
 
-.art-motif {
+.mirror-motif {
 
   position: fixed;
 
@@ -405,7 +399,7 @@ p {
 
   z-index: 1;
 
-  opacity: 0.28;
+  opacity: 0.3;
 
 }
 
@@ -440,19 +434,11 @@ p {
 
   overflow: hidden;
 
-  padding: 50px 0 68px;
+  padding: 70px 0 56px;
 
   text-align: center;
 
-  background: var(--canvas);
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  min-height: 100px;
+  background: var(--paper);
 
 }
 
@@ -465,48 +451,19 @@ p {
 }
 
 
-.hero-paper-texture {
-
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  opacity: 0.45;
-
-  background-image:
-
-    radial-gradient(
-      circle at 20% 30%,
-      rgba(29,29,27,0.035) 0 1px,
-      transparent 1.5px
-    ),
-
-    radial-gradient(
-      circle at 70% 60%,
-      rgba(29,29,27,0.025) 0 1px,
-      transparent 1.5px
-    );
-
-  background-size:
-    25px 25px,
-    37px 37px;
-
-}
-
-
 .hero-kicker {
 
   display: inline-block;
 
-  font-family: "Caveat", cursive;
+  font-size: 0.8rem;
 
-  font-size: 1.2rem;
+  letter-spacing: 0.14em;
 
-  color: var(--terracotta);
+  text-transform: uppercase;
 
-  margin-bottom: 6px;
+  color: var(--rose-dark);
+
+  margin-bottom: 12px;
 
 }
 
@@ -515,11 +472,16 @@ p {
 
   width: 95px;
 
-  height: 7px;
+  height: 4px;
 
   margin: 0 auto 22px;
 
-  background: var(--terracotta);
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold-light),
+      var(--rose)
+    );
 
   border-radius: 50%;
 
@@ -558,7 +520,7 @@ p {
 
 
 /* ============================================================
-   HERO ART / ABSTRACT CANVAS
+   HERO ART / PAINTED, SHELL-ADORNED MIRROR
    ============================================================ */
 
 .hero-art {
@@ -584,329 +546,98 @@ p {
 }
 
 
-.canvas-shadow {
+.mirror-shadow {
 
   position: absolute;
 
-  width: 88%;
+  width: 82%;
 
-  height: 88%;
+  height: 82%;
 
-  left: 9%;
+  left: 10%;
 
-  top: 9%;
+  top: 14%;
 
-  background: rgba(29,29,27,0.14);
+  border-radius: 50%;
 
-  transform: rotate(4deg);
+  background: rgba(44,38,32,0.16);
 
-  filter: blur(1px);
+  filter: blur(6px);
 
 }
 
 
-.canvas {
+.mirror-piece {
 
   position: absolute;
 
   inset: 0;
+
+  border-radius: 50%;
+
+  background: var(--paper-alt);
+
+  border: 8px solid var(--paper-light);
+
+  box-shadow:
+    0 20px 45px rgba(44,38,32,0.2),
+    inset 0 0 0 2px rgba(198,154,90,0.4);
+
+}
+
+
+.mirror-glass {
+
+  position: absolute;
+
+  inset: 22px;
 
   overflow: hidden;
 
-  background: #e8dfce;
+  border-radius: 50%;
 
-  border: 12px solid #f9f5ec;
-
-  box-shadow:
-    0 20px 45px rgba(29,29,27,0.18);
-
-  transform:
-    rotate(-3deg);
-
-}
-
-
-/* subtle canvas grain */
-
-.canvas::after {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  opacity: 0.3;
-
-  background-image:
-
+  background:
     radial-gradient(
-      circle,
-      rgba(29,29,27,0.07) 0 0.8px,
-      transparent 1px
+      circle at 34% 30%,
+      #c3d1d6,
+      var(--glass) 55%,
+      var(--glass-dark) 100%
     );
 
-  background-size: 5px 5px;
-
-}
-
-
-/* ============================================================
-   PAINT SHAPES
-   ============================================================ */
-
-.paint-shape {
-
-  position: absolute;
-
-  border-radius: 45% 55% 50% 42%;
-
-}
-
-
-.shape-orange {
-
-  width: 220px;
-
-  height: 230px;
-
-  background: var(--terracotta);
-
-  top: 70px;
-
-  left: 55px;
-
-  transform:
-    rotate(-17deg);
-
-  opacity: 0.88;
-
-}
-
-
-.shape-green {
-
-  width: 210px;
-
-  height: 240px;
-
-  background: var(--studio-green);
-
-  bottom: -40px;
-
-  right: 35px;
-
-  transform:
-    rotate(25deg);
-
-  opacity: 0.92;
-
-}
-
-
-.shape-blue {
-
-  width: 95px;
-
-  height: 150px;
-
-  background: var(--cobalt);
-
-  right: 55px;
-
-  top: 45px;
-
-  transform:
-    rotate(20deg);
-
-  opacity: 0.88;
-
-}
-
-
-.shape-yellow {
-
-  width: 90px;
-
-  height: 95px;
-
-  background: var(--ochre);
-
-  left: 30px;
-
-  bottom: 40px;
-
-  border-radius: 50%;
-
-}
-
-
-/* ============================================================
-   BRUSH STROKES
-   ============================================================ */
-
-.paint-stroke {
-
-  position: absolute;
-
-  height: 17px;
-
-  border-radius: 50%;
-
-  transform-origin: left center;
-
-}
-
-
-.stroke-one {
-
-  width: 330px;
-
-  top: 165px;
-
-  left: 30px;
-
-  background: rgba(255,253,248,0.72);
-
-  transform:
-    rotate(19deg);
-
-}
-
-
-.stroke-two {
-
-  width: 280px;
-
-  top: 285px;
-
-  left: 95px;
-
-  background: rgba(216,166,59,0.8);
-
-  transform:
-    rotate(-28deg);
-
-}
-
-
-.stroke-three {
-
-  width: 220px;
-
-  top: 340px;
-
-  left: 30px;
-
-  background: rgba(53,95,145,0.65);
-
-  transform:
-    rotate(12deg);
-
-}
-
-
-/* ============================================================
-   CANVAS CIRCLES
-   ============================================================ */
-
-.canvas-circle {
-
-  position: absolute;
-
-  border-radius: 50%;
-
-  border: 9px solid rgba(255,253,248,0.7);
-
-}
-
-
-.circle-one {
-
-  width: 115px;
-
-  height: 115px;
-
-  top: 35px;
-
-  right: 80px;
-
-}
-
-
-.circle-two {
-
-  width: 65px;
-
-  height: 65px;
-
-  bottom: 70px;
-
-  left: 120px;
-
-  border-width: 6px;
-
-}
-
-
-/* ============================================================
-   SIGNATURE
-   ============================================================ */
-
-.canvas-signature {
-
-  position: absolute;
-
-  right: 28px;
-
-  bottom: 23px;
-
-  font-family: "Caveat", cursive;
-
-  font-size: 1.8rem;
-
-  color: rgba(29,29,27,0.7);
-
-  transform: rotate(-7deg);
-
-  z-index: 4;
-
-}
-
-
-/* ============================================================
-   PALETTE
-   ============================================================ */
-
-.palette {
-
-  position: absolute;
-
-  right: -4px;
-
-  bottom: 35px;
-
-  width: 115px;
-
-  height: 92px;
-
-  background: #cdbb9e;
-
-  border-radius:
-    55% 45% 60% 40%;
-
-  transform:
-    rotate(17deg);
-
   box-shadow:
-    5px 8px 0 rgba(29,29,27,0.12);
+    inset 0 0 12px rgba(44,38,32,0.25);
 
 }
 
 
-.palette-dot {
+.glass-shine {
+
+  position: absolute;
+
+  width: 140%;
+
+  height: 20px;
+
+  top: 26%;
+
+  left: -20%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.55),
+      transparent
+    );
+
+  transform: rotate(-24deg);
+
+}
+
+
+/* painted floral dabs set into the frame */
+
+.frame-bloom {
 
   position: absolute;
 
@@ -914,51 +645,123 @@ p {
 
   height: 18px;
 
-  border-radius: 50%;
+  border-radius: 50% 50% 50% 4%;
+
+  background:
+    radial-gradient(
+      circle at 32% 30%,
+      var(--gold-light),
+      var(--rose) 75%
+    );
+
+  box-shadow:
+    0 0 0 3px var(--paper-light);
+
+  z-index: 3;
 
 }
 
 
-.dot-red {
+.bloom-one {
+  top: -6px;
+  left: 42%;
+  transform: rotate(-8deg);
+}
 
-  background: var(--terracotta);
+.bloom-two {
+  top: 38%;
+  right: -8px;
+  transform: rotate(60deg);
+}
 
-  top: 22px;
+.bloom-three {
+  bottom: 4px;
+  right: 24%;
+  transform: rotate(140deg);
+  background:
+    radial-gradient(
+      circle at 32% 30%,
+      var(--gold-light),
+      var(--sage) 75%
+    );
+}
 
-  left: 30px;
+.bloom-four {
+  bottom: 6px;
+  left: 16%;
+  transform: rotate(-30deg);
+  width: 14px;
+  height: 14px;
+}
+
+
+/* little shells set between the painted motifs */
+
+.frame-shell {
+
+  position: absolute;
+
+  width: 16px;
+
+  height: 10px;
+
+  border-radius: 50% 50% 2px 2px / 100% 100% 2px 2px;
+
+  background:
+    repeating-conic-gradient(
+      from 200deg at 50% 100%,
+      var(--white) 0deg 9deg,
+      var(--paper-alt) 9deg 18deg
+    );
+
+  box-shadow:
+    0 0 0 3px var(--paper-light);
+
+  z-index: 3;
 
 }
 
 
-.dot-yellow {
+.shell-one {
+  top: 42%;
+  left: -9px;
+  transform: rotate(-90deg);
+}
 
-  background: var(--ochre);
+.shell-two {
+  top: 8%;
+  right: 16%;
+  transform: rotate(28deg);
+}
 
-  top: 47px;
-
-  left: 48px;
-
+.shell-three {
+  bottom: 26%;
+  left: 4%;
+  transform: rotate(-38deg);
 }
 
 
-.dot-green {
+.mirror-signature {
 
-  background: var(--studio-green);
+  position: absolute;
 
-  top: 22px;
+  left: 50%;
 
-  left: 67px;
+  bottom: 6px;
 
-}
+  transform: translateX(-50%);
 
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
-.dot-blue {
+  font-style: italic;
 
-  background: var(--cobalt);
+  font-size: 0.8rem;
 
-  top: 50px;
+  color: var(--ink-soft);
 
-  left: 78px;
+  z-index: 4;
 
 }
 
@@ -973,23 +776,15 @@ p {
 
   overflow: hidden;
 
-  padding: 56px 0;
+  padding: 105px 0;
 
-  background: var(--canvas-light);
+  background: var(--paper-light);
 
   border-top:
     1px solid var(--border);
 
   border-bottom:
     1px solid var(--border);
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  min-height: 320px;
 
 }
 
@@ -1017,7 +812,9 @@ p {
 
   letter-spacing: 0.18em;
 
-  color: var(--studio-green);
+  text-transform: uppercase;
+
+  color: var(--rose-dark);
 
   margin-bottom: 16px;
 
@@ -1025,6 +822,9 @@ p {
 
 
 .about h2 {
+
+  font-size: clamp(2.5rem, 5vw, 4rem);
+
 }
 
 
@@ -1035,7 +835,7 @@ p {
   margin:
     25px auto 0;
 
-  font-size: 1rem;
+  font-size: 1.05rem;
 
 }
 
@@ -1050,17 +850,17 @@ p {
 
   transform:
     translate(-50%, -50%)
-    rotate(-7deg);
+    rotate(-6deg);
 
   font-family:
-    "DM Serif Display",
+    "Cormorant Garamond",
     serif;
 
-  font-size: 17rem;
+  font-size: 15rem;
 
   line-height: 1;
 
-  color: var(--canvas-dark);
+  color: var(--paper-alt);
 
   pointer-events: none;
 
@@ -1069,60 +869,44 @@ p {
 }
 
 
-.about-strokes {
+.about-dabs {
 
   display: flex;
 
   justify-content: center;
 
-  gap: 7px;
+  gap: 9px;
 
   margin-top: 38px;
 
 }
 
 
-.about-strokes span {
+.about-dabs span {
 
   display: block;
 
-  height: 5px;
+  width: 14px;
 
-  border-radius: 50%;
+  height: 14px;
 
-}
-
-
-.about-strokes span:nth-child(1) {
-
-  width: 45px;
-
-  background: var(--terracotta);
-
-  transform: rotate(-4deg);
+  border-radius: 50% 50% 50% 4%;
 
 }
 
 
-.about-strokes span:nth-child(2) {
-
-  width: 65px;
-
-  background: var(--ochre);
-
-  transform: rotate(2deg);
-
+.about-dabs span:nth-child(1) {
+  background: var(--rose);
 }
 
+.about-dabs span:nth-child(2) {
+  width: 18px;
+  height: 18px;
+  background: var(--gold);
+}
 
-.about-strokes span:nth-child(3) {
-
-  width: 38px;
-
-  background: var(--studio-green);
-
-  transform: rotate(-3deg);
-
+.about-dabs span:nth-child(3) {
+  background: var(--sage);
 }
 
 
@@ -1141,7 +925,7 @@ p {
 }
 
 
-.gallery-watermark {
+.bloom-field {
 
   position: absolute;
 
@@ -1153,69 +937,61 @@ p {
 
   top: 230px;
 
-  opacity: 0.07;
-
-  transform: rotate(12deg);
+  opacity: 0.1;
 
   pointer-events: none;
 
 }
 
 
-.gallery-watermark span {
+.bloom-field span {
 
   position: absolute;
 
   display: block;
 
-  border-radius: 50%;
+  border-radius: 50% 50% 50% 4%;
+
+  border: 3px solid var(--rose);
 
 }
 
 
-.gallery-watermark span:nth-child(1) {
+.bloom-field span:nth-child(1) {
 
-  width: 330px;
+  width: 220px;
+  height: 220px;
 
-  height: 130px;
+  top: 40px;
+  left: 60px;
 
-  background: var(--terracotta);
-
-  transform:
-    rotate(28deg);
-
-}
-
-
-.gallery-watermark span:nth-child(2) {
-
-  width: 280px;
-
-  height: 150px;
-
-  background: var(--studio-green);
-
-  top: 160px;
-
-  left: 120px;
-
-  transform:
-    rotate(-35deg);
+  border-color: var(--rose);
 
 }
 
 
-.gallery-watermark span:nth-child(3) {
+.bloom-field span:nth-child(2) {
 
   width: 120px;
-
   height: 120px;
 
-  background: var(--ochre);
-
-  top: 80px;
-
+  top: 220px;
   left: 260px;
+
+  border-color: var(--gold);
+
+}
+
+
+.bloom-field span:nth-child(3) {
+
+  width: 70px;
+  height: 70px;
+
+  top: 100px;
+  left: 300px;
+
+  border-color: var(--sage);
 
 }
 
@@ -1274,7 +1050,7 @@ p {
   border-radius: 2px;
 
   background:
-    rgba(255,253,248,0.8);
+    rgba(255,253,247,0.8);
 
   color: var(--ink);
 
@@ -1291,7 +1067,7 @@ p {
 
 .product-search::placeholder {
 
-  color: #99948b;
+  color: #a89f92;
 
 }
 
@@ -1300,10 +1076,10 @@ p {
 
   outline: none;
 
-  border-color: var(--terracotta);
+  border-color: var(--rose-dark);
 
   box-shadow:
-    4px 4px 0 var(--ochre);
+    4px 4px 0 var(--gold);
 
 }
 
@@ -1318,7 +1094,7 @@ p {
 
   margin-top: 12px;
 
-  color: var(--terracotta);
+  color: var(--rose-dark);
 
   pointer-events: none;
 
@@ -1370,7 +1146,7 @@ p {
 
   flex-direction: column;
 
-  background: var(--canvas-light);
+  background: var(--paper-light);
 
   border:
     1px solid var(--border);
@@ -1378,7 +1154,7 @@ p {
   border-radius: var(--radius);
 
   box-shadow:
-    7px 9px 0 rgba(29,29,27,0.055);
+    0 10px 26px rgba(44,38,32,0.07);
 
   transition:
     transform 0.22s ease,
@@ -1387,36 +1163,19 @@ p {
 }
 
 
-.product-card:nth-child(2n) {
-
-  transform:
-    rotate(0.5deg);
-
-}
-
-
-.product-card:nth-child(3n) {
-
-  transform:
-    rotate(-0.45deg);
-
-}
-
-
 .product-card:hover {
 
   transform:
-    translateY(-7px)
-    rotate(0deg);
+    translateY(-7px);
 
   box-shadow:
-    10px 14px 0 rgba(29,29,27,0.08);
+    0 18px 36px rgba(44,38,32,0.12);
 
 }
 
 
 /* ============================================================
-   CARD PAINT MARK
+   CARD PAINT DAB MARK
    ============================================================ */
 
 .product-card::after {
@@ -1429,18 +1188,20 @@ p {
 
   right: 12px;
 
-  width: 23px;
+  width: 16px;
 
-  height: 8px;
+  height: 16px;
 
-  border-radius: 50%;
+  border-radius: 50% 50% 50% 4%;
 
-  background: var(--terracotta);
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      var(--gold-light),
+      var(--gold)
+    );
 
-  transform:
-    rotate(-18deg);
-
-  opacity: 0.8;
+  opacity: 0.9;
 
   z-index: 3;
 
@@ -1449,17 +1210,24 @@ p {
 
 .product-card:nth-child(2n)::after {
 
-  background: var(--studio-green);
-
-  transform:
-    rotate(13deg);
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      #cf8f7e,
+      var(--rose)
+    );
 
 }
 
 
 .product-card:nth-child(3n)::after {
 
-  background: var(--ochre);
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      #96a888,
+      var(--sage)
+    );
 
 }
 
@@ -1476,7 +1244,7 @@ p {
 
   overflow: hidden;
 
-  background: #e8dfce;
+  background: var(--paper-alt);
 
 }
 
@@ -1491,7 +1259,11 @@ p {
 
   color: var(--ink-soft);
 
-  font-family: "Caveat", cursive;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-style: italic;
 
   font-size: 1.15rem;
 
@@ -1499,8 +1271,8 @@ p {
 
     linear-gradient(
       130deg,
-      #eee4d3,
-      #e4d5bd
+      #e6ddcb,
+      #d3c8ae
     );
 
 }
@@ -1512,17 +1284,15 @@ p {
 
   position: absolute;
 
-  width: 140px;
+  width: 130px;
 
-  height: 55px;
+  height: 130px;
 
   border-radius: 50%;
 
-  background: var(--terracotta);
+  background: var(--glass);
 
-  opacity: 0.13;
-
-  transform: rotate(-20deg);
+  opacity: 0.18;
 
 }
 
@@ -1640,12 +1410,12 @@ p {
 .product-price {
 
   font-family:
-    "DM Serif Display",
+    "Cormorant Garamond",
     serif;
 
   font-size: 1.2rem;
 
-  color: var(--studio-green);
+  color: var(--rose-dark);
 
 }
 
@@ -1674,17 +1444,9 @@ p {
     60px 0 88px;
 
   background:
-    var(--studio-green);
+    var(--ink);
 
   color: var(--white);
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  min-height: 345px;
 
 }
 
@@ -1704,7 +1466,7 @@ p {
 
 .custom-cta .section-kicker {
 
-  color: var(--ochre);
+  color: var(--gold-light);
 
 }
 
@@ -1718,7 +1480,7 @@ p {
 
 .custom-cta h2 em {
 
-  color: var(--ochre);
+  color: var(--gold-light);
 
 }
 
@@ -1731,28 +1493,37 @@ p {
     25px auto 35px;
 
   color:
-    rgba(255,253,248,0.76);
+    rgba(255,253,247,0.76);
 
   font-size: 1.05rem;
 
 }
 
 
-.custom-scribble {
+.custom-brushstroke {
 
   position: absolute;
 
-  right: 8%;
+  right: 10%;
 
-  top: 35px;
+  top: -20px;
 
-  font-family: "Caveat", cursive;
+  width: 6px;
 
-  font-size: 9rem;
+  height: 200px;
 
-  color: rgba(255,255,255,0.06);
+  border-radius: 3px;
 
-  transform: rotate(14deg);
+  background:
+    linear-gradient(
+      180deg,
+      var(--gold-light),
+      transparent
+    );
+
+  opacity: 0.3;
+
+  transform: rotate(8deg);
 
 }
 
@@ -1771,14 +1542,6 @@ p {
 
   color:
     var(--white);
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  min-height: 200px;
 
 }
 
@@ -1831,7 +1594,7 @@ p {
 .footer-links a:hover {
 
   color:
-    var(--ochre);
+    var(--gold-light);
 
 }
 
@@ -1862,104 +1625,11 @@ p {
 
 @media (max-width: 1000px) {
 
-  .hero {
-
-    min-height: auto;
-
-  }
-
-
-  .hero-container {
-
-    grid-template-columns: 1fr;
-
-    gap: 25px;
-
-  }
-
-
-  .hero-left {
-
-    padding:
-      70px 0 25px;
-
-    text-align: center;
-
-  }
-
-
-  .brush-line {
-
-    margin-left: auto;
-    margin-right: auto;
-
-  }
-
-
-  .hero h1 {
-
-    max-width: 700px;
-
-    margin-left: auto;
-    margin-right: auto;
-
-  }
-
-
-  .hero-sub {
-
-    margin-left: auto;
-    margin-right: auto;
-
-  }
-
-
-  .hero-actions {
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-  }
-
-
   .hero-art {
 
     right: 1%;
 
     transform: translateY(-50%) scale(0.78);
-
-  }
-
-
-  .products-heading {
-
-    align-items: flex-start;
-
-    flex-direction: column;
-
-  }
-
-
-  .collection-note {
-
-    max-width: 400px;
-
-  }
-
-
-  .footer-inner {
-
-    flex-direction: column;
-
-    text-align: center;
-
-  }
-
-
-  .footer-brand {
-
-    align-items: center;
 
   }
 
@@ -1983,26 +1653,9 @@ p {
   }
 
 
-  .header-art-mark {
+  .header-mirror-mark {
 
     display: none;
-
-  }
-
-
-  .header-cta {
-
-    padding:
-      9px 14px;
-
-    font-size: 0.78rem;
-
-  }
-
-
-  .hero-left {
-
-    padding-top: 55px;
 
   }
 
@@ -2032,61 +1685,6 @@ p {
   }
 
 
-  .shape-orange {
-
-    width: 155px;
-    height: 175px;
-
-    left: 40px;
-    top: 45px;
-
-  }
-
-
-  .shape-green {
-
-    width: 155px;
-    height: 175px;
-
-  }
-
-
-  .shape-blue {
-
-    width: 70px;
-    height: 105px;
-
-  }
-
-
-  .paint-stroke {
-
-    height: 12px;
-
-  }
-
-
-  .stroke-one {
-
-    width: 230px;
-
-  }
-
-
-  .stroke-two {
-
-    width: 190px;
-
-  }
-
-
-  .stroke-three {
-
-    width: 155px;
-
-  }
-
-
   .about {
 
     padding:
@@ -2097,7 +1695,7 @@ p {
 
   .about-background-mark {
 
-    font-size: 9rem;
+    font-size: 8rem;
 
   }
 
@@ -2127,27 +1725,9 @@ p {
   }
 
 
-  .product-card:nth-child(2n),
-  .product-card:nth-child(3n) {
+  .custom-brushstroke {
 
-    transform: none;
-
-  }
-
-
-  .product-card:hover {
-
-    transform:
-      translateY(-5px);
-
-  }
-
-
-  .custom-scribble {
-
-    right: -20px;
-
-    font-size: 7rem;
+    right: -10px;
 
   }
 

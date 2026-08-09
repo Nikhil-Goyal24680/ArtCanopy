@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Painting Sketch — ArtCanopy</title>
+  <title>Resin Art — ArtCanopy</title>
   <meta
     name="description"
-    content="Hand-sketched and painted resin pieces from ArtCanopy."
+    content="Handcrafted resin art, keepsakes, decor and custom pieces from ArtCanopy."
   >
 
   <!-- Fonts -->
@@ -15,18 +15,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
   <!-- Theme -->
-  <link rel="stylesheet" href="../css/themes/theme-22-painting-art.css">
+  <link rel="stylesheet" href="../css/themes/theme-25-resin-art.css">
 
   <!-- Existing category navigation -->
   <link rel="stylesheet" href="../css/category-nav.css">
 </head>
 
 <body>
+
+  <div class="theme-tag">Theme 25 — Resin Art</div>
 
   <!-- =========================================================
        HEADER
@@ -39,7 +41,7 @@
         ArtCanopy
       </a>
 
-      <div class="header-art-mark" aria-hidden="true">
+      <div class="header-resin-mark" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
@@ -71,14 +73,14 @@
 
 
   <!-- =========================================================
-       ARTIST TAPE / TOP DECORATION
+       POUR STRIP
        ========================================================= -->
 
-  <div class="paint-strip" aria-hidden="true">
-    <span class="paint-dab dab-1"></span>
-    <span class="paint-dab dab-2"></span>
-    <span class="paint-dab dab-3"></span>
-    <span class="paint-dab dab-4"></span>
+  <div class="pour-strip" aria-hidden="true">
+    <span class="pour-drip drip-1"></span>
+    <span class="pour-drip drip-2"></span>
+    <span class="pour-drip drip-3"></span>
+    <span class="pour-drip drip-4"></span>
   </div>
 
 
@@ -86,70 +88,53 @@
        DECORATIVE CORNER ART
        ========================================================= -->
 
-  <div class="art-motif motif-top-left" aria-hidden="true">
+  <div class="resin-motif motif-top-left" aria-hidden="true">
     <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
 
       <path
-        d="M18 124
-           C42 92 55 61 94 30
-           C108 19 126 14 141 17
-           C128 28 116 42 109 59
-           C96 90 70 115 35 137"
+        d="M20 130
+           C50 100 62 68 92 36
+           C108 20 128 13 143 16"
         fill="none"
-        stroke="#1d1d1b"
-        stroke-width="5"
+        stroke="#17302c"
+        stroke-width="4"
         stroke-linecap="round"
       />
 
       <path
-        d="M45 111
-           C67 97 83 78 91 56"
+        d="M42 116
+           C64 98 80 76 89 52"
         fill="none"
-        stroke="#d86b45"
-        stroke-width="13"
+        stroke="#c69a44"
+        stroke-width="6"
         stroke-linecap="round"
-        opacity="0.7"
+        opacity="0.85"
       />
 
-      <circle
-        cx="118"
-        cy="28"
-        r="8"
-        fill="#d8a63b"
-      />
+      <circle cx="112" cy="30" r="12" fill="#0e5c53" opacity="0.9" />
+      <circle cx="126" cy="52" r="5" fill="#274f80" opacity="0.8" />
+      <circle cx="60" cy="100" r="4" fill="#c69a44" opacity="0.7" />
 
     </svg>
   </div>
 
 
-  <div class="art-motif motif-bottom-right" aria-hidden="true">
+  <div class="resin-motif motif-bottom-right" aria-hidden="true">
     <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
 
-      <circle
-        cx="110"
-        cy="108"
-        r="31"
-        fill="#395c54"
-        opacity="0.15"
-      />
+      <circle cx="108" cy="106" r="30" fill="#0e5c53" opacity="0.16" />
 
       <path
-        d="M32 132
-           C53 106 65 80 71 49
-           C74 34 83 23 98 18"
+        d="M30 134
+           C52 108 64 82 70 51
+           C73 36 82 24 98 19"
         fill="none"
-        stroke="#d86b45"
-        stroke-width="7"
+        stroke="#c69a44"
+        stroke-width="5"
         stroke-linecap="round"
       />
 
-      <circle
-        cx="103"
-        cy="34"
-        r="10"
-        fill="#d8a63b"
-        opacity="0.85"
-      />
+      <circle cx="101" cy="32" r="8" fill="#274f80" opacity="0.85" />
 
     </svg>
   </div>
@@ -160,70 +145,88 @@
        ========================================================= -->
 
   <section class="hero">
-    <div class="hero-paper-texture" aria-hidden="true"></div>
+
     <div class="container">
-      <div class="brush-line" aria-hidden="true"></div>
-      <span class="hero-kicker">painted by hand, sealed in resin</span>
-      <h1 style="margin-bottom: 25px;">Handcrafted resin art,<br>made to be kept.</h1>
-      <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand.</p>
-      <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">
+
+      <span class="hero-kicker">poured by hand, cured in light</span>
+
+      <div class="vein-line" aria-hidden="true"></div>
+
+      <h1>Depth you can<br><em>hold.</em></h1>
+
+      <p class="hero-sub">Colour suspended in resin, one pour at a time — keepsakes, decor and custom pieces made to last.</p>
+
+      <a
+        class="btn btn-primary"
+        id="hero-whatsapp-link"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
         Browse &amp; order on WhatsApp
       </a>
 
-      <!-- Abstract artist's canvas -->
+      <!-- Poured resin piece illustration -->
+
       <div class="hero-art" aria-hidden="true">
-        <div class="canvas-shadow"></div>
-        <div class="canvas">
-          <div class="paint-shape shape-orange"></div>
-          <div class="paint-shape shape-green"></div>
-          <div class="paint-shape shape-blue"></div>
-          <div class="paint-shape shape-yellow"></div>
 
-          <div class="paint-stroke stroke-one"></div>
-          <div class="paint-stroke stroke-two"></div>
-          <div class="paint-stroke stroke-three"></div>
+        <div class="resin-shadow"></div>
 
-          <div class="canvas-circle circle-one"></div>
-          <div class="canvas-circle circle-two"></div>
+        <div class="resin-disc">
 
-          <div class="canvas-signature">AC</div>
+          <span class="gold-vein vein-one"></span>
+          <span class="gold-vein vein-two"></span>
+
+          <span class="resin-bubble bubble-one"></span>
+          <span class="resin-bubble bubble-two"></span>
+          <span class="resin-bubble bubble-three"></span>
+
+          <div class="resin-bloom">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="resin-bloom-center"></div>
+
+          <div class="resin-signature">no. 01</div>
+
         </div>
 
-        <div class="palette" aria-hidden="true">
-          <span class="palette-dot dot-red"></span>
-          <span class="palette-dot dot-yellow"></span>
-          <span class="palette-dot dot-green"></span>
-          <span class="palette-dot dot-blue"></span>
-        </div>
       </div>
+
     </div>
+
   </section>
 
-  <div class="paint-strip" aria-hidden="true">
-    <span class="paint-dab dab-1"></span>
-    <span class="paint-dab dab-2"></span>
-    <span class="paint-dab dab-3"></span>
-    <span class="paint-dab dab-4"></span>
+  <div class="pour-strip" aria-hidden="true">
+    <span class="pour-drip drip-1"></span>
+    <span class="pour-drip drip-2"></span>
+    <span class="pour-drip drip-3"></span>
+    <span class="pour-drip drip-4"></span>
   </div>
 
 
   <!-- =========================================================
-       INTRO
+       ABOUT
        ========================================================= -->
 
   <section class="about">
 
     <div class="about-background-mark" aria-hidden="true">
-      ART
+      RESIN
     </div>
 
     <div class="container about-container">
 
-      <h2>Made with care, piece by piece</h2>
+      <span class="section-kicker">the material</span>
+
+      <h2>Made with care, <em>pour by pour</em></h2>
 
       <p>Every piece is poured, cured, and finished by hand — no two are exactly alike. We make resin art for gifting, preserving memories, and decorating spaces you love. Have something specific in mind — a photo, a flower, a name? We do custom orders too.</p>
 
-      <div class="about-strokes" aria-hidden="true">
+      <div class="about-drips" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
@@ -240,8 +243,7 @@
 
   <section class="products" id="products">
 
-    <!-- Large faint artistic background -->
-    <div class="gallery-watermark" aria-hidden="true">
+    <div class="bubble-field" aria-hidden="true">
       <span></span>
       <span></span>
       <span></span>
@@ -249,7 +251,7 @@
 
     <div class="container">
 
-      <h2>Painting Sketch</h2>
+      <h2>Resin Art</h2>
 
 
       <!-- Search -->
@@ -257,7 +259,7 @@
       <div class="product-search-wrap">
 
         <div class="search-icon" aria-hidden="true">
-          ✦
+          ⌕
         </div>
 
         <input
@@ -299,20 +301,20 @@
 
 
   <!-- =========================================================
-       CUSTOM ART CTA
+       CUSTOM CTA
        ========================================================= -->
 
   <section class="custom-cta">
 
-    <div class="custom-scribble" aria-hidden="true">
-      ✎
-    </div>
+    <div class="custom-drip" aria-hidden="true"></div>
 
     <div class="container custom-container">
 
-      <h2>Want something custom?</h2>
+      <span class="section-kicker">made for you</span>
 
-      <p>Tell us the occasion, the colors, or the memory you want preserved — we'll work with you on a one-of-a-kind piece.</p>
+      <h2>Want a custom <em>pour?</em></h2>
+
+      <p>A particular colour, a flower from a special day, a name or simply a shade you love — tell us what matters and we'll build a one-of-one piece around it.</p>
 
       <a
         class="btn btn-primary"
@@ -384,7 +386,7 @@
   <script src="../js/main.js"></script>
 
   <script>
-    initCategoryPage("Painting sketch", "category-nav");
+    initCategoryPage("Resin art", "category-nav");
   </script>
 
 </body>

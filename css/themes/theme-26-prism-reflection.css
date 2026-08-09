@@ -42,7 +42,7 @@ body {
 h1, h2, h3 {
   font-family: "Italiana", Georgia, serif;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.3;
   margin: 0 0 16px;
   color: var(--ink);
   letter-spacing: 0.02em;
@@ -57,14 +57,14 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   text-decoration: none;
   font-weight: 700;
   font-size: 0.92rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 .btn:hover { transform: translateY(-2px); }
 .btn-primary {
   background: var(--ink);
   color: var(--paper);
   border: 1px solid var(--gold-leaf);
-  box-shadow: 0 8px 20px rgba(43, 35, 37, 0.2);
+  box-shadow: 0 8px 18px rgba(43, 35, 37, 0.2);
 }
 .btn-primary:hover {
   background: #3d3235;
@@ -81,11 +81,11 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 /* Embellished Bead & Shell Pattern Ribbon Line */
 .embellished-border-strip {
-  height: 10px;
+  height: 20px;
   background-image:
-    radial-gradient(circle at 10px 5px, var(--gold-leaf) 0 3px, transparent 3.5px 10px),
-    radial-gradient(circle at 22px 5px, var(--blush-rose) 0 2.5px, transparent 3px 10px);
-  background-size: 24px 10px;
+    radial-gradient(circle at 12px 10px, var(--gold-leaf) 0 6px, transparent 6.5px 20px),
+    radial-gradient(circle at 28px 10px, var(--blush-rose) 0 5px, transparent 5.5px 20px);
+  background-size: 32px 20px;
   background-color: var(--paper-alt);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -99,10 +99,10 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   top: 0;
   z-index: 10;
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 81px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 79px; }
 .brand {
   font-family: "Italiana", serif;
-  font-size: 1.75rem;
+  font-size: 1.4rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   color: var(--ink);
@@ -119,14 +119,14 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   opacity: 0.8;
   z-index: 0;
 }
-.corner-motif.top-left { top: -10px; left: -10px; }
-.corner-motif.bottom-right { bottom: -10px; right: -10px; transform: rotate(180deg); }
+.corner-motif.top-left { top: -30px; left: -30px; }
+.corner-motif.bottom-right { bottom: -30px; right: -30px; transform: rotate(180deg); }
 
 /* Hero — Handcrafted Mirror Studio Atmosphere */
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 76px 0 64px;
+  padding: 0px 0 60px;
   text-align: center;
   background:
     radial-gradient(circle at 50% 30%, rgba(228, 239, 243, 0.6) 0%, transparent 60%),
@@ -136,59 +136,60 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 540px;
+  min-height: 100px;
 }
 .hero .container { position: relative; z-index: 1; }
 .hero-kicker {
   display: inline-block;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--gold-leaf);
-  margin-bottom: 16px;
-  letter-spacing: 0.12em;
+  margin-bottom: 18px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
-.hero h1 { font-size: 3rem; color: var(--ink); }
-.hero-sub { font-size: 1.08rem; margin: 0 auto 34px; max-width: 530px; color: var(--ink-soft); }
+.hero h1 { font-size: 2.6rem; color: var(--ink); }
+.hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; color: var(--ink-soft); }
 .hero-icon {
   display: block;
-  margin: 0 auto 18px;
-  width: 60px;
-  height: 60px;
+  margin: 0 auto 16px;
+  width: 56px;
+  height: 56px;
+  opacity: 0.9;
 }
 .hero-icon svg { width: 100%; height: 100%; }
 
-.about { position: relative; overflow: hidden; padding: 64px 0; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 320px; }
-.about .container { max-width: 650px; position: relative; z-index: 1; }
+.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 320px; }
+.about .container { max-width: 640px; position: relative; z-index: 1; }
 
 /* Products Section */
-.products { position: relative; overflow: hidden; padding: 20px 0 76px; }
+.products { position: relative; overflow: hidden; padding: 20px 0 72px; }
 .mirror-frame-bg {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 500px;
+  width: 420px;
+  height: 420px;
+  opacity: 0.06;
+  z-index: 0;
   pointer-events: none;
 }
 .mirror-frame-bg svg { width: 100%; height: 100%; }
-.products h2 { text-align: center; margin-bottom: 8px; font-size: 2.5rem; position: relative; z-index: 1; }
-.product-search-wrap { display: flex; justify-content: center; margin: 20px 0 16px; position: relative; z-index: 1; }
+.products h2 { text-align: center; margin-bottom: 8px; font-size: 2.3rem; position: relative; z-index: 1; }
+.product-search-wrap { display: flex; justify-content: center; margin: 16px 0 12px; position: relative; z-index: 1; }
 .product-search {
-  width: 100%; max-width: 380px; padding: 11px 20px; border-radius: 999px;
-  border: 1px solid var(--border); background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.92rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(43, 35, 37, 0.04);
+  width: 100%; max-width: 360px; padding: 10px 18px; border-radius: 999px;
+  border: 2px solid var(--border); background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.92rem;
 }
-.product-search:focus { outline: none; border-color: var(--gold-leaf); box-shadow: 0 4px 16px rgba(205, 168, 70, 0.15); }
+.product-search:focus { outline: none; border-color: var(--gold-leaf); }
 .no-results { text-align: center; color: var(--ink-soft); margin: -8px 0 24px; position: relative; z-index: 1; }
 
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 28px;
-  margin-top: 32px;
+  margin-top: 28px;
   position: relative;
   z-index: 1;
 }
@@ -200,49 +201,43 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 24px rgba(43, 35, 37, 0.06);
+  box-shadow: 0 10px 22px rgba(43, 35, 37, 0.06);
   position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
-.product-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--gold-leaf);
-  box-shadow: 0 16px 32px rgba(43, 35, 37, 0.12);
-}
+.product-card:hover { transform: translateY(-3px); }
 
 /* Hand-Embellished Frame Pin Badge (Corner Highlight) */
 .product-card::after {
   content: "";
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
   width: 14px;
-  height: 14px;
+  height: 18px;
   background: var(--blush-rose);
   border: 2px solid var(--gold-leaf);
   border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   z-index: 2;
 }
 
-.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; }
 .product-image.placeholder {
-  background: linear-gradient(135deg, var(--glass-tint) 0%, var(--paper-alt) 100%);
+  background: repeating-linear-gradient(
+    135deg, var(--paper-alt), var(--paper-alt) 10px, #efdcb8 10px, #efdcb8 20px
+  );
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ink-soft);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-size: 0.8rem;
 }
 .product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
 .product-image img.loaded { display: block; }
 .product-image:not(.placeholder) span { display: none; }
 
-.product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-.product-body h3 { font-size: 1.25rem; margin-bottom: 6px; font-family: "Italiana", serif; }
-.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.product-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.15rem; margin-bottom: 6px; font-family: "Italiana", serif; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .product-tags .tag {
   background: var(--paper-alt);
   color: var(--ink);
@@ -252,30 +247,31 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   padding: 3px 10px;
   border-radius: 999px;
 }
-.product-desc { font-size: 0.88rem; flex: 1; margin-bottom: 18px; }
+.product-desc { font-size: 0.88rem; flex: 1; margin-bottom: 16px; }
 
 .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .product-price {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink);
   font-family: "Italiana", serif;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
 }
-.product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
+.product-footer .btn { padding: 9px 18px; font-size: 0.78rem; white-space: nowrap; }
 
-/* Custom CTA Section */
+/* Custom CTA */
 .custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); border-top: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
 
 /* Footer */
-.site-footer { border-top: 1px solid var(--border); padding: 36px 0; background: var(--paper); display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
-.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-.footer-links { display: flex; gap: 24px; }
-.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+.site-footer { border-top: 1px solid var(--border); padding: 32px 0; background: var(--paper); display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
 .footer-links a:hover { color: var(--gold-leaf); }
-.footer-note { font-size: 0.82rem; margin: 0; }
+.footer-note { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {
-  .hero h1 { font-size: 2.2rem; }
+  .hero h1 { font-size: 2rem; }
   .header-cta { display: none; }
+  .mirror-frame-bg { width: 280px; height: 280px; }
 }

@@ -194,7 +194,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 0 0 8px;
+  padding: 0 0 0px;
   text-align: center;
   background:
     radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0 3px, transparent 3px),
@@ -205,7 +205,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 540px;
+  min-height: 100px;
 }
 .hero .container { padding: 70px 24px 56px; }
 .mirror-border {
