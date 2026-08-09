@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gifts — ArtCanopy</title>
-<meta name="description" content="Resin gift pieces from ArtCanopy — hover to unwrap.">
+<title>ArtCanopy — Theme 31: Wrapped &amp; Ribboned</title>
+<meta name="description" content="Gift-wrapped resin keepsakes from ArtCanopy — hover to unwrap.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/themes/theme-31-wrapped-gift-story.css">
-<link rel="stylesheet" href="../css/category-nav.css">
 </head>
 <body>
+
+  <div class="theme-tag">Theme 31 — Wrapped &amp; Ribboned</div>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -19,8 +20,6 @@
       <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Message us</a>
     </div>
   </header>
-
-  <nav class="category-nav" id="category-nav"></nav>
 
   <div class="ribbon-strip" aria-hidden="true"></div>
 
@@ -118,6 +117,6 @@
   <script src="../js/config.js"></script>
   <script src="../js/products-data.js"></script>
   <script src="../js/main.js"></script>
-  <script>initCategoryPage("Gift", "category-nav");</script>
+  <script>renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();</script>
 </body>
 </html>

@@ -1,0 +1,317 @@
+/* THEME 31 — Wrapped & Ribboned
+   Vibe: Gift category — real gift-wrap craft: candy-stripe ribbon
+   divider standing in for a printed rule, gift-box-and-bow corner
+   motifs, scattered ribbon/bow/tag illustrations through the page.
+   Keeps Theme 9's signature ribbon-peel hover reveal on product
+   cards. Built to the same density as Lippan/Mosaic/Festival —
+   illustrated motifs, not a single small icon. */
+
+:root {
+  --ink: #3a2c2e;
+  --ink-soft: #7d6a6c;
+  --paper: #fdf3ee;
+  --paper-alt: #f7e6dd;
+  --ribbon: #c0524a;
+  --ribbon-dark: #9c3d37;
+  --sage: #7c8f6e;
+  --gold: #c9a227;
+  --border: #ecd7ca;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Jost", -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.theme-tag {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: var(--ribbon);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 50;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+h1, h2, h3 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+p { margin: 0 0 16px; color: var(--ink-soft); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--ribbon); color: #fff; box-shadow: 0 10px 22px rgba(192,82,74,0.28); }
+.btn-whatsapp { background: var(--sage); color: #fff; box-shadow: 0 8px 18px rgba(124,143,110,0.28); }
+
+/* Candy-stripe ribbon divider, standing in for a printed rule */
+.ribbon-strip {
+  height: 14px;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--ribbon) 0 14px,
+    var(--gold) 14px 20px,
+    var(--ribbon) 20px 34px,
+    var(--sage) 34px 40px
+  );
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Header */
+.site-header { background: var(--paper); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; }
+.brand { font-family: "Fraunces", serif; font-size: 1.5rem; color: var(--ribbon-dark); }
+.header-cta { padding: 8px 18px; font-size: 0.85rem; }
+
+/* Fixed corner motifs — a small gift-box-and-bow illustration, same
+   technique as the other category themes' corner accents: fixed,
+   faint, mostly bleeding off the edge. */
+.decor-motif { pointer-events: none; }
+.decor-motif svg { display: block; width: 100%; height: 100%; }
+.corner-motif {
+  position: fixed;
+  width: 130px;
+  height: 130px;
+  opacity: 0.16;
+  z-index: 0;
+}
+.corner-motif.top-left { top: -30px; left: -30px; transform: rotate(-8deg); }
+.corner-motif.bottom-right { bottom: -30px; right: -30px; transform: rotate(8deg); }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; padding: 90px 0 60px; text-align: center; background: var(--paper-alt); }
+.hero .container { position: relative; z-index: 1; }
+.hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--ribbon-dark); margin-bottom: 18px; font-style: italic; }
+.hero h1 { font-size: 2.9rem; }
+.hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 480px; }
+
+.motif-giftbox-hero {
+  top: 24px;
+  left: 24px;
+  width: 130px;
+}
+.motif-tag-hero {
+  bottom: 20px;
+  right: 24px;
+  width: 90px;
+  transform: rotate(10deg);
+}
+
+/* Decorative gift-wrap artwork (illustrated SVG in the markup) */
+.decor-img {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* About */
+.about { position: relative; overflow: hidden; padding: 56px 0; text-align: center; }
+.about .container { max-width: 640px; position: relative; z-index: 1; }
+.motif-bow-about {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 110px;
+  opacity: 0.7;
+}
+
+/* Products — a growing grid, balanced left/right like the other
+   category themes' motif placement */
+.products { position: relative; overflow: hidden; padding: 20px 0 68px; }
+.products h2 { text-align: center; margin-bottom: 8px; font-size: 2.2rem; position: relative; z-index: 1; }
+.confetti-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 460px;
+  height: 460px;
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
+.confetti-bg svg { width: 100%; height: 100%; }
+.motif-tag-products {
+  top: 10px;
+  left: 20px;
+  width: 95px;
+  transform: rotate(-8deg);
+}
+.motif-bow-products {
+  bottom: 30px;
+  right: 20px;
+  width: 100px;
+  transform: rotate(6deg);
+}
+
+.product-search-wrap { display: flex; justify-content: center; margin: 16px 0 36px; position: relative; z-index: 1; }
+.product-search {
+  width: 100%; max-width: 360px; padding: 10px 20px; border-radius: 999px;
+  border: 2px solid var(--border); background: #fff; color: var(--ink); font-family: inherit; font-size: 0.92rem;
+}
+.product-search:focus { outline: none; border-color: var(--ribbon); }
+.no-results { text-align: center; color: var(--ink-soft); margin: -20px 0 24px; position: relative; z-index: 1; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 16px rgba(58,44,46,0.06);
+  transition: box-shadow 0.25s ease;
+}
+.product-card:hover { box-shadow: 0 18px 32px rgba(58,44,46,0.14); }
+
+/* the "wrapped gift" ribbon effect lives on the image container —
+   kept exactly as Theme 9 had it */
+.product-image {
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-alt);
+}
+.product-image.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.product-image img.loaded { display: block; }
+.product-image:not(.placeholder) span { display: none; }
+
+/* vertical ribbon strip */
+.product-image::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 20%;
+  margin-left: -10%;
+  background: linear-gradient(90deg, var(--ribbon-dark), var(--ribbon) 40%, var(--ribbon) 60%, var(--ribbon-dark));
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.25) inset;
+  z-index: 2;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+/* horizontal ribbon strip */
+.product-image::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 20%;
+  margin-top: -10%;
+  background: linear-gradient(0deg, var(--ribbon-dark), var(--ribbon) 40%, var(--ribbon) 60%, var(--ribbon-dark));
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.25) inset;
+  z-index: 2;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.product-card:hover .product-image::before {
+  transform: translateX(-160%);
+  opacity: 0;
+}
+.product-card:hover .product-image::after {
+  transform: translateY(-160%);
+  opacity: 0;
+}
+
+.product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.product-body h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.product-tags .tag {
+  background: var(--sage); color: #fff; font-size: 0.68rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 999px;
+}
+.product-desc { font-size: 0.9rem; flex: 1; margin-bottom: 20px; }
+
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.product-price {
+  position: relative;
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  color: #fff;
+  background: var(--sage);
+  padding: 5px 14px 5px 20px;
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%);
+  font-size: 0.95rem;
+}
+.product-price::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background: var(--paper);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+.product-footer .btn { padding: 9px 18px; font-size: 0.82rem; white-space: nowrap; }
+
+/* Custom CTA */
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); }
+.custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
+.motif-giftbox-cta {
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%) rotate(-6deg);
+  width: 110px;
+}
+
+/* Footer */
+.site-footer { padding: 36px 0; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
+.footer-links a:hover { color: var(--ribbon-dark); }
+.footer-note { font-size: 0.8rem; margin: 0; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.1rem; }
+  .header-cta { display: none; }
+
+  /* No page margin outside the container at phone width — shrink and
+     tuck each accent into its section's corner (clipped by that
+     section's overflow:hidden), same fix as Lippan/Mosaic/Painting
+     sketch needed. */
+  .motif-giftbox-hero { top: -20px; left: -30px; width: 90px; }
+  .motif-tag-hero { bottom: -15px; right: -25px; width: 70px; }
+  .motif-bow-about { top: auto; bottom: -20px; left: -25px; transform: rotate(-6deg); width: 75px; }
+  .motif-tag-products { top: -15px; left: -25px; width: 70px; }
+  .motif-bow-products { bottom: -20px; right: -25px; width: 75px; }
+  .motif-giftbox-cta { top: -15px; bottom: auto; left: -25px; transform: rotate(-6deg); width: 75px; }
+}
