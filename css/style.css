@@ -117,33 +117,6 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 .products h2 { text-align: center; margin-bottom: 8px; }
 
-.category-filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 32px;
-}
-.filter-chip {
-  display: inline-block;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  color: var(--ink-soft);
-  text-decoration: none;
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-.filter-chip:hover { border-color: var(--accent); color: var(--accent-dark); }
-.filter-chip.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
 .product-search-wrap {
   display: flex;
   justify-content: center;

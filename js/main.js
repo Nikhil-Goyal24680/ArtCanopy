@@ -50,32 +50,6 @@ function wireWhatsAppTracking() {
 let activeCategory = "All";
 let searchQuery = "";
 
-function renderCategoryFilters() {
-  const filters = document.getElementById("category-filters");
-  if (!filters || typeof CATEGORIES === "undefined") return;
-
-  const present = CATEGORIES.filter((c) =>
-    PRODUCTS.some((p) => (p.categories || []).includes(c))
-  );
-  const chips = ["All", ...present];
-
-  filters.innerHTML = chips
-    .map(
-      (c) => `
-    <button class="filter-chip${c === activeCategory ? " active" : ""}" data-category="${c}">${c}</button>
-  `
-    )
-    .join("");
-
-  filters.querySelectorAll(".filter-chip").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      activeCategory = btn.dataset.category;
-      renderCategoryFilters();
-      renderProducts();
-    });
-  });
-}
-
 function renderProducts() {
   const grid = document.getElementById("product-grid");
   const noResults = document.getElementById("no-results");
@@ -241,6 +215,5 @@ function renderHomeCategoryNav(navId) {
 // Pages call one of these after this script loads (index.html and every
 // categories/*.html also call initAnalytics(); — see js/config.js):
 //   renderHomeCategoryNav("category-nav"); renderProducts(); wireStaticLinks(); wireSearch(); initAnalytics();  (index.html — shared nav bar links out to themed category pages)
-//   renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();    (themes/ previews only — in-page filter, for comparing themes)
 //   initCategoryPage("Gift", "category-nav"); initAnalytics();                     (categories/*.html — locked to one category)
 //   initErrorPage();                                                              (404.html — also tracks the 404_hit event)
