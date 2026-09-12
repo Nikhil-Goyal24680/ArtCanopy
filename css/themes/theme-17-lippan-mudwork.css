@@ -6,7 +6,11 @@
 
 :root {
   --ink: #4a2f1f;
-  --ink-soft: #8a6a4e;
+  /* Darkened from #8a6a4e — body text was 4.47:1 against --paper (just
+     under the 4.5:1 WCAG AA minimum) and 3.98:1 against --paper-alt (the
+     products section background, so product descriptions failed worse).
+     Verified with a relative-luminance calculation against both. */
+  --ink-soft: #7f6148;
   --mud: #f1e6cd;
   --mud-dark: #dcc79a;
   --paper: #faf3e3;
