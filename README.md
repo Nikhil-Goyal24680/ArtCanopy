@@ -133,6 +133,19 @@ CI (`.github/workflows/check-layout.yml`) on any push/PR touching `css/**`,
 `categories/**`, or `index.html`. If you deliberately change the locked spec,
 update `scripts/locked-layout.config.json` in the same commit.
 
+## Site integrity check
+
+This site has no build step by design, so there's nothing that would normally
+catch a typo'd file path, an unclosed HTML tag, or a JS syntax error before it
+reaches the live site. `node scripts/check-site-integrity.mjs` is that missing
+check: it confirms every page's tags are balanced, every local stylesheet/
+script/image/favicon reference actually resolves to a real file, every
+function called from a page's inline `<script>` is genuinely declared in that
+page's own scripts, and every `.js`/`.mjs` file parses cleanly. It runs
+automatically in CI (`.github/workflows/check-site-integrity.yml`) on any
+push/PR touching `index.html`, `categories/**`, `themes/**`, `css/**`, or
+`js/**`.
+
 ## Getting a real shareable link (free hosting)
 
 This site is fully static, so it can be hosted for free with **GitHub Pages**:

@@ -1,0 +1,32 @@
+name: Check site integrity
+
+on:
+  push:
+    paths:
+      - "index.html"
+      - "categories/**"
+      - "themes/**"
+      - "css/**"
+      - "js/**"
+      - "scripts/check-site-integrity.mjs"
+  pull_request:
+    paths:
+      - "index.html"
+      - "categories/**"
+      - "themes/**"
+      - "css/**"
+      - "js/**"
+      - "scripts/check-site-integrity.mjs"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Verify HTML/JS integrity
+        run: node scripts/check-site-integrity.mjs
