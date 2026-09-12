@@ -102,6 +102,7 @@ function renderProducts() {
         <span>Photo coming soon</span>
         <img
           src="images/${p.image}"
+          ${p.imageSmall ? `srcset="images/${p.imageSmall} 600w, images/${p.image} 1400w" sizes="(max-width: 480px) 90vw, 320px"` : ""}
           alt="${p.name}"
           loading="lazy"
           onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"

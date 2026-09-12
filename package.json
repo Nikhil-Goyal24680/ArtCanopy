@@ -1,0 +1,12 @@
+{
+  "name": "artcanopy",
+  "private": true,
+  "description": "Art Destiny — static site. Plain HTML/CSS/JS with no build step; the only Node usage is the maintenance scripts in scripts/.",
+  "scripts": {
+    "sync-products": "node scripts/sync-products.mjs",
+    "check": "node scripts/check-locked-layout.mjs && node scripts/check-site-integrity.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.35.4"
+  }
+}

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // ---------------------------------------------------------------
 // Pulls the operator's Google Sheet (published as CSV) + downloads
-// each product's photo from Google Drive, then regenerates
-// js/products-data.js. Safe to run repeatedly (overwrites, never
-// deletes existing images). See README.md "Connecting the product
+// each product's photo from Google Drive, resizes/compresses it, then
+// regenerates js/products-data.js. Safe to run repeatedly (overwrites,
+// never deletes existing images). See README.md "Connecting the product
 // sheet" for how to set up the sheet + Drive folder.
 //
 // Usage:
@@ -17,6 +17,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import sharp from "sharp";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -24,6 +25,14 @@ const IMAGES_DIR = path.join(ROOT, "images");
 const OUTPUT_FILE = path.join(ROOT, "js", "products-data.js");
 
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
+
+// Every downloaded photo is re-encoded at two widths — a full size for the
+// image itself and a smaller one for `srcset`, so a phone on the product
+// grid doesn't download a desktop-sized file. Photos are never upscaled
+// past their original size.
+const IMAGE_MAIN_WIDTH = 1400;
+const IMAGE_SMALL_WIDTH = 600;
+const JPEG_QUALITY = 78;
 
 const CATEGORIES = [
   "Painting sketch",
@@ -113,7 +122,7 @@ function extractDriveFileId(link) {
   return null;
 }
 
-async function downloadDriveImage(fileId, destBasePath) {
+async function downloadDriveImage(fileId) {
   const baseUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
   let res = await fetch(baseUrl, { redirect: "follow" });
   let contentType = res.headers.get("content-type") || "";
@@ -132,11 +141,35 @@ async function downloadDriveImage(fileId, destBasePath) {
     throw new Error(`unexpected response (status ${res.status}, content-type ${contentType || "unknown"})`);
   }
 
-  const ext = contentType.includes("png") ? "png" : contentType.includes("webp") ? "webp" : "jpg";
-  const buffer = Buffer.from(await res.arrayBuffer());
-  const destPath = `${destBasePath}.${ext}`;
-  fs.writeFileSync(destPath, buffer);
-  return path.basename(destPath);
+  return Buffer.from(await res.arrayBuffer());
+}
+
+// Re-encodes a downloaded photo at two widths (see IMAGE_MAIN_WIDTH /
+// IMAGE_SMALL_WIDTH above). Auto-orients from EXIF first — a phone photo
+// that looks upright only because of rotation metadata would otherwise
+// come out sideways once that metadata gets stripped by re-encoding.
+// Photos with real transparency stay PNG; everything else becomes a
+// compressed JPEG, which is far smaller than PNG for a photograph.
+async function processImage(buffer, destBasePath) {
+  const oriented = sharp(buffer).rotate();
+  const hasAlpha = Boolean((await oriented.metadata()).hasAlpha);
+
+  async function renderAt(width, suffix) {
+    let pipeline = sharp(buffer).rotate().resize({ width, withoutEnlargement: true });
+    const ext = hasAlpha ? "png" : "jpg";
+    pipeline = hasAlpha
+      ? pipeline.png({ compressionLevel: 9, palette: true })
+      : pipeline.jpeg({ quality: JPEG_QUALITY, mozjpeg: true });
+
+    const outBuffer = await pipeline.toBuffer();
+    const destPath = `${destBasePath}${suffix}.${ext}`;
+    fs.writeFileSync(destPath, outBuffer);
+    return { filename: path.basename(destPath), bytes: outBuffer.length };
+  }
+
+  const main = await renderAt(IMAGE_MAIN_WIDTH, "");
+  const small = await renderAt(IMAGE_SMALL_WIDTH, "-sm");
+  return { main, small };
 }
 
 async function main() {
@@ -185,16 +218,26 @@ async function main() {
       `Hi! I'm interested in the ${name} — can you share more details?`;
 
     let image = `${id}.jpg`; // default guess; overwritten below if a photo downloads successfully
-    const existing = fs.readdirSync(IMAGES_DIR).find((f) => f.startsWith(`${id}.`));
+    let imageSmall = ""; // only set for photos this script has itself resized (see IMAGE_SMALL_WIDTH above)
+    const existingFiles = fs.readdirSync(IMAGES_DIR);
+    const existing = existingFiles.find((f) => f.startsWith(`${id}.`));
     if (existing) image = existing;
+    const existingSmall = existingFiles.find((f) => f.startsWith(`${id}-sm.`));
+    if (existingSmall) imageSmall = existingSmall;
 
     const photoLink = r.photo || r.image || r.drive_photo || "";
     const fileId = extractDriveFileId(photoLink);
     if (fileId) {
       try {
-        image = await downloadDriveImage(fileId, path.join(IMAGES_DIR, id));
+        const buffer = await downloadDriveImage(fileId);
+        const { main, small } = await processImage(buffer, path.join(IMAGES_DIR, id));
+        image = main.filename;
+        imageSmall = small.filename;
         photosDownloaded++;
-        console.log(`[sync-products] downloaded photo for "${name}" -> images/${image}`);
+        console.log(
+          `[sync-products] downloaded + optimized photo for "${name}" -> ` +
+          `images/${image} (${Math.round(main.bytes / 1024)}KB), images/${imageSmall} (${Math.round(small.bytes / 1024)}KB)`
+        );
       } catch (err) {
         warnings.push(`row ${rowNum} ("${name}"): couldn't download photo — ${err.message}. Keeping previous image if any.`);
       }
@@ -208,6 +251,7 @@ async function main() {
       price: r.price || "",
       description: r.description || "",
       image,
+      imageSmall,
       categories,
       whatsappMessage,
     });

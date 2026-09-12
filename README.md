@@ -71,7 +71,10 @@ Each row = one product. Row order = display order on the site.
 
 **2. Set up the Drive photos.**
 1. Create a Google Drive folder for product photos.
-2. Upload each photo there.
+2. Upload each photo there — straight off a phone is fine, no need to resize or
+   compress anything first. The sync script automatically re-encodes every photo
+   it downloads (resized, compressed, plus a smaller version for phones viewing
+   the site) before it's ever used on the live site.
 3. For each photo: right-click → **Share** → change access to **"Anyone with the
    link"** → **Copy link**. Paste that link into the `photo` column for that row.
 
@@ -95,9 +98,11 @@ Each row = one product. Row order = display order on the site.
 **Running a sync manually** (don't want to wait for the next scheduled run): go to the
 repo's **Actions** tab → **Sync products from Google Sheet** → **Run workflow**.
 
-**Running it locally** (to test before relying on the daily schedule):
+**Running it locally** (to test before relying on the daily schedule): the script
+needs its one dependency installed first (a one-time step):
 
 ```
+npm install
 SHEET_CSV_URL="<your published CSV URL>" node scripts/sync-products.mjs
 ```
 
@@ -109,8 +114,9 @@ placed manually, so it's safe to try.
 Every product without a photo shows a "Photo coming soon" placeholder automatically.
 To add one by hand: drop the image file into the `images/` folder, named to match the
 product's `image` field (e.g. `images/keychain.jpg`) — no code changes needed, it's
-picked up automatically. Keep photos reasonably small (under ~500KB each, square or
-4:3) so the page loads fast on mobile.
+picked up automatically. Photos added this way skip the automatic resizing the sheet
+sync does, so keep them reasonably small yourself (under ~500KB each, square or 4:3)
+so the page loads fast on mobile.
 
 ## Trying different looks
 
