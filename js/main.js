@@ -47,6 +47,18 @@ function wireWhatsAppTracking() {
   });
 }
 
+// Gift category's product photos are covered by a ribbon-wrap effect that
+// used to only peel back on mouse :hover — meaning it never moved at all on
+// a touchscreen. Delegated so it keeps working after the grid re-renders
+// from a search, same reasoning as wireWhatsAppTracking() above.
+function wireGiftUnwrap() {
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".product-image");
+    if (!img) return;
+    img.classList.toggle("unwrapped");
+  });
+}
+
 let activeCategory = "All";
 let searchQuery = "";
 
@@ -192,6 +204,7 @@ function initCategoryPage(categoryName, navId) {
   wireStaticLinks();
   wireSearch();
   if (navId) renderCategoryNav(navId, categoryName);
+  if (categoryName === "Gift") wireGiftUnwrap();
 }
 
 // index.html specifically: uses the same shared category-nav bar as every

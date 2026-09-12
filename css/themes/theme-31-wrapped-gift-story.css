@@ -212,40 +212,52 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-image img.loaded { display: block; }
 .product-image:not(.placeholder) span { display: none; }
 
-/* vertical ribbon strip */
+/* small tilted ribbon strip, corner-badge style — replaces the old
+   full-length cross of strips, which covered too much of the photo */
 .product-image::before {
   content: "";
   position: absolute;
-  top: 0; bottom: 0;
-  left: 50%;
-  width: 20%;
-  margin-left: -10%;
+  top: 20px;
+  left: -42px;
+  width: 150px;
+  height: 28px;
   background: linear-gradient(90deg, var(--ribbon-dark), var(--ribbon) 40%, var(--ribbon) 60%, var(--ribbon-dark));
   box-shadow: 0 0 0 2px rgba(255,255,255,0.25) inset;
+  transform: rotate(-45deg);
+  transform-origin: center;
   z-index: 2;
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
-/* horizontal ribbon strip */
+.product-card:hover .product-image::before,
+.product-image.unwrapped::before {
+  transform: rotate(-45deg) translate(-70px, -70px);
+  opacity: 0;
+}
+
+/* bow knot sitting at the corner where the ribbon strip crosses —
+   same illustration as the page's other bow motifs, just smaller */
 .product-image::after {
   content: "";
   position: absolute;
-  left: 0; right: 0;
-  top: 50%;
-  height: 20%;
-  margin-top: -10%;
-  background: linear-gradient(0deg, var(--ribbon-dark), var(--ribbon) 40%, var(--ribbon) 60%, var(--ribbon-dark));
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.25) inset;
-  z-index: 2;
+  top: 10px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 50 C36 38 18 36 16 22 C15 12 30 8 38 20 C44 28 48 40 50 50 Z' fill='%23c9a227' stroke='%239c3d37' stroke-width='1.5'/%3E%3Cpath d='M50 50 C64 38 82 36 84 22 C85 12 70 8 62 20 C56 28 52 40 50 50 Z' fill='%23c9a227' stroke='%239c3d37' stroke-width='1.5'/%3E%3Ccircle cx='50' cy='50' r='7' fill='%239c3d37'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 1px 2px rgba(58,44,46,0.35));
+  z-index: 3;
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
-.product-card:hover .product-image::before {
-  transform: translateX(-160%);
+.product-card:hover .product-image::after,
+.product-image.unwrapped::after {
+  transform: translate(-70px, -70px);
   opacity: 0;
 }
-.product-card:hover .product-image::after {
-  transform: translateY(-160%);
-  opacity: 0;
-}
+/* on a touchscreen there's no hover state to fall back to, so tapping the
+   image needs some visible affordance that it's tappable at all */
+.product-image { cursor: pointer; }
 
 .product-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
 .product-body h3 { font-size: 1.2rem; margin-bottom: 6px; }
