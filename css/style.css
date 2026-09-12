@@ -161,7 +161,6 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   font-family: inherit;
 }
 .product-search:focus {
-  outline: none;
   border-color: var(--accent);
 }
 .product-search::-webkit-search-cancel-button {

@@ -1225,8 +1225,6 @@ p {
 
 .product-search:focus {
 
-  outline: none;
-
   border-color: var(--terracotta);
 
   box-shadow:

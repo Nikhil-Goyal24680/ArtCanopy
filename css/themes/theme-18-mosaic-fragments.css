@@ -183,7 +183,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   width: 100%; max-width: 360px; padding: 10px 18px; border-radius: 3px;
   border: 2px solid var(--grout); background: #fff; color: var(--ink); font-family: inherit; font-size: 0.92rem;
 }
-.product-search:focus { outline: none; border-color: var(--cobalt); }
+.product-search:focus { border-color: var(--cobalt); }
 .no-results { text-align: center; color: var(--ink-soft); margin: -8px 0 24px; }
 
 .product-grid {

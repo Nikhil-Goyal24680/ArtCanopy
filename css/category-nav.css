@@ -114,7 +114,6 @@
   font-family: inherit;
 }
 .product-search:focus {
-  outline: none;
   border-color: var(--ink-soft);
 }
 .no-results {
@@ -150,4 +149,17 @@
   .header-cta {
     display: none;
   }
+}
+
+/* Keyboard-focus indicator, shared by every page. Only fires for keyboard
+   navigation (:focus-visible), not a mouse click, so it doesn't add a ring
+   around every button someone taps. A white ring plus a dark halo means it
+   stays visible regardless of which theme's background sits underneath —
+   unlike a plain browser-default outline, which some themes/backgrounds
+   can make hard to see, and which is easy to accidentally suppress (as a
+   couple of theme files already did for the search box, since fixed). */
+:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.65);
 }
