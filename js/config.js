@@ -16,5 +16,5 @@ const SITE_CONFIG = {
   // free property at analytics.google.com, then paste the ID here. Leave
   // blank ("") to keep analytics fully off — no script loads, nothing is
   // sent anywhere.
-  gaMeasurementId: "",
+  gaMeasurementId: "G-ET7WH2EWLT",
 };
