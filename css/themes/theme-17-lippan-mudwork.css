@@ -66,17 +66,8 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .btn-primary { background: var(--terracotta); color: #fff; box-shadow: 0 8px 18px rgba(122,46,31,0.3); }
 .btn-whatsapp { background: var(--mustard); color: #3a2a0f; box-shadow: 0 8px 18px rgba(201,152,47,0.3); }
 
-/* Header */
-.site-header {
-  background: var(--paper);
-  border-bottom: 3px solid var(--mustard);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 79px; }
-.brand { font-family: "Rakkas", serif; font-size: 1.7rem; color: var(--terracotta-dark); }
-.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+/* Header, brand, and nav chrome now live in css/category-nav.css, shared
+   by every category page so they're identical everywhere. */
 
 /* Decorative Lippan motifs — real extracted artwork (images/decor/lippan-*.png),
    one per section so they're spread across the whole page, not clustered in
@@ -205,14 +196,15 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100px;
+  box-sizing: border-box;
+  height: 433px;
 }
 .hero .container { padding: 70px 24px 56px; }
 .mirror-border {
-  height: 18px;
+  height: 16px;
   background-image:
-    repeating-linear-gradient(45deg, var(--mirror) 0 5px, transparent 5px 18px),
-    repeating-linear-gradient(-45deg, var(--mirror) 0 5px, transparent 5px 18px);
+    repeating-linear-gradient(45deg, var(--mirror) 0 5px, transparent 5px 16px),
+    repeating-linear-gradient(-45deg, var(--mirror) 0 5px, transparent 5px 16px);
   background-color: var(--terracotta-dark);
   opacity: 0.9;
 }
@@ -225,7 +217,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .about .container { max-width: 640px; }
 
 /* Products */
-.products { position: relative; overflow: hidden; padding: 20px 0 68px; background: var(--paper-alt); }
+.products { position: relative; overflow: hidden; padding: 20px 0 72px; background: var(--paper-alt); }
 .products h2 { text-align: center; margin-bottom: 8px; font-size: 2.4rem; }
 .product-search-wrap { display: flex; justify-content: center; margin: 16px 0 12px; }
 .product-search {
@@ -298,11 +290,11 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.8rem; white-space: nowrap; }
 
 /* Custom CTA */
-.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; border-top: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; }
 
 /* Footer */
-.site-footer { position: relative; overflow: hidden; border-top: 3px solid var(--mustard); padding: 32px 0; display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
+.site-footer { position: relative; overflow: hidden; border-top: 1px solid var(--mustard); padding: 32px 0; display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }

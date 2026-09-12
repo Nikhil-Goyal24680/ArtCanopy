@@ -68,7 +68,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 /* Candy-stripe ribbon divider, standing in for a printed rule */
 .ribbon-strip {
-  height: 14px;
+  height: 16px;
   background-image: repeating-linear-gradient(
     -45deg,
     var(--ribbon) 0 14px,
@@ -76,15 +76,10 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
     var(--ribbon) 20px 34px,
     var(--sage) 34px 40px
   );
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
 }
 
-/* Header */
-.site-header { background: var(--paper); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; min-height: 81px; }
-.brand { font-family: "Fraunces", serif; font-size: 1.5rem; color: var(--ribbon-dark); }
-.header-cta { padding: 8px 18px; font-size: 0.85rem; }
+/* Header, brand, and nav chrome now live in css/category-nav.css, shared
+   by every category page so they're identical everywhere. */
 
 /* Fixed corner motifs — a small gift-box-and-bow illustration, same
    technique as the other category themes' corner accents: fixed,
@@ -102,7 +97,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .corner-motif.bottom-right { bottom: -30px; right: -30px; transform: rotate(8deg); }
 
 /* Hero */
-.hero { position: relative; overflow: hidden; padding: 40px 0 70px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; min-height: 100px; }
+.hero { position: relative; overflow: hidden; padding: 35px 0 65px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; height: 401px; }
 .hero .container { position: relative; z-index: 1; }
 .hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--ribbon-dark); margin-bottom: 18px; font-style: italic; }
 .hero h1 { font-size: 2.9rem; }
@@ -140,7 +135,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 /* Products — a growing grid, balanced left/right like the other
    category themes' motif placement */
-.products { position: relative; overflow: hidden; padding: 20px 0 68px; }
+.products { position: relative; overflow: hidden; padding: 20px 0 72px; }
 .products h2 { text-align: center; margin-bottom: 8px; font-size: 2.2rem; position: relative; z-index: 1; }
 .confetti-bg {
   position: absolute;
@@ -283,7 +278,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.82rem; white-space: nowrap; }
 
 /* Custom CTA */
-.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); border-top: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
 .motif-giftbox-cta {
   top: 50%;
@@ -293,7 +288,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 
 /* Footer */
-.site-footer { padding: 36px 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
+.site-footer { padding: 32px 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }

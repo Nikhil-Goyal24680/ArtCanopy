@@ -138,25 +138,25 @@ function initCategoryPage(categoryName, navId) {
   if (navId) renderCategoryNav(navId, categoryName);
 }
 
-// index.html specifically: chips are links out to each category's own
-// themed page (categories/*.html), not an in-page filter — "All" stays
-// on the homepage since that's where everything is already shown.
-function renderHomeCategoryLinks() {
-  const filters = document.getElementById("category-filters");
-  if (!filters || typeof CATEGORIES === "undefined") return;
+// index.html specifically: uses the same shared category-nav bar as every
+// categories/*.html page, so the nav "part" of the page is identical
+// everywhere — "All pieces" marked current since that's where everything
+// is already shown, other categories link out to their themed page.
+function renderHomeCategoryNav(navId) {
+  const nav = document.getElementById(navId);
+  if (!nav || typeof CATEGORIES === "undefined") return;
 
   const present = CATEGORIES.filter((c) =>
     PRODUCTS.some((p) => (p.categories || []).includes(c))
   );
 
-  const allChip = `<span class="filter-chip active">All</span>`;
   const links = present
-    .map((c) => `<a class="filter-chip" href="categories/${categorySlug(c)}.html">${c}</a>`)
+    .map((c) => `<a class="category-nav-item" href="categories/${categorySlug(c)}.html">${c}</a>`)
     .join("");
-  filters.innerHTML = allChip + links;
+  nav.innerHTML = `<span class="category-nav-item all current">All pieces</span>${links}`;
 }
 
 // Pages call one of these after this script loads:
-//   renderHomeCategoryLinks(); renderProducts(); wireStaticLinks(); wireSearch();  (index.html — chips link out to themed category pages)
+//   renderHomeCategoryNav("category-nav"); renderProducts(); wireStaticLinks(); wireSearch();  (index.html — shared nav bar links out to themed category pages)
 //   renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();    (themes/ previews only — in-page filter, for comparing themes)
 //   initCategoryPage("Gift", "category-nav");                                      (categories/*.html — locked to one category)

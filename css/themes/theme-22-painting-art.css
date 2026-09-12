@@ -208,100 +208,6 @@ p {
 }
 
 
-/* ============================================================
-   HEADER
-   ============================================================ */
-
-.site-header {
-
-  position: sticky;
-
-  top: 0;
-
-  z-index: 20;
-
-  background:
-    rgba(244, 239, 229, 0.94);
-
-  backdrop-filter: blur(10px);
-
-  border-bottom:
-    1px solid var(--border);
-
-}
-
-
-.header-inner {
-
-  min-height: 81px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-}
-
-
-.brand {
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size: 1.55rem;
-
-  color: var(--ink);
-
-  text-decoration: none;
-
-}
-
-
-.header-art-mark {
-
-  position: absolute;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 5px;
-
-}
-
-
-.header-art-mark span {
-
-  display: block;
-
-  width: 7px;
-
-  height: 7px;
-
-  border-radius: 50%;
-
-}
-
-
-.header-art-mark span:nth-child(1) {
-  background: var(--terracotta);
-}
-
-.header-art-mark span:nth-child(2) {
-  background: var(--ochre);
-}
-
-.header-art-mark span:nth-child(3) {
-  background: var(--studio-green);
-}
-
 
 /* ============================================================
    PAINT STRIP
@@ -311,7 +217,7 @@ p {
 
   position: relative;
 
-  height: 11px;
+  height: 16px;
 
   overflow: hidden;
 
@@ -328,7 +234,7 @@ p {
 
   height: 7px;
 
-  top: 2px;
+  top: 4px;
 
   border-radius: 50%;
 
@@ -440,7 +346,7 @@ p {
 
   overflow: hidden;
 
-  padding: 50px 0 68px;
+  padding: 36px 0 55px;
 
   text-align: center;
 
@@ -452,7 +358,9 @@ p {
 
   justify-content: center;
 
-  min-height: 100px;
+  box-sizing: border-box;
+
+  height: 401px;
 
 }
 
@@ -1136,7 +1044,7 @@ p {
 
   overflow: hidden;
 
-  padding: 95px 0 115px;
+  padding: 20px 0 72px;
 
 }
 
@@ -1764,7 +1672,7 @@ p {
 .site-footer {
 
   padding:
-    42px 0;
+    32px 0;
 
   background:
     var(--ink);
@@ -1801,6 +1709,12 @@ p {
 .footer-inner .brand {
 
   color: var(--white);
+
+}
+
+.footer-inner .brand-logo {
+
+  height: 54px;
 
 }
 
@@ -1979,13 +1893,6 @@ p {
   .header-inner {
 
     min-height: 68px;
-
-  }
-
-
-  .header-art-mark {
-
-    display: none;
 
   }
 

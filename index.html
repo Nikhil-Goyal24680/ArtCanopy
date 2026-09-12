@@ -3,25 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArtCanopy — Handcrafted Resin Art</title>
+<link rel="icon" type="image/png" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+<title>Art Destiny — Handcrafted Resin Art</title>
 <meta name="description" content="Handcrafted resin art for gifting, memories, and decor. Browse our pieces and order directly on WhatsApp.">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/category-nav.css">
 </head>
 <body>
 
   <header class="site-header">
     <div class="container header-inner">
-      <div class="brand">ArtCanopy</div>
+      <div class="brand"><img src="images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></div>
       <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Message us</a>
     </div>
   </header>
 
+  <nav class="category-nav" id="category-nav"></nav>
+
   <section class="hero">
+    <div class="home-shimmer-strip" aria-hidden="true"></div>
     <div class="container">
+      <span class="hero-kicker">cast by hand, made to last</span>
       <h1>Handcrafted resin art,<br>made to be kept.</h1>
       <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand.</p>
       <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">Browse &amp; order on WhatsApp</a>
     </div>
+    <div class="home-shimmer-strip" aria-hidden="true"></div>
   </section>
 
   <section class="about">
@@ -34,9 +42,6 @@
   <section class="products" id="products">
     <div class="container">
       <h2>Our pieces</h2>
-      <div class="category-filters" id="category-filters">
-        <!-- Populated by js/main.js from js/products-data.js -->
-      </div>
       <div class="product-search-wrap">
         <input
           type="search"
@@ -63,18 +68,18 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="brand">ArtCanopy</div>
+      <div class="brand"><img src="images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></div>
       <div class="footer-links">
         <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
       </div>
-      <p class="footer-note">&copy; <span id="footer-year"></span> ArtCanopy. All pieces handmade to order.</p>
+      <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny. All pieces handmade to order.</p>
     </div>
   </footer>
 
   <script src="js/config.js"></script>
   <script src="js/products-data.js"></script>
   <script src="js/main.js"></script>
-  <script>renderHomeCategoryLinks(); renderProducts(); wireStaticLinks(); wireSearch();</script>
+  <script>renderHomeCategoryNav("category-nav"); renderProducts(); wireStaticLinks(); wireSearch();</script>
 </body>
 </html>

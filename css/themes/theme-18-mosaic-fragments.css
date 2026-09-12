@@ -69,7 +69,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 /* decorative tesserae strip — a repeating pinwheel checker mimicking tiled fragments */
 .tile-strip {
-  height: 20px;
+  height: 16px;
   background-image: repeating-conic-gradient(
     from 0deg,
     var(--cobalt) 0deg 90deg,
@@ -77,25 +77,14 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
     var(--ochre) 180deg 270deg,
     var(--coral) 270deg 360deg
   );
-  background-size: 24px 24px;
-  border-top: 2px solid var(--grout);
-  border-bottom: 2px solid var(--grout);
+  background-size: 20px 20px;
 }
 
-/* Header */
-.site-header {
-  background: var(--paper);
-  border-bottom: 3px solid var(--grout);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; min-height: 79px; }
-.brand { font-family: "Cinzel", serif; font-size: 1.4rem; letter-spacing: 0.02em; color: var(--cobalt); }
-.header-cta { padding: 9px 18px; font-size: 0.85rem; }
+/* Header, brand, and nav chrome now live in css/category-nav.css, shared
+   by every category page so they're identical everywhere. */
 
 /* Hero */
-.hero { position: relative; overflow: hidden; padding: 70px 0 56px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; min-height: 100px; }
+.hero { position: relative; overflow: hidden; padding: 70px 0 56px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; height: 401px; }
 .hero .container { position: relative; z-index: 1; }
 .hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--coral); margin-bottom: 18px; letter-spacing: 0.06em; text-transform: uppercase; }
 .hero h1 { font-size: 2.6rem; }
@@ -230,7 +219,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   z-index: 3;
 }
 
-.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; border-bottom: 3px solid var(--grout); }
+.product-image { aspect-ratio: 4 / 3; position: relative; overflow: hidden; border-bottom: 1px solid var(--grout); }
 .product-image.placeholder {
   background: repeating-linear-gradient(
     135deg, var(--paper-alt), var(--paper-alt) 10px, #e2d6ba 10px, #e2d6ba 20px
@@ -267,7 +256,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .product-footer .btn { padding: 9px 18px; font-size: 0.78rem; white-space: nowrap; }
 
 /* Custom CTA */
-.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
+.custom-cta { position: relative; overflow: hidden; padding: 60px 0 88px; text-align: center; background: var(--paper-alt); border-top: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; min-height: 345px; }
 .custom-cta .container { max-width: 600px; position: relative; z-index: 1; }
 .motif-cocktail-panel {
   top: 50%;
@@ -277,7 +266,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 
 /* Footer */
-.site-footer { border-top: 3px solid var(--grout); padding: 32px 0; display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
+.site-footer { border-top: 1px solid var(--grout); padding: 32px 0; display: flex; flex-direction: column; justify-content: center; min-height: 200px; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }

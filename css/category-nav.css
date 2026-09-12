@@ -1,7 +1,62 @@
-/* Shared cross-category navigation strip, used on every categories/*.html
-   page. Deliberately uses only variables every theme defines (--ink,
-   --ink-soft, --border, --paper) so it blends into whichever theme it's
-   loaded alongside without per-theme tuning. */
+/* Shared header chrome — loaded on every page (index + all categories).
+   Header and nav are a fixed part of the site: identical layout, type,
+   and spacing everywhere. The only thing that's allowed to differ between
+   categories is background/border tint, and even that comes for free from
+   each theme's own --paper/--border variables — there is no per-theme
+   override of these rules anywhere. */
+.site-header {
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  min-height: 96px;
+  box-sizing: border-box;
+}
+.brand {
+  display: flex;
+  align-items: center;
+}
+.brand-logo {
+  display: block;
+  height: 64px;
+  width: auto;
+}
+.site-footer .brand-logo {
+  height: 54px;
+}
+.header-cta {
+  display: inline-block;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  text-decoration: none;
+  background: #25a75b;
+  color: #fff;
+  border: none;
+  box-shadow: none;
+  transition: background 0.15s ease;
+}
+.header-cta:hover {
+  background: #1c8548;
+}
+
+/* Shared cross-category navigation strip, used on every page. Deliberately
+   uses only variables every theme defines (--ink, --ink-soft, --border,
+   --paper) so it blends into whichever theme it's loaded alongside without
+   per-theme tuning. */
 
 .category-nav {
   display: flex;
@@ -13,6 +68,7 @@
   border-bottom: 1px solid var(--border);
 }
 .category-nav-item {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
   text-decoration: none;
@@ -63,4 +119,27 @@
   text-align: center;
   color: var(--ink-soft);
   margin: -8px 0 32px;
+}
+
+/* Shared hero content rhythm — icon, kicker, heading, sub, and button sit
+   at the same position on every page. The icon slot is always reserved at
+   a fixed size; pages with no real icon get an empty placeholder in its
+   place so nothing below it shifts. The heading gets a fixed minimum
+   height so each theme's own font size doesn't push the paragraph/button
+   to a different position further down. Each theme keeps its own colors,
+   fonts, and copy — only these two box dimensions are shared. */
+.hero-icon,
+.hero-diya {
+  display: block;
+  margin: 0 auto 16px;
+  width: 56px;
+  height: 56px;
+}
+.hero-icon svg,
+.hero-diya svg {
+  width: 100%;
+  height: 100%;
+}
+.hero h1 {
+  min-height: 108px;
 }

@@ -70,49 +70,49 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   color: #fff;
 }
 
-/* Header */
-.site-header {
-  border-bottom: 1px solid var(--border);
-  background: var(--paper);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-}
-.brand {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.4rem;
-  letter-spacing: 0.02em;
-}
-.header-cta { padding: 8px 16px; font-size: 0.85rem; }
+/* Header, brand, and nav chrome now live in css/category-nav.css, shared
+   by every page (index + all categories) so they're identical everywhere. */
 
 /* Hero */
 .hero {
-  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 433px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 89px 0 44px;
   background: linear-gradient(180deg, var(--paper-alt), var(--paper));
   text-align: center;
 }
+.hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--accent-dark); margin-bottom: 18px; }
 .hero h1 { font-size: 2.4rem; }
 .hero-sub { font-size: 1.05rem; margin-bottom: 28px; }
+.home-shimmer-strip {
+  height: 16px;
+  background: linear-gradient(90deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+}
 
 /* About */
 .about {
+  position: relative;
+  overflow: hidden;
   padding: 56px 0;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
 }
 .about .container { max-width: 680px; }
 
 /* Products */
 .products {
-  padding: 40px 0 64px;
+  padding: 20px 0 72px;
   background: var(--paper-alt);
 }
-.products h2 { text-align: center; margin-bottom: 32px; }
+.products h2 { text-align: center; margin-bottom: 8px; }
 
 .category-filters {
   display: flex;
@@ -249,7 +249,14 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 /* Custom CTA */
 .custom-cta {
-  padding: 64px 0;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 0 88px;
+  min-height: 345px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid var(--border);
   text-align: center;
 }
 .custom-cta .container { max-width: 600px; }
@@ -258,6 +265,10 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 32px 0;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .footer-inner {
   display: flex;
