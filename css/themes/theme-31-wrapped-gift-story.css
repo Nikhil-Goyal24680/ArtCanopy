@@ -13,7 +13,10 @@
   --paper-alt: #f7e6dd;
   --ribbon: #c0524a;
   --ribbon-dark: #9c3d37;
-  --sage: #7c8f6e;
+  /* Darkened slightly from #7c8f6e so white text (the WhatsApp button, the
+     tag chip, the price flag) reaches 4.5:1 WCAG AA contrast — verified
+     with a relative-luminance calculation. */
+  --sage: #6a7b5e;
   --gold: #c9a227;
   --border: #ecd7ca;
   --radius: 14px;

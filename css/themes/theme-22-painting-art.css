@@ -35,6 +35,10 @@
 
   --terracotta: #d86b45;
   --terracotta-dark: #a84c32;
+  /* Button-only — a darker shade of --terracotta so white button text
+     reaches 4.5:1 WCAG AA contrast, kept separate from --terracotta itself
+     so the many illustration/motif fills using that color stay unchanged. */
+  --terracotta-btn: #c55229;
 
   --ochre: #d8a63b;
 
@@ -176,7 +180,7 @@ p {
 
 .btn-primary {
 
-  background: var(--terracotta);
+  background: var(--terracotta-btn);
 
   color: #fff;
 
@@ -192,6 +196,21 @@ p {
 
   box-shadow:
     9px 9px 0 var(--ochre);
+
+}
+
+
+/* Was missing entirely — product-card "Order on WhatsApp" buttons (added
+   by js/main.js on every page) fell back to unstyled link text on this
+   theme with no background/color at all. */
+.btn-whatsapp {
+
+  background: var(--studio-green);
+
+  color: #fff;
+
+  box-shadow:
+    7px 7px 0 var(--ochre);
 
 }
 

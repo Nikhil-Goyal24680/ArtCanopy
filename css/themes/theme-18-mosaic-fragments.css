@@ -12,9 +12,12 @@
   --paper-alt: #efe7d4;
   --grout: #2b2b2b;
   --cobalt: #1f5c8b;
-  --teal: #1f8a70;
+  /* --teal and --coral darkened slightly from their original hues so white
+     text (the WhatsApp button, the price tag) reaches 4.5:1 WCAG AA
+     contrast — verified with a relative-luminance calculation. */
+  --teal: #1e846c;
   --ochre: #d99a2b;
-  --coral: #d1543a;
+  --coral: #cc4a30;
   --border: #d9cead;
   --radius: 4px;
 }

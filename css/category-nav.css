@@ -43,7 +43,9 @@
   letter-spacing: normal;
   text-transform: none;
   text-decoration: none;
-  background: #25a75b;
+  /* Darkened from #25a75b to give the white label a 4.5:1 (WCAG AA)
+     contrast ratio — verified with a relative-luminance calculation. */
+  background: #1e8649;
   color: #fff;
   border: none;
   box-shadow: none;

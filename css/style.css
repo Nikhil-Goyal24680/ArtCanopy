@@ -3,9 +3,12 @@
   --ink-soft: #6b5f52;
   --paper: #faf6f0;
   --paper-alt: #f1e8db;
-  --accent: #b5652c;
+  /* --accent and --whatsapp are darkened just enough from their original
+     hues to give white button text a 4.5:1 (WCAG AA) contrast ratio —
+     verified with a relative-luminance calculation, not eyeballed. */
+  --accent: #af622b;
   --accent-dark: #8f4d1f;
-  --whatsapp: #25a75b;
+  --whatsapp: #1e8649;
   --whatsapp-dark: #1c8548;
   --border: #e4d9c6;
   --radius: 14px;
@@ -17,10 +20,10 @@
     --ink-soft: #c4b7a4;
     --paper: #1c1712;
     --paper-alt: #241d16;
-    --accent: #e08a4a;
-    --accent-dark: #f2a05e;
-    --whatsapp: #2fbf6a;
-    --whatsapp-dark: #3fd67c;
+    --accent: #b45f1f;
+    --accent-dark: #ba5b0f;
+    --whatsapp: #21864b;
+    --whatsapp-dark: #1d8748;
     --border: #3a3024;
   }
 }
