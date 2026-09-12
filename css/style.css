@@ -261,6 +261,31 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 .custom-cta .container { max-width: 600px; }
 
+/* 404 page */
+.error-page {
+  padding: 96px 0;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.error-page .container { max-width: 480px; }
+.error-code {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 4.5rem;
+  color: var(--accent);
+  margin: 0 0 8px;
+  line-height: 1;
+}
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
 /* Footer */
 .site-footer {
   border-top: 1px solid var(--border);

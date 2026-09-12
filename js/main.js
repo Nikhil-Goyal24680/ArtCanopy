@@ -99,6 +99,22 @@ function wireStaticLinks() {
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 }
 
+function initErrorPage() {
+  const defaultLink = whatsappLink(SITE_CONFIG.whatsappDefaultMessage);
+  document.getElementById("header-whatsapp-link").href = defaultLink;
+  document.getElementById("footer-whatsapp-link").href = defaultLink;
+  document.getElementById("error-whatsapp-link").href = defaultLink;
+
+  const instagramEl = document.getElementById("footer-instagram-link");
+  if (SITE_CONFIG.instagramHandle) {
+    instagramEl.href = `https://instagram.com/${SITE_CONFIG.instagramHandle}`;
+  } else {
+    instagramEl.style.display = "none";
+  }
+
+  document.getElementById("footer-year").textContent = new Date().getFullYear();
+}
+
 function wireSearch() {
   const input = document.getElementById("product-search");
   if (!input) return;
