@@ -1794,25 +1794,6 @@ p {
   }
 
 
-  .hero-container {
-
-    grid-template-columns: 1fr;
-
-    gap: 25px;
-
-  }
-
-
-  .hero-left {
-
-    padding:
-      70px 0 25px;
-
-    text-align: center;
-
-  }
-
-
   .brush-line {
 
     margin-left: auto;
@@ -1839,36 +1820,11 @@ p {
   }
 
 
-  .hero-actions {
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-  }
-
-
   .hero-art {
 
     right: 1%;
 
     transform: translateY(-50%) scale(0.78);
-
-  }
-
-
-  .products-heading {
-
-    align-items: flex-start;
-
-    flex-direction: column;
-
-  }
-
-
-  .collection-note {
-
-    max-width: 400px;
 
   }
 
@@ -1881,13 +1837,6 @@ p {
 
   }
 
-
-  .footer-brand {
-
-    align-items: center;
-
-  }
-
 }
 
 
@@ -1897,13 +1846,6 @@ p {
 
     padding-left: 20px;
     padding-right: 20px;
-
-  }
-
-
-  .hero-left {
-
-    padding-top: 55px;
 
   }
 
