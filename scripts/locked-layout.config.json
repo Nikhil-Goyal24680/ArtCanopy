@@ -1,0 +1,38 @@
+{
+  "_comment": "Describes the 'locked' header/nav/hero spec so scripts/check-locked-layout.mjs can enforce it. If you deliberately change one of these values, update the recorded number here in the SAME commit as the CSS change — that's the point of this file: an intentional change is a one-line diff here, a silent regression is not.",
+
+  "headerAllowedFile": "css/category-nav.css",
+  "headerLockedSelectors": [
+    "site-header",
+    "header-inner",
+    "brand",
+    "brand-logo",
+    "header-cta",
+    "category-nav",
+    "category-nav-item"
+  ],
+
+  "requiredSectionClasses": [
+    "site-header",
+    "category-nav",
+    "hero",
+    "about",
+    "products",
+    "custom-cta",
+    "site-footer"
+  ],
+
+  "lockedEnvelopePx": 433,
+
+  "pages": [
+    { "html": "index.html", "css": "css/style.css", "stripClass": "home-shimmer-strip", "stripInsideHero": true },
+    { "html": "categories/lippan-art.html", "css": "css/themes/theme-17-lippan-mudwork.css", "stripClass": "mirror-border", "stripInsideHero": true },
+    { "html": "categories/mosaic-art.html", "css": "css/themes/theme-18-mosaic-fragments.css", "stripClass": "tile-strip", "stripInsideHero": false },
+    { "html": "categories/festival-special.html", "css": "css/themes/theme-20-diya-rangoli.css", "stripClass": "garland-strip", "stripInsideHero": false },
+    { "html": "categories/painting-sketch.html", "css": "css/themes/theme-22-painting-art.css", "stripClass": "paint-strip", "stripInsideHero": false },
+    { "html": "categories/resin-art.html", "css": "css/themes/theme-24-liquid-resin.css", "stripClass": "resin-shimmer-strip", "stripInsideHero": false },
+    { "html": "categories/mirror.html", "css": "css/themes/theme-26-prism-reflection.css", "stripClass": "embellished-border-strip", "stripInsideHero": false },
+    { "html": "categories/home-deco.html", "css": "css/themes/theme-29-heritage-decor.css", "stripClass": "toran-garland-strip", "stripInsideHero": false },
+    { "html": "categories/gift.html", "css": "css/themes/theme-31-wrapped-gift-story.css", "stripClass": "ribbon-strip", "stripInsideHero": false }
+  ]
+}

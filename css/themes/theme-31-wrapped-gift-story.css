@@ -297,7 +297,6 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 2.1rem; }
-  .header-cta { display: none; }
 
   /* No page margin outside the container at phone width — shrink and
      tuck each accent into its section's corner (clipped by that

@@ -253,6 +253,5 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 2rem; }
-  .header-cta { display: none; }
   .mandala-bg { width: 280px; height: 280px; }
 }

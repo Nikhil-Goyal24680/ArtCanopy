@@ -143,3 +143,9 @@
 .hero h1 {
   min-height: 108px;
 }
+
+@media (max-width: 600px) {
+  .header-cta {
+    display: none;
+  }
+}

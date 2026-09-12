@@ -284,5 +284,4 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 @media (max-width: 600px) {
   .hero h1 { font-size: 1.9rem; }
-  .header-cta { display: none; }
 }

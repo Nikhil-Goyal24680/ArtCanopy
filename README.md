@@ -117,6 +117,22 @@ picked up automatically. Keep photos reasonably small (under ~500KB each, square
 The `themes/` folder has several alternate designs for the same product data — open
 `themes/index.html` to browse them. `index.html` at the project root is the live site.
 
+## The locked header/nav/hero spec
+
+The header, category nav, and message-us button are shared across every page —
+styled once in `css/category-nav.css`, never overridden per-category. Each
+category's hero is themed differently but its total visual envelope (top
+decorative strip + hero + bottom strip) is locked at the same height on every
+page, so switching categories doesn't cause a visible jump.
+
+`node scripts/check-locked-layout.mjs` re-verifies both of those against the
+live CSS/HTML — it fails if a per-theme edit accidentally overrides the
+header/nav, if a page loses one of its 8 required sections, or if a hero's
+padding/height throws off the locked envelope. It also runs automatically in
+CI (`.github/workflows/check-layout.yml`) on any push/PR touching `css/**`,
+`categories/**`, or `index.html`. If you deliberately change the locked spec,
+update `scripts/locked-layout.config.json` in the same commit.
+
 ## Getting a real shareable link (free hosting)
 
 This site is fully static, so it can be hosted for free with **GitHub Pages**:

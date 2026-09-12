@@ -1712,12 +1712,6 @@ p {
 
 }
 
-.footer-inner .brand-logo {
-
-  height: 54px;
-
-}
-
 
 .footer-links {
 
@@ -1886,23 +1880,6 @@ p {
 
     padding-left: 20px;
     padding-right: 20px;
-
-  }
-
-
-  .header-inner {
-
-    min-height: 68px;
-
-  }
-
-
-  .header-cta {
-
-    padding:
-      9px 14px;
-
-    font-size: 0.78rem;
 
   }
 

@@ -1,0 +1,30 @@
+name: Check locked header/nav/hero layout
+
+on:
+  push:
+    paths:
+      - "index.html"
+      - "categories/**"
+      - "css/**"
+      - "scripts/check-locked-layout.mjs"
+      - "scripts/locked-layout.config.json"
+  pull_request:
+    paths:
+      - "index.html"
+      - "categories/**"
+      - "css/**"
+      - "scripts/check-locked-layout.mjs"
+      - "scripts/locked-layout.config.json"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Verify locked layout spec
+        run: node scripts/check-locked-layout.mjs
