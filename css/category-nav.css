@@ -151,6 +151,28 @@
   }
 }
 
+/* Lets keyboard/screen-reader users jump straight past the header and the
+   8-item category nav instead of tabbing through all of it on every page.
+   Off-screen until focused, so sighted mouse users never see it. */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 8px;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 0 0 8px 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  z-index: 10000;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 /* Keyboard-focus indicator, shared by every page. Only fires for keyboard
    navigation (:focus-visible), not a mouse click, so it doesn't add a ring
    around every button someone taps. A white ring plus a dark halo means it
