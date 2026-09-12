@@ -2,6 +2,51 @@ function whatsappLink(message) {
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
+// ---------------------------------------------------------------
+// Analytics — loads Google Analytics 4 only if SITE_CONFIG.gaMeasurementId
+// is set (see js/config.js). Page views, referrer, and device type are
+// tracked automatically by GA4 itself; on top of that this sends a few
+// custom events: which WhatsApp button gets clicked (and on which
+// product, if any), what people search for and whether it found anything,
+// and hits on the 404 page. If gaMeasurementId is blank, trackEvent() is a
+// harmless no-op.
+// ---------------------------------------------------------------
+function initAnalytics() {
+  if (SITE_CONFIG.gaMeasurementId && !window.dataLayer) {
+    window.dataLayer = [];
+    window.gtag = function () {
+      dataLayer.push(arguments);
+    };
+    gtag("js", new Date());
+    gtag("config", SITE_CONFIG.gaMeasurementId);
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${SITE_CONFIG.gaMeasurementId}`;
+    document.head.appendChild(script);
+  }
+  wireWhatsAppTracking();
+}
+
+function trackEvent(name, params) {
+  if (typeof window.gtag === "function") gtag("event", name, params || {});
+}
+
+// Delegated click tracking catches every WhatsApp link on the page — header,
+// hero, custom-cta, footer, error page, and every per-product card — without
+// needing a listener re-attached each time the product grid re-renders.
+function wireWhatsAppTracking() {
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest('a[href^="https://wa.me/"]');
+    if (!link) return;
+    trackEvent("whatsapp_click", {
+      link_location: link.id || "product_card",
+      product_name: link.dataset.productName || "",
+      page_path: location.pathname,
+    });
+  });
+}
+
 let activeCategory = "All";
 let searchQuery = "";
 
@@ -73,7 +118,7 @@ function renderProducts() {
         <p class="product-desc">${p.description}</p>
         <div class="product-footer">
           <span class="product-price">${p.price}</span>
-          <a class="btn btn-whatsapp" href="${whatsappLink(p.whatsappMessage)}" target="_blank" rel="noopener">Order on WhatsApp</a>
+          <a class="btn btn-whatsapp" href="${whatsappLink(p.whatsappMessage)}" target="_blank" rel="noopener" data-product-name="${p.name}">Order on WhatsApp</a>
         </div>
       </div>
     </article>
@@ -100,6 +145,8 @@ function wireStaticLinks() {
 }
 
 function initErrorPage() {
+  initAnalytics();
+
   const defaultLink = whatsappLink(SITE_CONFIG.whatsappDefaultMessage);
   document.getElementById("header-whatsapp-link").href = defaultLink;
   document.getElementById("footer-whatsapp-link").href = defaultLink;
@@ -113,14 +160,32 @@ function initErrorPage() {
   }
 
   document.getElementById("footer-year").textContent = new Date().getFullYear();
+
+  trackEvent("404_hit", {
+    page_path: location.pathname + location.search,
+    referrer: document.referrer || "(direct)",
+  });
 }
 
 function wireSearch() {
   const input = document.getElementById("product-search");
   if (!input) return;
+  let debounceTimer;
   input.addEventListener("input", () => {
     searchQuery = input.value;
     renderProducts();
+
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      const q = searchQuery.trim();
+      if (!q) return;
+      const noResults = document.getElementById("no-results");
+      trackEvent("search", {
+        search_term: q,
+        has_results: Boolean(noResults && noResults.hidden),
+        page_path: location.pathname,
+      });
+    }, 600);
   });
 }
 
@@ -172,7 +237,9 @@ function renderHomeCategoryNav(navId) {
   nav.innerHTML = `<span class="category-nav-item all current">All pieces</span>${links}`;
 }
 
-// Pages call one of these after this script loads:
-//   renderHomeCategoryNav("category-nav"); renderProducts(); wireStaticLinks(); wireSearch();  (index.html — shared nav bar links out to themed category pages)
+// Pages call one of these after this script loads (index.html and every
+// categories/*.html also call initAnalytics(); — see js/config.js):
+//   renderHomeCategoryNav("category-nav"); renderProducts(); wireStaticLinks(); wireSearch(); initAnalytics();  (index.html — shared nav bar links out to themed category pages)
 //   renderCategoryFilters(); renderProducts(); wireStaticLinks(); wireSearch();    (themes/ previews only — in-page filter, for comparing themes)
-//   initCategoryPage("Gift", "category-nav");                                      (categories/*.html — locked to one category)
+//   initCategoryPage("Gift", "category-nav"); initAnalytics();                     (categories/*.html — locked to one category)
+//   initErrorPage();                                                              (404.html — also tracks the 404_hit event)

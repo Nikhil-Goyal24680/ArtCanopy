@@ -146,6 +146,31 @@ automatically in CI (`.github/workflows/check-site-integrity.yml`) on any
 push/PR touching `index.html`, `categories/**`, `themes/**`, `css/**`, or
 `js/**`.
 
+## Analytics
+
+Off by default — nothing is tracked and no script loads until you turn it on.
+To turn it on:
+
+1. Create a free property at [analytics.google.com](https://analytics.google.com)
+   (Google Analytics 4) and copy its Measurement ID (looks like `G-XXXXXXXXXX`).
+2. Paste it into `gaMeasurementId` in `js/config.js`.
+
+Once set, every page view, referrer, and device type is tracked automatically
+by GA4. On top of that, this site sends a few custom events so you can see
+what's actually driving interest:
+
+- **`whatsapp_click`** — every time any of the WhatsApp buttons (header, hero,
+  custom-order, footer, or a specific product card) is clicked, with which one
+  and which product (if any).
+- **`search`** — what people type into a category's search box, and whether it
+  found anything (`has_results`) — zero-result searches point at demand for
+  things you don't stock yet.
+- **`404_hit`** — when someone lands on a broken/old link, with the URL they
+  hit and where they came from.
+
+View these under **Reports → Engagement → Events** (or **Realtime**) in your
+GA4 property.
+
 ## Getting a real shareable link (free hosting)
 
 This site is fully static, so it can be hosted for free with **GitHub Pages**:

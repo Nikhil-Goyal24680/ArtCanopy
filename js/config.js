@@ -11,4 +11,10 @@ const SITE_CONFIG = {
 
   // Leave blank ("") to hide the Instagram link in the footer.
   instagramHandle: "",
+
+  // Google Analytics 4 Measurement ID (looks like "G-XXXXXXXXXX"). Create a
+  // free property at analytics.google.com, then paste the ID here. Leave
+  // blank ("") to keep analytics fully off — no script loads, nothing is
+  // sent anywhere.
+  gaMeasurementId: "",
 };
