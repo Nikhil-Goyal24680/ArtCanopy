@@ -9,6 +9,10 @@ const SITE_CONFIG = {
   // Message pre-filled when someone taps a general "message us" button.
   whatsappDefaultMessage: "Hi! I saw your resin art page and wanted to ask about your pieces.",
 
+  // Contact email shown in the footer of every page. Placeholder until the
+  // real business address is ready.
+  contactEmail: "nikhilgoyal24680@gmail.com",
+
   // Leave blank ("") to hide the Instagram link in the footer.
   instagramHandle: "",
 

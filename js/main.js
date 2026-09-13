@@ -2,6 +2,18 @@ function whatsappLink(message) {
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
+// Formats "917878457307" as "+91 78784 57307" for footer display.
+function formatPhoneDisplay(number) {
+  return `+${number.slice(0, 2)} ${number.slice(2, 7)} ${number.slice(7)}`;
+}
+
+function wireFooterContact() {
+  document.getElementById("footer-email-link").href = `mailto:${SITE_CONFIG.contactEmail}`;
+  document.getElementById("footer-email-link").textContent = SITE_CONFIG.contactEmail;
+  document.getElementById("footer-phone-link").href = `tel:+${SITE_CONFIG.whatsappNumber}`;
+  document.getElementById("footer-phone-link").textContent = formatPhoneDisplay(SITE_CONFIG.whatsappNumber);
+}
+
 // ---------------------------------------------------------------
 // Analytics — loads Google Analytics 4 only if SITE_CONFIG.gaMeasurementId
 // is set (see js/config.js). Page views, referrer, and device type are
@@ -128,6 +140,7 @@ function wireStaticLinks() {
     instagramEl.style.display = "none";
   }
 
+  wireFooterContact();
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 }
 
@@ -146,6 +159,7 @@ function initErrorPage() {
     instagramEl.style.display = "none";
   }
 
+  wireFooterContact();
   document.getElementById("footer-year").textContent = new Date().getFullYear();
 
   trackEvent("404_hit", {

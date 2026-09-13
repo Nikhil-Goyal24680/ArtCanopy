@@ -249,6 +249,9 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
 .footer-links a:hover { color: var(--terracotta); }
+.footer-contact { display: flex; gap: 6px; align-items: center; margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
+.footer-contact a { color: var(--ink-soft); text-decoration: none; }
+.footer-contact a:hover { color: var(--terracotta); }
 .footer-note { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {
