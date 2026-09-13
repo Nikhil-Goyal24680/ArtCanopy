@@ -2,6 +2,20 @@
    css/category-nav.css) and not any one theme's colors/fonts, so these live
    here and load on every page (index, every category, every product page). */
 
+/* This site has no dark theme — every color is hand-picked per category
+   theme against a light background. Without this, Chrome/Android's
+   "auto dark theme for web contents" feature (on by default on many
+   Android phones with system dark mode enabled) force-inverts any part of
+   the page that hasn't painted its real background yet to black. Since a
+   cross-document navigation briefly shows the incoming page before all of
+   its CSS/images have loaded, that unpainted gap — usually invisible,
+   since it's just the page's own light background underneath — renders as
+   a black flash instead. Declaring color-scheme: light tells the browser
+   this page is light-only and opts it out of that forced-dark inversion. */
+:root {
+  color-scheme: light;
+}
+
 /* Opts every page into the browser's native cross-document view
    transition: a same-origin navigation cross-fades the old/new page instead
    of a hard white-flash reload. Both the outgoing and incoming page need
@@ -9,6 +23,14 @@
    per-theme. No-op in browsers that don't yet support it. */
 @view-transition {
   navigation: auto;
+}
+
+/* The browser's default cross-fade blends the outgoing/incoming snapshots
+   with mix-blend-mode: plus-lighter. Reverting to a normal blend keeps
+   this a plain, predictable cross-fade instead. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
 }
 
 /* js/main.js renders the product-grid photo and title as real <a> links to
