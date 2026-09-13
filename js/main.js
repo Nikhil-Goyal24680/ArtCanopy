@@ -172,7 +172,6 @@ function renderProducts() {
           src="${pagePathPrefix}images/${p.image}"
           ${p.imageSmall ? `srcset="${pagePathPrefix}images/${p.imageSmall} 600w, ${pagePathPrefix}images/${p.image} 1400w" sizes="(max-width: 480px) 90vw, 320px"` : ""}
           alt="${p.name}"
-          loading="lazy"
           onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
           onerror="this.remove()"
         >
