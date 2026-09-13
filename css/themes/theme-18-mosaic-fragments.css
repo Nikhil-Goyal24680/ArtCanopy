@@ -280,11 +280,29 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .footer-note { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {
-  .hero h1 { font-size: 2rem; }
+  .tile-strip { height: 10px; }
+  .hero { height: 270px; padding: 14px 0 20px; }
+  .hero-kicker { font-size: 0.68rem; margin-bottom: 6px; }
+  .hero h1 { font-size: 1.5rem; }
+  .hero-sub { font-size: 0.82rem; margin: 0 auto 14px; }
   .product-card { transform: none !important; }
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .product-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
   .product-footer .btn { align-self: stretch; text-align: center; font-size: 0.72rem; padding: 9px 8px; }
+  .product-image { aspect-ratio: 3 / 2; }
+  .product-body { padding: 12px; }
+  .product-body h3 { font-size: 0.95rem; margin-bottom: 4px; }
+  .product-tags { margin-bottom: 6px; }
+  .product-tags .tag { font-size: 0.6rem; padding: 2px 8px; }
+  .product-desc {
+    font-size: 0.76rem;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .product-price { font-size: 0.95rem; }
 
   /* On a phone-width screen there's no page margin outside the container
      for these real photo accents to sit in the way they do on desktop —
@@ -292,7 +310,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
      tuck each into its section's corner (clipped by that section's
      overflow:hidden, same trick .corner-motif already uses) so they read
      as a small corner flourish instead of covering the copy. */
-  .motif-tree-hero { top: -30px; left: -40px; width: 90px; }
+  .motif-tree-hero { top: -30px; left: -50px; width: 65px; }
   .motif-sparrow-panel { top: auto; bottom: -20px; right: -40px; transform: rotate(4deg); width: 85px; }
   .motif-cat { top: -30px; left: -40px; width: 85px; }
   .motif-penguin-panel { top: -20px; right: -40px; width: 80px; }
