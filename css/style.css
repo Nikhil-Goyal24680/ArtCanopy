@@ -1,41 +1,40 @@
+/* HOMEPAGE — "All Pieces"
+   Vibe: the flagship page, not one craft. Built from the actual brand
+   mark (deep teal + red, sampled from images/brand/artdestiny-logo.png)
+   plus a warm gold pulled from the same ornamental family every category
+   theme already uses — so this reads as "all of them, together" rather
+   than borrowing any one category's specific craft vibe. Motif is a
+   faceted gem, standing in for the resin-casting process every category
+   shares. */
+
 :root {
-  --ink: #2b241d;
-  --ink-soft: #6b5f52;
-  --paper: #faf6f0;
-  --paper-alt: #f1e8db;
-  /* --accent and --whatsapp are darkened just enough from their original
-     hues to give white button text a 4.5:1 (WCAG AA) contrast ratio —
-     verified with a relative-luminance calculation, not eyeballed. */
-  --accent: #af622b;
-  --accent-dark: #8f4d1f;
+  --ink: #1c2e29;
+  --ink-soft: #5f6f6a;
+  --paper: #faf7f1;
+  --paper-alt: #f1ead9;
+  --teal: #163b33;          /* exact brand mark color */
+  --teal-dark: #0e2822;
+  --gold: #bf8a2e;          /* decorative only — motifs, dividers */
+  /* --gold-dark, --accent-dark, and --accent are all verified via a
+     relative-luminance calculation to clear 4.5:1 (WCAG AA) against
+     the paper/button-text they're actually used on, not eyeballed. */
+  --gold-dark: #916923;
+  --accent: #d4352e;        /* exact brand mark red — button backgrounds */
+  --accent-dark: #a52a24;   /* darker, for accent text sitting on paper */
   --whatsapp: #1e8649;
   --whatsapp-dark: #1c8548;
-  --border: #e4d9c6;
+  --border: #e6dbc7;
   --radius: 14px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #f2ece2;
-    --ink-soft: #c4b7a4;
-    --paper: #1c1712;
-    --paper-alt: #241d16;
-    --accent: #b45f1f;
-    --accent-dark: #ba5b0f;
-    --whatsapp: #21864b;
-    --whatsapp-dark: #1d8748;
-    --border: #3a3024;
-  }
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: var(--paper);
   color: var(--ink);
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 .container {
@@ -45,57 +44,103 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
   line-height: 1.2;
   margin: 0 0 16px;
+  color: var(--teal);
 }
 
 p { margin: 0 0 16px; color: var(--ink-soft); }
 
 .btn {
   display: inline-block;
-  padding: 12px 22px;
+  padding: 12px 24px;
   border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.btn:hover { transform: translateY(-1px); opacity: 0.92; }
+.btn:hover { transform: translateY(-2px); }
 
 .btn-primary {
   background: var(--accent);
   color: #fff;
+  box-shadow: 0 10px 22px rgba(212, 53, 46, 0.28);
 }
 
 .btn-whatsapp {
   background: var(--whatsapp);
   color: #fff;
+  box-shadow: 0 8px 18px rgba(30, 134, 73, 0.24);
 }
 
 /* Header, brand, and nav chrome now live in css/category-nav.css, shared
    by every page (index + all categories) so they're identical everywhere. */
 
-/* Hero */
+/* Gem-facet shimmer strip, top and bottom of the hero */
+.home-shimmer-strip {
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    var(--teal) 0%,
+    var(--gold) 45%,
+    var(--accent) 75%,
+    var(--teal) 100%
+  );
+}
+
+/* Fixed faceted-gem corner motifs — a small scatter of "pieces," one
+   per brand color, standing in for the whole collection */
+.decor-motif { pointer-events: none; }
+.decor-motif svg { display: block; width: 100%; height: 100%; }
+.corner-motif {
+  position: fixed;
+  width: 130px;
+  height: 130px;
+  opacity: 0.16;
+  z-index: 0;
+}
+.corner-motif.top-left { top: -30px; left: -30px; }
+.corner-motif.bottom-right { bottom: -30px; right: -30px; transform: rotate(180deg); }
+
+/* Hero — 401px + a 16px shimmer strip on each side (now siblings, not
+   children, same structure every category page uses) = the 433px
+   envelope locked across every page */
 .hero {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  height: 433px;
+  height: 401px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 89px 0 44px;
-  background: linear-gradient(180deg, var(--paper-alt), var(--paper));
+  padding: 28px 0 76px;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(22, 59, 51, 0.06) 0%, transparent 42%),
+    radial-gradient(circle at 88% 78%, rgba(212, 53, 46, 0.05) 0%, transparent 45%),
+    var(--paper);
   text-align: center;
 }
-.hero-kicker { display: inline-block; font-size: 0.85rem; color: var(--accent-dark); margin-bottom: 18px; }
-.hero h1 { font-size: 2.4rem; }
-.hero-sub { font-size: 1.05rem; margin-bottom: 28px; }
-.home-shimmer-strip {
-  height: 16px;
-  background: linear-gradient(90deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-dark) 100%);
+.hero .container { position: relative; z-index: 1; }
+.hero-icon {
+  display: block;
+  margin: 0 auto 16px;
+  width: 40px;
+  height: 40px;
 }
+.hero-icon svg { width: 100%; height: 100%; }
+.hero-kicker {
+  display: inline-block;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--gold-dark);
+  margin-bottom: 18px;
+}
+.hero h1 { font-size: 2.6rem; }
+.hero-sub { font-size: 1.05rem; margin: 0 auto 30px; max-width: 460px; }
 
 /* About */
 .about {
@@ -108,19 +153,33 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   justify-content: center;
   text-align: center;
 }
-.about .container { max-width: 680px; }
+.about .container { max-width: 680px; position: relative; z-index: 1; }
 
 /* Products */
-.products {
-  padding: 20px 0 72px;
-  background: var(--paper-alt);
-}
+.products { position: relative; overflow: hidden; padding: 20px 0 72px; background: var(--paper-alt); }
 .products h2 { text-align: center; margin-bottom: 8px; }
+
+/* Large faint gem-facet watermark behind the grid — same shape as the
+   hero icon and corner motifs, tying the whole page together */
+.gem-watermark {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 440px;
+  height: 440px;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+.gem-watermark svg { width: 100%; height: 100%; }
 
 .product-search-wrap {
   display: flex;
   justify-content: center;
   margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
 }
 .product-search {
   width: 100%;
@@ -134,7 +193,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   font-family: inherit;
 }
 .product-search:focus {
-  border-color: var(--accent);
+  border-color: var(--teal);
 }
 .product-search::-webkit-search-cancel-button {
   cursor: pointer;
@@ -144,6 +203,8 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   text-align: center;
   color: var(--ink-soft);
   margin: -8px 0 32px;
+  position: relative;
+  z-index: 1;
 }
 
 .product-tags {
@@ -166,6 +227,8 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 .product-card {
@@ -175,6 +238,12 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 8px 20px rgba(22, 59, 51, 0.08);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.product-card:hover {
+  box-shadow: 0 14px 28px rgba(22, 59, 51, 0.14);
+  transform: translateY(-2px);
 }
 
 .product-image {
@@ -210,7 +279,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 
 .product-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
-.product-body h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.product-body h3 { font-size: 1.2rem; margin-bottom: 6px; }
 .product-desc { font-size: 0.9rem; flex: 1; margin-bottom: 16px; }
 
 .product-footer {
@@ -247,9 +316,9 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 .error-page .container { max-width: 480px; }
 .error-code {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 4.5rem;
-  color: var(--accent);
+  color: var(--accent-dark);
   margin: 0 0 8px;
   line-height: 1;
 }
@@ -279,9 +348,10 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 }
 .footer-links { display: flex; gap: 20px; }
 .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.9rem; }
-.footer-links a:hover { color: var(--accent); }
+.footer-links a:hover { color: var(--teal); }
 .footer-note { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {
-  .hero h1 { font-size: 1.9rem; }
+  .hero h1 { font-size: 2rem; }
+  .gem-watermark { width: 300px; height: 300px; }
 }

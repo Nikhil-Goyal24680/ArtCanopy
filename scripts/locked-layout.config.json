@@ -25,7 +25,7 @@
   "lockedEnvelopePx": 433,
 
   "pages": [
-    { "html": "index.html", "css": "css/style.css", "stripClass": "home-shimmer-strip", "stripInsideHero": true },
+    { "html": "index.html", "css": "css/style.css", "stripClass": "home-shimmer-strip", "stripInsideHero": false },
     { "html": "categories/lippan-art.html", "css": "css/themes/theme-17-lippan-mudwork.css", "stripClass": "mirror-border", "stripInsideHero": true },
     { "html": "categories/mosaic-art.html", "css": "css/themes/theme-18-mosaic-fragments.css", "stripClass": "tile-strip", "stripInsideHero": false },
     { "html": "categories/festival-special.html", "css": "css/themes/theme-20-diya-rangoli.css", "stripClass": "garland-strip", "stripInsideHero": false },
