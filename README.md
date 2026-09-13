@@ -71,21 +71,57 @@ doesn't matter, but the names must match exactly, lowercase):
   `Painting sketch, Resin art, Lippan art, Mosaic art, Home deco, Festival special, Gift, Mirror`
 - **photo**: a Google Drive share link (see step 2) — this is the main photo, shown on
   the product grid card and as the default image on the product's own page.
-- **more_photos**: optional, comma-separated Google Drive share links — extra angles/
-  close-ups shown as a click-to-swap thumbnail gallery on the product's own page
-  (`products/<id>.html`). Leave blank for a product with only one photo.
+- **more_photos**: optional — extra angles/close-ups shown as a click-to-swap
+  thumbnail gallery on the product's own page (`products/<id>.html`). Leave blank
+  for a product with only one photo. Two ways to fill it in:
+  - **A Drive folder link** (recommended once a product has several extra photos —
+    see step 2 below). Every image inside that folder becomes an extra photo,
+    in filename order.
+  - Or the older style: comma-separated individual Drive share links, one per photo,
+    same as the `photo` column.
 - **whatsapp_message**: leave blank to auto-generate a reasonable default from the name.
 
 Each row = one product. Row order = display order on the site.
 
 **2. Set up the Drive photos.**
-1. Create a Google Drive folder for product photos.
-2. Upload each photo there — straight off a phone is fine, no need to resize or
-   compress anything first. The sync script automatically re-encodes every photo
-   it downloads (resized, compressed, plus a smaller version for phones viewing
-   the site) before it's ever used on the live site.
-3. For each photo: right-click → **Share** → change access to **"Anyone with the
-   link"** → **Copy link**. Paste that link into the `photo` column for that row.
+
+As the catalog grows, pasting one share link per photo gets tedious fast — so the
+recommended layout is one folder per product:
+
+1. Create a parent Google Drive folder for all product photos (e.g. "Art Destiny
+   photos"), and inside it, one subfolder per product (e.g. "Resin Sketch Wall
+   Panel").
+2. Upload that product's photos into its subfolder — straight off a phone is fine,
+   no need to resize or compress anything first. The sync script automatically
+   re-encodes every photo it downloads (resized, compressed, plus a smaller version
+   for phones viewing the site) before it's ever used on the live site.
+3. Pick one photo as the main one: right-click it → **Share** → change access to
+   **"Anyone with the link"** → **Copy link**. Paste that link into the `photo`
+   column for that row, same as before.
+4. For the rest of that product's photos (the gallery ones): right-click the
+   **subfolder itself** → **Share** → **"Anyone with the link"** → **Copy link**.
+   Paste that one folder link into the `more_photos` column. Every image inside the
+   folder becomes a gallery photo — no need to share or paste each one individually.
+   (Photos display in filename order — name them `1-...`, `2-...` etc. if you care
+   which comes first.)
+
+   Reading a folder's contents needs one extra piece of setup, since — unlike
+   downloading a single shared photo — Google requires an API key for it:
+   1. Go to [console.cloud.google.com](https://console.cloud.google.com/), create a
+      project (or use an existing one).
+   2. **APIs & Services → Library** → search **"Google Drive API"** → **Enable**.
+   3. **APIs & Services → Credentials → Create credentials → API key.** Copy the key.
+   4. Optional but recommended: click the new key → under **API restrictions**,
+      choose **Restrict key** → select only **Google Drive API**. This key can only
+      list/read publicly-shared Drive files, nothing account-specific — restricting
+      it to just the Drive API is extra insurance.
+   5. Add it to the GitHub repo as a **secret** (not a variable, since it's a
+      credential): **Settings → Secrets and variables → Actions → Secrets tab →
+      New repository secret** → name `GOOGLE_DRIVE_API_KEY`, value the key you copied.
+
+   If `more_photos` has a folder link but this key isn't set up yet, the sync just
+   skips that product's gallery photos and logs a warning — it won't fail the whole
+   sync. The older per-photo-link style in `more_photos` still works without this key.
 
 **3. Get the sheet's CSV link.**
 1. Make sure the sheet's sharing is set to **"Anyone with the link"** (Share button,
@@ -102,7 +138,8 @@ Each row = one product. Row order = display order on the site.
 1. In the GitHub repo: **Settings → Secrets and variables → Actions → Variables tab →
    New repository variable**.
 2. Name: `SHEET_CSV_URL`. Value: the URL from step 3.
-3. That's it — the daily sync (`.github/workflows/sync-products.yml`) will pick it up.
+3. That's it — the daily sync (`.github/workflows/sync-products.yml`) will pick it up,
+   along with `GOOGLE_DRIVE_API_KEY` from step 2 if you set it up.
 
 **Running a sync manually** (don't want to wait for the next scheduled run): go to the
 repo's **Actions** tab → **Sync products from Google Sheet** → **Run workflow**.
@@ -112,8 +149,11 @@ needs its one dependency installed first (a one-time step):
 
 ```
 npm install
-SHEET_CSV_URL="<your published CSV URL>" node scripts/sync-products.mjs
+SHEET_CSV_URL="<your published CSV URL>" GOOGLE_DRIVE_API_KEY="<your API key>" node scripts/sync-products.mjs
 ```
+
+(`GOOGLE_DRIVE_API_KEY` is only needed if any `more_photos` column uses a folder link —
+omit it otherwise.)
 
 The script only ever adds or overwrites images/data — it never deletes a photo you've
 placed manually, so it's safe to try.

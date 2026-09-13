@@ -242,6 +242,7 @@ export function generateProductPages(products) {
 }
 
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
+const DRIVE_API_KEY = process.env.GOOGLE_DRIVE_API_KEY || "";
 
 // Every downloaded photo is re-encoded at two widths — a full size for the
 // image itself and a smaller one for `srcset`, so a phone on the product
@@ -337,6 +338,64 @@ function extractDriveFileId(link) {
   if (m) return m[1];
   if (/^[a-zA-Z0-9_-]{15,}$/.test(trimmed)) return trimmed; // a bare file ID was pasted
   return null;
+}
+
+function extractDriveFolderId(link) {
+  if (!link) return null;
+  const m = link.trim().match(/\/folders\/([a-zA-Z0-9_-]+)/);
+  return m ? m[1] : null;
+}
+
+// Lists the image files inside a publicly-shared ("Anyone with the link")
+// Drive folder, via the Drive API. Needs an API key (GOOGLE_DRIVE_API_KEY) —
+// unlike downloadDriveImage below, there's no unauthenticated endpoint for
+// listing a folder's contents. See README.md "Connecting the product sheet"
+// for how to create one.
+async function listDriveFolderImages(folderId, apiKey) {
+  const q = `'${folderId}' in parents and trashed = false`;
+  const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=${encodeURIComponent("files(id,name,mimeType)")}&pageSize=1000&key=${apiKey}`;
+  const res = await fetch(url);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data?.error?.message || `Drive API error (status ${res.status})`);
+  }
+  return (data.files || [])
+    .filter((f) => (f.mimeType || "").startsWith("image/"))
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+}
+
+// `more_photos` accepts either a single Drive folder link (every image file
+// inside it becomes an extra photo, in filename order — the tidy option once
+// a product has several extra angles) or the older comma/semicolon-separated
+// list of individual Drive file links. Returns a list of Drive file IDs
+// either way, so the caller doesn't need to know which format was used.
+async function resolveMorePhotoFileIds(raw, rowNum, name, warnings) {
+  const folderId = extractDriveFolderId(raw);
+  if (folderId) {
+    if (!DRIVE_API_KEY) {
+      warnings.push(`row ${rowNum} ("${name}"): "more_photos" is a Drive folder link, but GOOGLE_DRIVE_API_KEY isn't set — skipped extra photos. See README.md "Connecting the product sheet".`);
+      return [];
+    }
+    try {
+      const files = await listDriveFolderImages(folderId, DRIVE_API_KEY);
+      if (!files.length) {
+        warnings.push(`row ${rowNum} ("${name}"): the more_photos folder has no image files (or isn't shared "Anyone with the link").`);
+      }
+      return files.map((f) => f.id);
+    } catch (err) {
+      warnings.push(`row ${rowNum} ("${name}"): couldn't list the more_photos folder — ${err.message}.`);
+      return [];
+    }
+  }
+
+  const links = raw.split(/[,;]/).map((l) => l.trim()).filter(Boolean);
+  const ids = [];
+  for (const link of links) {
+    const fileId = extractDriveFileId(link);
+    if (fileId) ids.push(fileId);
+    else warnings.push(`row ${rowNum} ("${name}"): additional photo "${link}" doesn't look like a Google Drive link — skipped.`);
+  }
+  return ids;
 }
 
 async function downloadDriveImage(fileId) {
@@ -464,30 +523,26 @@ async function main() {
 
     // Optional extra photos for the product's own detail-page gallery (a
     // main image + thumbnails, like a marketplace listing) — the product
-    // grid card itself only ever shows `image` above. Same comma/semicolon
-    // list format as `categories`, each entry a Drive link.
+    // grid card itself only ever shows `image` above. Either a single Drive
+    // folder link, or the older comma/semicolon list of individual Drive
+    // links — see resolveMorePhotoFileIds above.
     const morePhotosRaw = r.more_photos || r.additional_photos || r.extra_photos || "";
-    const morePhotoLinks = morePhotosRaw.split(/[,;]/).map((l) => l.trim()).filter(Boolean);
+    const morePhotoFileIds = await resolveMorePhotoFileIds(morePhotosRaw, rowNum, name, warnings);
     const extraImages = [];
-    for (const [j, link] of morePhotoLinks.entries()) {
+    for (const [j, altFileId] of morePhotoFileIds.entries()) {
       const altBase = `${id}-alt${j + 1}`;
       let altImage = existingFiles.find((f) => f.startsWith(`${altBase}.`)) || "";
       let altImageSmall = existingFiles.find((f) => f.startsWith(`${altBase}-sm.`)) || "";
 
-      const altFileId = extractDriveFileId(link);
-      if (altFileId) {
-        try {
-          const buffer = await downloadDriveImage(altFileId);
-          const { main, small } = await processImage(buffer, path.join(IMAGES_DIR, altBase));
-          altImage = main.filename;
-          altImageSmall = small.filename;
-          photosDownloaded++;
-          console.log(`[sync-products] downloaded + optimized extra photo ${j + 1} for "${name}" -> images/${altImage}`);
-        } catch (err) {
-          warnings.push(`row ${rowNum} ("${name}"): couldn't download additional photo ${j + 1} — ${err.message}. Keeping previous image if any.`);
-        }
-      } else {
-        warnings.push(`row ${rowNum} ("${name}"): additional photo "${link}" doesn't look like a Google Drive link — skipped.`);
+      try {
+        const buffer = await downloadDriveImage(altFileId);
+        const { main, small } = await processImage(buffer, path.join(IMAGES_DIR, altBase));
+        altImage = main.filename;
+        altImageSmall = small.filename;
+        photosDownloaded++;
+        console.log(`[sync-products] downloaded + optimized extra photo ${j + 1} for "${name}" -> images/${altImage}`);
+      } catch (err) {
+        warnings.push(`row ${rowNum} ("${name}"): couldn't download additional photo ${j + 1} — ${err.message}. Keeping previous image if any.`);
       }
 
       if (altImage) extraImages.push({ image: altImage, imageSmall: altImageSmall });
