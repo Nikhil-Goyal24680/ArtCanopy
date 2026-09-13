@@ -1905,9 +1905,10 @@ p {
     font-size: 0.72rem;
     padding: 9px 8px;
   }
+  .product-image { aspect-ratio: 1 / 1; }
   .product-body { padding: 10px; }
   .product-body h3 { font-size: 0.95rem; margin-bottom: 2px; }
-  .product-tags { margin-bottom: 4px; }
+  .product-tags { display: none; }
   .product-tags .tag { font-size: 0.6rem; padding: 2px 8px; }
   .product-desc {
     font-size: 0.76rem;
