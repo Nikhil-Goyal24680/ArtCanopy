@@ -1,0 +1,26 @@
+/* Site-wide, page-agnostic rules — not header/nav chrome (that's the locked
+   css/category-nav.css) and not any one theme's colors/fonts, so these live
+   here and load on every page (index, every category, every product page). */
+
+/* Opts every page into the browser's native cross-document view
+   transition: a same-origin navigation cross-fades the old/new page instead
+   of a hard white-flash reload. Both the outgoing and incoming page need
+   this rule for the transition to play, so it has to be sitewide, not
+   per-theme. No-op in browsers that don't yet support it. */
+@view-transition {
+  navigation: auto;
+}
+
+/* js/main.js renders the product-grid photo and title as real <a> links to
+   that product's own page (see renderProducts() / initProductPage()) so
+   clicking either opens it. These two resets are theme-agnostic — every
+   theme's own .product-image / h3 rules already set the actual look. */
+a.product-image { display: block; text-decoration: none; }
+
+.product-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+.product-title-link:hover {
+  text-decoration: underline;
+}

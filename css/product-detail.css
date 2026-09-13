@@ -1,0 +1,40 @@
+/* PRODUCT DETAIL PAGE — layout only. Colors, fonts, card/button/tag looks
+   all come from whichever theme CSS loads before this file, so a product
+   page reads as part of its category rather than a bolt-on template. */
+
+.product-detail { padding: 48px 0 80px; }
+
+.product-detail .back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.product-detail .back-link:hover { text-decoration: underline; }
+
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.product-detail-grid .product-image {
+  border-radius: var(--radius, 12px);
+  border: 1px solid var(--border);
+}
+
+.product-detail-body .product-tags { margin-bottom: 14px; }
+.product-detail-body h1 { margin-bottom: 10px; }
+
+.product-detail-price {
+  display: inline-block;
+  font-size: 1.35rem;
+  margin-bottom: 20px;
+}
+.product-detail-desc { font-size: 1rem; max-width: 52ch; margin-bottom: 32px; }
+
+@media (max-width: 760px) {
+  .product-detail-grid { grid-template-columns: 1fr; gap: 28px; }
+}

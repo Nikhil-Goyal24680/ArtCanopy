@@ -38,7 +38,7 @@ const VOID_ELEMENTS = new Set([
 function findHtmlFiles() {
   const files = ["index.html"];
   if (fs.existsSync(path.join(ROOT, "404.html"))) files.push("404.html");
-  for (const dir of ["categories", "themes"]) {
+  for (const dir of ["categories", "products", "themes"]) {
     const full = path.join(ROOT, dir);
     if (!fs.existsSync(full)) continue;
     for (const f of fs.readdirSync(full).sort()) {
@@ -101,11 +101,27 @@ function checkTagBalance(html, file) {
 
 function checkResourceReferences(html, file) {
   const dir = path.dirname(path.join(ROOT, file));
+
+  // <img> tags with an onerror handler intentionally tolerate a missing
+  // file — e.g. a product photo not yet synced from the sheet, where the
+  // "Photo coming soon" placeholder underneath is the real, working UI. A
+  // missing src there isn't a broken reference, so exempt it.
+  const gracefullyHandled = new Set();
+  const imgTagRe = /<img\b[^>]*>/gi;
+  let imgMatch;
+  while ((imgMatch = imgTagRe.exec(html))) {
+    const tag = imgMatch[0];
+    if (!/onerror\s*=/i.test(tag)) continue;
+    const srcMatch = tag.match(/\bsrc="([^"]*)"/);
+    if (srcMatch) gracefullyHandled.add(srcMatch[1]);
+  }
+
   const attrRe = /\b(?:href|src)="([^"]*)"/g;
   let m;
   while ((m = attrRe.exec(html))) {
     const ref = m[1];
     if (ref === "" || ref === "#") continue;
+    if (gracefullyHandled.has(ref)) continue;
     if (/^(https?:)?\/\//i.test(ref)) continue; // external / protocol-relative
     if (/^(data:|mailto:|tel:|javascript:|#)/i.test(ref)) continue;
 

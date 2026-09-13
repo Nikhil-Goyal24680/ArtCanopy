@@ -23,6 +23,181 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const IMAGES_DIR = path.join(ROOT, "images");
 const OUTPUT_FILE = path.join(ROOT, "js", "products-data.js");
+const PRODUCTS_DIR = path.join(ROOT, "products");
+
+// One themed static page per product (see generateProductPages below). Each
+// category's page is styled by its own theme CSS + Google Font pairing —
+// this mirrors that so a product page reads as part of its category, not a
+// generic bolt-on. Keep in sync with scripts/locked-layout.config.json and
+// each categories/*.html's own <link> tags if a theme's fonts/CSS file ever
+// changes.
+const CATEGORY_META = {
+  "Painting sketch": {
+    slug: "painting-sketch",
+    themeCss: "css/themes/theme-22-painting-art.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap",
+  },
+  "Resin art": {
+    slug: "resin-art",
+    themeCss: "css/themes/theme-24-liquid-resin.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+  },
+  "Lippan art": {
+    slug: "lippan-art",
+    themeCss: "css/themes/theme-17-lippan-mudwork.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=Rakkas&family=Mukta:wght@400;500;600&display=swap",
+  },
+  "Mosaic art": {
+    slug: "mosaic-art",
+    themeCss: "css/themes/theme-18-mosaic-fragments.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Jost:wght@300;400;500&display=swap",
+  },
+  "Home deco": {
+    slug: "home-deco",
+    themeCss: "css/themes/theme-29-heritage-decor.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=Rozha+One&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+  },
+  "Festival special": {
+    slug: "festival-special",
+    themeCss: "css/themes/theme-20-diya-rangoli.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=Yeseva+One&family=Karla:wght@400;500;700&display=swap",
+  },
+  "Gift": {
+    slug: "gift",
+    themeCss: "css/themes/theme-31-wrapped-gift-story.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Jost:wght@400;500&display=swap",
+  },
+  "Mirror": {
+    slug: "mirror",
+    themeCss: "css/themes/theme-26-prism-reflection.css",
+    fontsHref: "https://fonts.googleapis.com/css2?family=Italiana&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+  },
+};
+
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function productPageHTML(product, meta) {
+  const name = escapeHTML(product.name);
+  const desc = escapeHTML(product.description);
+  const tagsHTML = (product.categories || [])
+    .map((c) => `<span class="tag">${escapeHTML(c)}</span>`)
+    .join("");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="../images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="../images/brand/apple-touch-icon.png">
+<title>${name} — Art Destiny</title>
+<meta name="description" content="${desc}">
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="Art Destiny">
+<meta property="og:title" content="${name} — Art Destiny">
+<meta property="og:description" content="${desc}">
+<meta property="og:url" content="https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}.html">
+<meta property="og:image" content="https://nikhil-goyal24680.github.io/ArtCanopy/images/${product.image}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="${meta.fontsHref}" rel="stylesheet">
+<link rel="stylesheet" href="../${meta.themeCss}">
+<link rel="stylesheet" href="../css/category-nav.css">
+<link rel="stylesheet" href="../css/site-wide.css">
+<link rel="stylesheet" href="../css/product-detail.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand"><img src="../images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></div>
+      <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Message us</a>
+    </div>
+  </header>
+
+  <nav class="category-nav" id="category-nav"></nav>
+
+  <main class="product-detail" id="main-content">
+    <div class="container product-detail-grid">
+      <div class="product-image placeholder">
+        <span>Photo coming soon</span>
+        <img
+          src="../images/${product.image}"
+          alt="${name}"
+          onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
+          onerror="this.remove()"
+        >
+      </div>
+      <div class="product-detail-body">
+        <a class="back-link" href="../categories/${meta.slug}.html">&larr; Back to ${escapeHTML(product.categories[0] || "All pieces")}</a>
+        ${tagsHTML ? `<div class="product-tags">${tagsHTML}</div>` : ""}
+        <h1>${name}</h1>
+        <p class="product-price product-detail-price">${escapeHTML(product.price)}</p>
+        <p class="product-desc product-detail-desc">${desc}</p>
+        <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="${escapeHTML(product.whatsappMessage)}">Order on WhatsApp</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand"><img src="../images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></div>
+      <p class="footer-contact">
+        <a id="footer-email-link" href="#"></a>
+        <span aria-hidden="true">&middot;</span>
+        <a id="footer-phone-link" href="#"></a>
+      </p>
+      <div class="footer-links">
+        <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny. All pieces handmade to order.</p>
+    </div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/products-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script>initProductPage("category-nav", ${JSON.stringify(product.categories[0] || null)}); initAnalytics();</script>
+</body>
+</html>
+`;
+}
+
+// Regenerates products/<id>.html for every product, styled by that
+// product's primary category theme. Fully generated — like
+// js/products-data.js, never hand-edit these files. Stale pages (products
+// removed from the sheet) are deleted so products/ never drifts out of
+// sync with the current catalog.
+export function generateProductPages(products) {
+  fs.mkdirSync(PRODUCTS_DIR, { recursive: true });
+
+  const expected = new Set();
+  for (const product of products) {
+    const category = (product.categories || [])[0];
+    const meta = CATEGORY_META[category];
+    if (!meta) continue; // uncategorized products get no detail page
+    const filename = `${product.id}.html`;
+    expected.add(filename);
+    fs.writeFileSync(path.join(PRODUCTS_DIR, filename), productPageHTML(product, meta));
+  }
+
+  for (const existing of fs.readdirSync(PRODUCTS_DIR)) {
+    if (existing.endsWith(".html") && !expected.has(existing)) {
+      fs.unlinkSync(path.join(PRODUCTS_DIR, existing));
+    }
+  }
+
+  return expected.size;
+}
 
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
 
@@ -271,11 +446,18 @@ const PRODUCTS = ${JSON.stringify(products, null, 2)};
 `;
   fs.writeFileSync(OUTPUT_FILE, fileContents);
 
-  console.log(`\n[sync-products] done: ${products.length} products, ${photosDownloaded} photo(s) downloaded.`);
+  const pageCount = generateProductPages(products);
+
+  console.log(`\n[sync-products] done: ${products.length} products, ${photosDownloaded} photo(s) downloaded, ${pageCount} product page(s) generated.`);
   if (warnings.length) {
     console.log(`\n[sync-products] ${warnings.length} warning(s):`);
     warnings.forEach((w) => console.log(`  - ${w}`));
   }
 }
 
-main().catch((err) => fail(err.stack || err.message));
+// Only auto-run when invoked directly (`node scripts/sync-products.mjs`) —
+// importing this module for generateProductPages() shouldn't require
+// SHEET_CSV_URL to be set.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((err) => fail(err.stack || err.message));
+}

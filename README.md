@@ -50,8 +50,13 @@ Two files matter:
 
 Products can be managed from a Google Sheet instead of editing files. A script
 (`scripts/sync-products.mjs`) reads the sheet, downloads each product's photo from
-Google Drive, and regenerates `js/products-data.js`. It runs automatically once a day
-via GitHub Actions, and can also be triggered manually any time.
+Google Drive, regenerates `js/products-data.js`, and generates a themed detail page for
+every product at `products/<id>.html` (styled by that product's own category — colors,
+fonts, the lot — so it reads as part of that category, not a generic bolt-on page). It
+runs automatically once a day via GitHub Actions, and can also be triggered manually any
+time. Product pages are fully generated — like `js/products-data.js`, never hand-edit a
+file under `products/`; a product removed from the sheet has its page deleted on the
+next sync, same as the sheet is the single source of truth for everything else here.
 
 **1. Create the sheet.** Make a Google Sheet with these column headers in row 1 (order
 doesn't matter, but the names must match exactly, lowercase):

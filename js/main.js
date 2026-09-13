@@ -59,6 +59,34 @@ function wireWhatsAppTracking() {
   });
 }
 
+// Prefetches a local page's HTML the moment a pointer/touch shows intent to
+// follow its link — by the time the click actually lands, the next page is
+// usually already cached, so navigation feels instant instead of a fresh
+// network round trip. Skips anything not a same-page local .html link
+// (external sites, mailto:, tel:, wa.me) since those shouldn't be pre-fetched.
+function wireLinkPrefetch() {
+  const alreadyPrefetched = new Set();
+  function schedule(link) {
+    const href = link.getAttribute("href");
+    if (!href || alreadyPrefetched.has(href)) return;
+    if (!href.endsWith(".html") || /^([a-z]+:)?\/\//i.test(href)) return;
+    alreadyPrefetched.add(href);
+    const tag = document.createElement("link");
+    tag.rel = "prefetch";
+    tag.href = href;
+    document.head.appendChild(tag);
+  }
+  document.addEventListener("mouseenter", (e) => {
+    const link = e.target.closest && e.target.closest("a[href]");
+    if (link) schedule(link);
+  }, true);
+  document.addEventListener("touchstart", (e) => {
+    const link = e.target.closest && e.target.closest("a[href]");
+    if (link) schedule(link);
+  }, { capture: true, passive: true });
+}
+document.addEventListener("DOMContentLoaded", wireLinkPrefetch);
+
 // Gift category's product photos are covered by a ribbon-wrap effect that
 // used to only peel back on mouse :hover — meaning it never moved at all on
 // a touchscreen. Delegated so it keeps working after the grid re-renders
@@ -73,6 +101,10 @@ function wireGiftUnwrap() {
 
 let activeCategory = "All";
 let searchQuery = "";
+// index.html sits next to images/ and products/; categories/*.html sit one
+// level down. initCategoryPage() flips this before the first render on a
+// category page so image/product-link paths resolve either way.
+let pagePathPrefix = "";
 
 function renderProducts() {
   const grid = document.getElementById("product-grid");
@@ -94,21 +126,23 @@ function renderProducts() {
 
   if (noResults) noResults.hidden = visible.length > 0;
 
-  grid.innerHTML = visible.map((p) => `
+  grid.innerHTML = visible.map((p) => {
+    const detailHref = `${pagePathPrefix}products/${p.id}.html`;
+    return `
     <article class="product-card">
-      <div class="product-image placeholder" id="img-wrap-${p.id}">
+      <a class="product-image placeholder" id="img-wrap-${p.id}" href="${detailHref}" aria-label="View ${p.name}">
         <span>Photo coming soon</span>
         <img
-          src="images/${p.image}"
-          ${p.imageSmall ? `srcset="images/${p.imageSmall} 600w, images/${p.image} 1400w" sizes="(max-width: 480px) 90vw, 320px"` : ""}
+          src="${pagePathPrefix}images/${p.image}"
+          ${p.imageSmall ? `srcset="${pagePathPrefix}images/${p.imageSmall} 600w, ${pagePathPrefix}images/${p.image} 1400w" sizes="(max-width: 480px) 90vw, 320px"` : ""}
           alt="${p.name}"
           loading="lazy"
           onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
           onerror="this.remove()"
         >
-      </div>
+      </a>
       <div class="product-body">
-        <h3>${p.name}</h3>
+        <h3><a class="product-title-link" href="${detailHref}">${p.name}</a></h3>
         ${
           (p.categories || []).length
             ? `<div class="product-tags">${p.categories.map((c) => `<span class="tag">${c}</span>`).join("")}</div>`
@@ -121,7 +155,8 @@ function renderProducts() {
         </div>
       </div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 }
 
 function wireStaticLinks() {
@@ -200,25 +235,57 @@ function categorySlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-function renderCategoryNav(navId, currentCategory) {
+// linkPrefix defaults to "" for categories/*.html calling this about its
+// sibling category pages; products/*.html (one directory deeper than the
+// categories it links to are relative to) passes "../categories/" instead.
+function renderCategoryNav(navId, currentCategory, linkPrefix = "") {
   const nav = document.getElementById(navId);
   if (!nav || typeof CATEGORIES === "undefined") return;
   const links = CATEGORIES.map((c) => {
     const isCurrent = c === currentCategory;
     return isCurrent
       ? `<span class="category-nav-item current">${c}</span>`
-      : `<a class="category-nav-item" href="${categorySlug(c)}.html">${c}</a>`;
+      : `<a class="category-nav-item" href="${linkPrefix}${categorySlug(c)}.html">${c}</a>`;
   }).join("");
   nav.innerHTML = `<a class="category-nav-item all" href="../index.html">All pieces</a>${links}`;
 }
 
 function initCategoryPage(categoryName, navId) {
   activeCategory = categoryName;
+  pagePathPrefix = "../";
   renderProducts();
   wireStaticLinks();
   wireSearch();
   if (navId) renderCategoryNav(navId, categoryName);
   if (categoryName === "Gift") wireGiftUnwrap();
+}
+
+// products/<id>.html — a single product's own page, statically generated
+// by scripts/sync-products.mjs and styled by that product's category theme.
+// Content (name/price/description/image) is already baked into the page;
+// this just wires the same dynamic bits every page wires (WhatsApp links,
+// footer contact info, nav).
+function initProductPage(navId, categoryName) {
+  const defaultLink = whatsappLink(SITE_CONFIG.whatsappDefaultMessage);
+  document.getElementById("header-whatsapp-link").href = defaultLink;
+  document.getElementById("footer-whatsapp-link").href = defaultLink;
+
+  const productLink = document.getElementById("product-whatsapp-link");
+  if (productLink) {
+    productLink.href = whatsappLink(productLink.dataset.message || SITE_CONFIG.whatsappDefaultMessage);
+  }
+
+  const instagramEl = document.getElementById("footer-instagram-link");
+  if (SITE_CONFIG.instagramHandle) {
+    instagramEl.href = `https://instagram.com/${SITE_CONFIG.instagramHandle}`;
+  } else {
+    instagramEl.style.display = "none";
+  }
+
+  wireFooterContact();
+  document.getElementById("footer-year").textContent = new Date().getFullYear();
+
+  if (navId) renderCategoryNav(navId, categoryName, "../categories/");
 }
 
 // index.html specifically: uses the same shared category-nav bar as every
