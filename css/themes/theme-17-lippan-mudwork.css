@@ -310,7 +310,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 @media (max-width: 600px) {
   .hero { height: auto; }
-  .hero .container { padding: 8px 24px 14px; }
+  .hero .container { padding: 21px 24px 38px; }
   .mirror-border { height: 10px; }
   .hero-kicker { font-size: 0.68rem; margin-bottom: 6px; }
   .hero h1 { font-size: 1.5rem; }
