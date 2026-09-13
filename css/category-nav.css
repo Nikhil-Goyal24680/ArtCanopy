@@ -149,6 +149,13 @@
   .header-cta {
     display: none;
   }
+  .header-inner { min-height: 64px; padding: 10px 16px; }
+  .brand-logo { height: 36px; }
+  .category-nav { gap: 5px; padding: 8px 10px; }
+  .category-nav-item { font-size: 0.66rem; padding: 5px 9px; }
+  .hero-icon,
+  .hero-diya { width: 26px; height: 26px; margin-bottom: 6px; }
+  .hero h1 { min-height: 56px; }
 }
 
 /* Lets keyboard/screen-reader users jump straight past the header and the

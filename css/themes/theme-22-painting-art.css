@@ -1885,6 +1885,27 @@ p {
 
   }
 
+  .product-grid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+  }
+
+  .product-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .product-footer .btn {
+    align-self: stretch;
+    text-align: center;
+    font-size: 0.72rem;
+    padding: 9px 8px;
+  }
+
 
   .hero h1 {
 

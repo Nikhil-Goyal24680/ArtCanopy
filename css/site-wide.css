@@ -24,3 +24,16 @@ a.product-image { display: block; text-decoration: none; }
 .product-title-link:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+  /* The email/phone pair in the footer wraps awkwardly mid-line on a narrow
+     phone screen — stack them instead, and drop the middle dot separator
+     since it reads oddly once they're no longer on the same line. */
+  .footer-contact {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .footer-contact span[aria-hidden="true"] {
+    display: none;
+  }
+}

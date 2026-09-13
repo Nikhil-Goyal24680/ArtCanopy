@@ -282,6 +282,9 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 @media (max-width: 600px) {
   .hero h1 { font-size: 2rem; }
   .product-card { transform: none !important; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .product-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .product-footer .btn { align-self: stretch; text-align: center; font-size: 0.72rem; padding: 9px 8px; }
 
   /* On a phone-width screen there's no page margin outside the container
      for these real photo accents to sit in the way they do on desktop —

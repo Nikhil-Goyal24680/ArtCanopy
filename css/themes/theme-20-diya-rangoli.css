@@ -237,6 +237,14 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .footer-note { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {
-  .hero h1 { font-size: 2rem; }
+  .garland-strip { height: 10px; }
+  .hero { height: 250px; padding: 8px 0 14px; }
+  .hero-diya { width: 26px; height: 26px; margin-bottom: 6px; }
+  .hero-kicker { font-size: 0.68rem; margin-bottom: 6px; }
+  .hero h1 { font-size: 1.5rem; }
+  .hero-sub { font-size: 0.82rem; margin: 0 auto 14px; }
   .rangoli-bg { width: 280px; height: 280px; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .product-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .product-footer .btn { align-self: stretch; text-align: center; font-size: 0.72rem; padding: 9px 8px; }
 }
