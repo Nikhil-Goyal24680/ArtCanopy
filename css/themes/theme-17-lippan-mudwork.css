@@ -309,8 +309,8 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .footer-note { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {
-  .hero { height: 270px; }
-  .hero .container { padding: 14px 24px 20px; }
+  .hero { height: auto; }
+  .hero .container { padding: 8px 24px 14px; }
   .mirror-border { height: 10px; }
   .hero-kicker { font-size: 0.68rem; margin-bottom: 6px; }
   .hero h1 { font-size: 1.5rem; }

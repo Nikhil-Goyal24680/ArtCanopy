@@ -1920,9 +1920,13 @@ p {
   }
   .product-price { font-size: 0.95rem; }
 
+  .paint-strip {
+    height: 10px;
+  }
+
   .hero {
-    height: 270px;
-    padding: 12px 0 20px;
+    height: 250px;
+    padding: 8px 0 14px;
   }
   .hero-kicker {
     font-size: 0.95rem;
@@ -2048,9 +2052,9 @@ p {
   .product-grid {
 
     grid-template-columns:
-      1fr;
+      repeat(2, minmax(0, 1fr));
 
-    gap: 25px;
+    gap: 12px;
 
   }
 

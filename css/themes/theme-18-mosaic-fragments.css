@@ -281,7 +281,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 
 @media (max-width: 600px) {
   .tile-strip { height: 10px; }
-  .hero { height: 270px; padding: 14px 0 20px; }
+  .hero { height: 250px; padding: 8px 0 14px; }
   .hero-kicker { font-size: 0.68rem; margin-bottom: 6px; }
   .hero h1 { font-size: 1.5rem; }
   .hero-sub { font-size: 0.82rem; margin: 0 auto 14px; }
