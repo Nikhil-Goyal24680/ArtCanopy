@@ -10,7 +10,7 @@ function formatPhoneDisplay(number) {
 // Wires up admin/index.html — the unlinked, internal quick-links dashboard.
 // See SITE_CONFIG.admin in js/config.js for the actual URLs.
 function wireAdminPage() {
-  document.getElementById("card-site").href = SITE_CONFIG.admin.siteUrl;
+  document.getElementById("card-site").href = SITE_CONFIG.siteUrl;
   document.getElementById("card-sheet").href = SITE_CONFIG.admin.sheetUrl;
   document.getElementById("card-sync").href = SITE_CONFIG.admin.syncWorkflowUrl;
 
@@ -180,9 +180,11 @@ function renderProducts() {
     // own themed variant instead — landing in a different visual world than
     // the one you were just browsing felt wrong (see scripts/sync-products.mjs
     // generateProductPages() for how both variants get generated).
-    const detailHref = activeCategory === "All"
-      ? `${pagePathPrefix}products/${p.id}.html`
-      : `${pagePathPrefix}products/${p.id}--${categorySlug(activeCategory)}.html`;
+    const productPath = activeCategory === "All"
+      ? `products/${p.id}.html`
+      : `products/${p.id}--${categorySlug(activeCategory)}.html`;
+    const detailHref = `${pagePathPrefix}${productPath}`;
+    const productMessage = `${p.whatsappMessage}\n${SITE_CONFIG.siteUrl}${productPath}`;
     return `
     <article class="product-card">
       <a class="product-image placeholder" id="img-wrap-${p.id}" href="${detailHref}" aria-label="View ${p.name}">
@@ -205,7 +207,7 @@ function renderProducts() {
         <p class="product-desc">${p.description}</p>
         <div class="product-footer">
           <span class="product-price">${p.price}</span>
-          <a class="btn btn-whatsapp" href="${whatsappLink(p.whatsappMessage)}" target="_blank" rel="noopener" data-product-name="${p.name}">Order on WhatsApp</a>
+          <a class="btn btn-whatsapp" href="${whatsappLink(productMessage)}" target="_blank" rel="noopener" data-product-name="${p.name}">Order on WhatsApp</a>
         </div>
       </div>
     </article>
@@ -326,7 +328,8 @@ function initProductPage(navId, categoryName) {
 
   const productLink = document.getElementById("product-whatsapp-link");
   if (productLink) {
-    productLink.href = whatsappLink(productLink.dataset.message || SITE_CONFIG.whatsappDefaultMessage);
+    const message = productLink.dataset.message || SITE_CONFIG.whatsappDefaultMessage;
+    productLink.href = whatsappLink(`${message}\n${location.href}`);
   }
 
   const instagramEl = document.getElementById("footer-instagram-link");

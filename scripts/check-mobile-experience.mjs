@@ -429,10 +429,10 @@ async function testProductGalleryThumbnails(cdp) {
 
 async function testProductPageWhatsAppAndBackLink(cdp) {
   const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/resin-sketch-wall-panel.html`);
-  const expectedMsg = await evaluate(cdp, sessionId, 'document.getElementById("product-whatsapp-link").dataset.message');
+  const expectedMsg = await evaluate(cdp, sessionId, `document.getElementById("product-whatsapp-link").dataset.message + "\\n" + location.href`);
   const url = await tapAndCaptureNewTabUrl(cdp, sessionId, "#product-whatsapp-link");
   const actualMsg = url ? decodeURIComponent(new URL(url).searchParams.get("text") || "") : null;
-  report("the product page's WhatsApp button opens with that product's own message", actualMsg === expectedMsg, `expected "${expectedMsg}", got "${actualMsg}"`);
+  report("the product page's WhatsApp button opens with that product's own message and page link", actualMsg === expectedMsg, `expected "${expectedMsg}", got "${actualMsg}"`);
 
   await tap(cdp, sessionId, ".back-link");
   await sleep(500);
@@ -461,7 +461,8 @@ async function testAdminPageLinks(cdp) {
     })`
   );
   const expected = await evaluate(cdp, sessionId, "SITE_CONFIG.admin");
-  report("admin page: live-site card points at the real site", hrefs.site === expected.siteUrl, `got ${hrefs.site}`);
+  const expectedSiteUrl = await evaluate(cdp, sessionId, "SITE_CONFIG.siteUrl");
+  report("admin page: live-site card points at the real site", hrefs.site === expectedSiteUrl, `got ${hrefs.site}`);
   report("admin page: spreadsheet card points at the real sheet", hrefs.sheet === expected.sheetUrl, `got ${hrefs.sheet}`);
   report("admin page: sync card points at the GitHub Actions workflow", hrefs.sync === expected.syncWorkflowUrl, `got ${hrefs.sync}`);
   if (expected.driveFolderUrl) {
