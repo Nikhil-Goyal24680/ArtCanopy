@@ -1,2 +1,6 @@
 .DS_Store
 node_modules/
+
+# Transient per-run status file written by scripts/sync-products.mjs and
+# read by .github/workflows/sync-products.yml — never meant to be committed.
+sync-warnings.txt

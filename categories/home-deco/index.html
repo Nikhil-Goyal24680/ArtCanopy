@@ -102,7 +102,7 @@
       <div class="product-search-wrap">
         <input type="search" id="product-search" class="product-search" placeholder="Search toran, Shubh Labh, bottle art, bowls…" aria-label="Search decor">
       </div>
-      <p class="no-results" id="no-results" hidden>No home decor matches your search.</p>
+      <p class="no-results" id="no-results" role="status" aria-live="polite" hidden>No home decor matches your search.</p>
       <div class="product-grid" id="product-grid">
         <!-- Populated by js/main.js from js/products-data.js -->
       </div>
@@ -129,11 +129,13 @@
         <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <p class="footer-policies" id="footer-policies" hidden></p>
       <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny Home Decor. Traditional &amp; artisan crafts.</p>
     </div>
   </footer>
 
   <script src="../../js/config.js"></script>
+  <script src="../../js/categories-data.js"></script>
   <script src="../../js/products-data.js"></script>
   <script src="../../js/main.js"></script>
   <script>initCategoryPage("Home deco", "category-nav"); initAnalytics();</script>

@@ -15,6 +15,7 @@
 <meta property="og:description" content="A small catch-all tray finished with a glossy resin seal.">
 <meta property="og:url" content="https://nikhil-goyal24680.github.io/ArtCanopy/products/resin-trinket-tray/">
 <meta property="og:image" content="https://nikhil-goyal24680.github.io/ArtCanopy/images/resin-trinket-tray.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Resin Trinket Tray","description":"A small catch-all tray finished with a glossy resin seal.","image":"https://nikhil-goyal24680.github.io/ArtCanopy/images/resin-trinket-tray.jpg","url":"https://nikhil-goyal24680.github.io/ArtCanopy/products/resin-trinket-tray/","offers":{"@type":"Offer","url":"https://nikhil-goyal24680.github.io/ArtCanopy/products/resin-trinket-tray/","price":"599","priceCurrency":"INR","availability":"https://schema.org/MadeToOrder"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,7 +35,7 @@
     </div>
   </header>
 
-  <nav class="category-nav" id="category-nav"></nav>
+  <nav class="category-nav" id="category-nav" aria-label="Art categories"></nav>
 
   <main class="product-detail" id="main-content">
     <div class="container product-detail-grid">
@@ -56,8 +57,10 @@
         <div class="product-tags"><span class="tag">Home deco</span></div>
         <h1>Resin Trinket Tray</h1>
         <p class="product-price product-detail-price">₹599</p>
+        
         <p class="product-desc product-detail-desc">A small catch-all tray finished with a glossy resin seal.</p>
-        <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="Hi! I'm interested in the Resin Trinket Tray — can you share more details?">Order on WhatsApp</a>
+        <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="Hi! I'm interested in the Resin Trinket Tray — can you share more details?" data-product-name="Resin Trinket Tray" data-category="Home deco" data-price="599">Order on WhatsApp</a>
+        <p class="product-detail-note">Resin care: keep out of direct sunlight and wipe clean with a soft, dry cloth to keep the finish looking its best.</p>
       </div>
     </div>
   </main>
@@ -74,12 +77,13 @@
         <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <p class="footer-policies" id="footer-policies" hidden></p>
       <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny. All pieces handmade to order.</p>
     </div>
   </footer>
 
   <script src="../../js/config.js"></script>
-  <script src="../../js/products-data.js"></script>
+  <script src="../../js/categories-data.js"></script>
   <script src="../../js/main.js"></script>
   <script>initProductPage("category-nav", "Home deco"); initAnalytics();</script>
 </body>

@@ -2,56 +2,104 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nikhil-goyal24680.github.io/ArtCanopy/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/lippan-art/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/mosaic-art/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/painting-sketch/</loc>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/resin-art/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/mirror/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/lippan-art/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/mosaic-art/</loc>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/home-deco/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/festival-special/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/gift/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/painting-sketch/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/categories/mirror/</loc>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/resin-sketch-wall-panel/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/abstract-resin-pour-art/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/lippan-mirror-wall-art/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/mosaic-resin-wall-piece/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/resin-trinket-tray/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/shubh-labh-door-hanging/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/resin-keepsake-gift-set/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nikhil-goyal24680.github.io/ArtCanopy/products/resin-framed-mirror/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

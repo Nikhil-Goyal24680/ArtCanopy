@@ -82,6 +82,7 @@
     <div class="container">
       <h2>Made with care, piece by piece</h2>
       <p>Every piece is poured, cured, and finished by hand — no two are exactly alike. We make resin art for gifting, preserving memories, and decorating spaces you love. Have something specific in mind — a photo, a flower, a name? We do custom orders too.</p>
+      <p id="about-maker-note" hidden></p>
     </div>
   </section>
 
@@ -104,7 +105,7 @@
           aria-label="Search products"
         >
       </div>
-      <p class="no-results" id="no-results" hidden>No pieces match your search — try a different word or category.</p>
+      <p class="no-results" id="no-results" role="status" aria-live="polite" hidden>No pieces match your search — try a different word or category.</p>
       <div class="product-grid" id="product-grid">
         <!-- Populated by js/main.js from js/products-data.js -->
       </div>
@@ -131,11 +132,13 @@
         <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <p class="footer-policies" id="footer-policies" hidden></p>
       <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny. All pieces handmade to order.</p>
     </div>
   </footer>
 
   <script src="js/config.js"></script>
+  <script src="js/categories-data.js"></script>
   <script src="js/products-data.js"></script>
   <script src="js/main.js"></script>
   <script>renderHomeCategoryNav("category-nav"); renderProducts(); wireStaticLinks(); wireSearch(); initAnalytics();</script>

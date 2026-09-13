@@ -8,7 +8,11 @@
 
 :root {
   --ink: #3a2c2e;
-  --ink-soft: #7d6a6c;
+  /* Darkened from #7d6a6c — that shade sat at 4.17:1 against --paper-alt
+     (the hero/custom-cta background), just under the 4.5:1 WCAG AA
+     threshold for normal text. This reaches 5.22:1, verified the same way
+     as --sage below. */
+  --ink-soft: #6e5b5d;
   --paper: #fdf3ee;
   --paper-alt: #f7e6dd;
   --ribbon: #c0524a;
@@ -311,6 +315,7 @@ p { margin: 0 0 16px; color: var(--ink-soft); }
 .footer-contact { display: flex; gap: 6px; align-items: center; margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
 .footer-contact a { color: var(--ink-soft); text-decoration: none; }
 .footer-contact a:hover { color: var(--ribbon-dark); }
+.footer-policies { font-size: 0.8rem; color: var(--ink-soft); margin: 0 0 4px; }
 .footer-note { font-size: 0.8rem; margin: 0; }
 
 @media (max-width: 600px) {

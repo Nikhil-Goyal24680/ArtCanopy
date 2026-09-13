@@ -67,7 +67,7 @@
         </svg>
       </span>
       <span class="hero-kicker">lit for the season, cast to last</span>
-      <h1>Handcrafted resin art,<br>made to be kept.</h1>
+      <h1>Festival light,<br>poured to last.</h1>
       <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand.</p>
       <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">Browse &amp; order on WhatsApp</a>
     </div>
@@ -105,7 +105,7 @@
       <div class="product-search-wrap">
         <input type="search" id="product-search" class="product-search" placeholder="Search this category…" aria-label="Search products">
       </div>
-      <p class="no-results" id="no-results" hidden>No pieces match your search.</p>
+      <p class="no-results" id="no-results" role="status" aria-live="polite" hidden>No pieces match your search.</p>
       <div class="product-grid" id="product-grid">
         <!-- Populated by js/main.js from js/products-data.js -->
       </div>
@@ -132,11 +132,13 @@
         <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <p class="footer-policies" id="footer-policies" hidden></p>
       <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny. All pieces handmade to order.</p>
     </div>
   </footer>
 
   <script src="../../js/config.js"></script>
+  <script src="../../js/categories-data.js"></script>
   <script src="../../js/products-data.js"></script>
   <script src="../../js/main.js"></script>
   <script>initCategoryPage("Festival special", "category-nav"); initAnalytics();</script>

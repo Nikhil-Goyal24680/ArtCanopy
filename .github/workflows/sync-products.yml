@@ -4,10 +4,16 @@ on:
   schedule:
     # 03:00 UTC = 08:30 IST, every day
     - cron: "0 3 * * *"
-  workflow_dispatch: {} # adds a manual "Run workflow" button in the Actions tab
+  workflow_dispatch: # adds a manual "Run workflow" button in the Actions tab
+    inputs:
+      allow_catalog_shrink:
+        description: "Allow the catalog to shrink by more than half (only check this if you just intentionally removed a lot of products from the sheet)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   sync:
@@ -24,20 +30,92 @@ jobs:
         run: npm ci
 
       - name: Run sync script
+        id: sync
         env:
           SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
           GOOGLE_DRIVE_API_KEY: ${{ secrets.GOOGLE_DRIVE_API_KEY }}
+          ALLOW_CATALOG_SHRINK: ${{ github.event.inputs.allow_catalog_shrink == 'true' && '1' || '' }}
         run: node scripts/sync-products.mjs
+
+      # The exact regression guard this repo already has for hand-edited
+      # pages, now also gating the one pipeline that pushes to production
+      # every day unattended — previously this only ran (informationally,
+      # after the fact) via check-site-integrity.yml's own push trigger.
+      - name: Verify generated pages
+        run: npm run check
 
       - name: Commit and push if anything changed
         run: |
           git config user.name "artcanopy-sync-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add js/products-data.js images/ products/
+          git add js/products-data.js images/ products/ sitemap.xml data/last-sync.csv
           if git diff --cached --quiet; then
             echo "No product changes since last sync."
           else
             git commit -m "Sync products from Google Sheet [automated]"
             git push
           fi
+
+      # Whether this was the sync script hard-failing or the integrity
+      # check catching something broken in what it generated — either way
+      # nothing was pushed, and previously the only trace was this run's
+      # own log, which depends entirely on GitHub's scheduled-workflow
+      # notification settings being on (easy to have muted).
+      - name: Report failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const label = "automated-sync-failure";
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = `The scheduled product sync failed.\n\nFull log: ${runUrl}\n\n` +
+              "Nothing was written or pushed — whatever was already live is still what's live.";
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: "open", labels: label,
+            });
+            if (existing.data.length) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.data[0].number, body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: "Daily product sync failed", body, labels: [label],
+              });
+            }
+
+      # A run that only produced warnings (a bad photo link, an unknown
+      # category typo) still exits 0 — nothing's actually broken — so
+      # without this the only trace was a line in that day's Action log
+      # that nobody was watching. Opens/updates one issue while warnings
+      # exist, closes it automatically once a clean run happens.
+      - name: Report or clear sync warnings
+        if: always() && steps.sync.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const label = "automated-sync-warning";
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: "open", labels: label,
+            });
+            if (fs.existsSync("sync-warnings.txt")) {
+              const warnings = fs.readFileSync("sync-warnings.txt", "utf8");
+              const body = "The last product sync completed but reported warnings:\n\n```\n" +
+                warnings + "\n```\n\nNothing is broken, but check the sheet rows / Drive links above.";
+              if (existing.data.length) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.data[0].number, body,
+                });
+              } else {
+                await github.rest.issues.create({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  title: "Product sync warnings", body, labels: [label],
+                });
+              }
+            } else if (existing.data.length) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.data[0].number, state: "closed",
+              });
+            }
 

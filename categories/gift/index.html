@@ -68,7 +68,7 @@
     <img class="decor-img motif-tag-hero" aria-hidden="true" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M18 18 L68 18 L86 50 L68 82 L18 82 Z' fill='%23f7e6dd' stroke='%239c3d37' stroke-width='2.5'/%3E%3Ccircle cx='32' cy='35' r='6' fill='none' stroke='%239c3d37' stroke-width='2.5'/%3E%3Cpath d='M32 29 Q18 12 32 2' fill='none' stroke='%237c8f6e' stroke-width='2.5'/%3E%3C/svg%3E">
     <div class="container">
       <span class="hero-kicker">every piece, wrapped like a gift</span>
-      <h1>Handcrafted resin art,<br>made to be kept.</h1>
+      <h1>Gifted once,<br>kept forever.</h1>
       <p class="hero-sub">Gifts, keepsakes, and decor — cast and finished by hand. Tap a piece to unwrap it.</p>
       <a class="btn btn-primary" id="hero-whatsapp-link" href="#" target="_blank" rel="noopener">Browse &amp; order on WhatsApp</a>
     </div>
@@ -106,7 +106,7 @@
       <div class="product-search-wrap">
         <input type="search" id="product-search" class="product-search" placeholder="Search this category…" aria-label="Search products">
       </div>
-      <p class="no-results" id="no-results" hidden>No pieces match your search.</p>
+      <p class="no-results" id="no-results" role="status" aria-live="polite" hidden>No pieces match your search.</p>
       <div class="product-grid" id="product-grid">
         <!-- Populated by js/main.js from js/products-data.js -->
       </div>
@@ -134,11 +134,13 @@
         <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <p class="footer-policies" id="footer-policies" hidden></p>
       <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny. All pieces handmade to order.</p>
     </div>
   </footer>
 
   <script src="../../js/config.js"></script>
+  <script src="../../js/categories-data.js"></script>
   <script src="../../js/products-data.js"></script>
   <script src="../../js/main.js"></script>
   <script>initCategoryPage("Gift", "category-nav"); initAnalytics();</script>

@@ -410,6 +410,22 @@ async function testFooterContactLinks(cdp) {
 
 async function testProductCardOpensDetailPageAndPhotoLoads(cdp) {
   const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
+  await sleep(700); // real photo load on the grid card itself, not just DOM presence
+
+  // Distinct from the detail-page check below: this is the grid CARD's own
+  // <img>, before any navigation happens. Guards specifically against a
+  // regression where every card silently stays on its placeholder forever
+  // (e.g. a loading="lazy" attribute added to an <img> that's display:none
+  // until "loaded" — an IntersectionObserver-based lazy load never fires
+  // for an element with no layout box, so it never leaves the placeholder,
+  // scroll or not — a real bug caught this way while building this check).
+  const gridPhotoLoaded = await evaluate(
+    cdp,
+    sessionId,
+    '!!document.querySelector(".product-image:not(.placeholder) img.loaded")'
+  );
+  report("at least one product card's real photo loads on the grid itself (not stuck on the placeholder)", gridPhotoLoaded);
+
   await tap(cdp, sessionId, 'a.product-title-link[href="products/resin-sketch-wall-panel/"]');
   await sleep(700);
   const url = await currentURL(cdp, sessionId);

@@ -21,6 +21,22 @@ const SITE_CONFIG = {
   // Leave blank ("") to hide the Instagram link in the footer.
   instagramHandle: "",
 
+  // Optional one-line policy notes shown together in the footer, separated
+  // by " · ", once you fill them in. Left blank by default — nothing here
+  // gets published without you reviewing it first; each line only shows up
+  // if non-empty, and the whole strip stays hidden if all three are blank.
+  // Keep each one short, e.g. "Ships across India in 5-7 days".
+  policies: {
+    shipping: "",
+    payment: "",
+    returns: "",
+  },
+
+  // Optional "who's behind this" note shown under the homepage's About
+  // section once you fill it in. Left blank by default, same reasoning as
+  // policies above — a real customer should only ever see your own words.
+  aboutMaker: "",
+
   // Google Analytics 4 Measurement ID (looks like "G-XXXXXXXXXX"). Create a
   // free property at analytics.google.com, then paste the ID here. Leave
   // blank ("") to keep analytics fully off — no script loads, nothing is

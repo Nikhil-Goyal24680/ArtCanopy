@@ -2,6 +2,12 @@ function whatsappLink(message) {
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
+// "₹1,499" -> "1499" — for GA4's numeric value param, which can't take a
+// currency symbol or thousands separator.
+function priceToNumeric(price) {
+  return String(price || "").replace(/[^0-9.]/g, "");
+}
+
 // Formats "917878457307" as "+91 78784 57307" for footer display.
 function formatPhoneDisplay(number) {
   return `+${number.slice(0, 2)} ${number.slice(2, 7)} ${number.slice(7)}`;
@@ -31,6 +37,13 @@ function wireFooterContact() {
   document.getElementById("footer-email-link").textContent = SITE_CONFIG.contactEmail;
   document.getElementById("footer-phone-link").href = `tel:+${SITE_CONFIG.whatsappNumber}`;
   document.getElementById("footer-phone-link").textContent = formatPhoneDisplay(SITE_CONFIG.whatsappNumber);
+
+  const policyLines = [SITE_CONFIG.policies.shipping, SITE_CONFIG.policies.payment, SITE_CONFIG.policies.returns].filter(Boolean);
+  const policiesEl = document.getElementById("footer-policies");
+  if (policiesEl && policyLines.length) {
+    policiesEl.textContent = policyLines.join(" · ");
+    policiesEl.hidden = false;
+  }
 }
 
 // ---------------------------------------------------------------
@@ -73,6 +86,8 @@ function wireWhatsAppTracking() {
     trackEvent("whatsapp_click", {
       link_location: link.id || "product_card",
       product_name: link.dataset.productName || "",
+      category: link.dataset.category || "",
+      ...(link.dataset.price ? { value: Number(link.dataset.price), currency: "INR" } : {}),
       page_path: location.pathname,
     });
   });
@@ -86,10 +101,11 @@ function wireWhatsAppTracking() {
 // be pre-fetched.
 function wireLinkPrefetch() {
   const alreadyPrefetched = new Set();
-  function schedule(link) {
-    const href = link.getAttribute("href");
-    if (!href || href.startsWith("#") || alreadyPrefetched.has(href)) return;
-    if (/^[a-z][a-z0-9+.-]*:/i.test(href) || href.startsWith("//")) return;
+  function isLocalPageLink(href) {
+    return Boolean(href) && !href.startsWith("#") && !/^[a-z][a-z0-9+.-]*:/i.test(href) && !href.startsWith("//");
+  }
+  function doPrefetch(href) {
+    if (alreadyPrefetched.has(href)) return;
     alreadyPrefetched.add(href);
     const tag = document.createElement("link");
     tag.rel = "prefetch";
@@ -98,11 +114,32 @@ function wireLinkPrefetch() {
   }
   document.addEventListener("mouseenter", (e) => {
     const link = e.target.closest && e.target.closest("a[href]");
-    if (link) schedule(link);
+    const href = link && link.getAttribute("href");
+    if (isLocalPageLink(href)) doPrefetch(href);
   }, true);
+
+  // touchstart alone can't tell a tap from the start of a scroll — an
+  // ordinary scroll gesture down a product grid often starts with a finger
+  // landing right on a card. Track movement and only prefetch if the touch
+  // has settled (a scroll shows > 10px of movement within ~120ms), so
+  // scrolling past cards doesn't schedule a wasted prefetch on mobile data.
+  let pending = null;
   document.addEventListener("touchstart", (e) => {
     const link = e.target.closest && e.target.closest("a[href]");
-    if (link) schedule(link);
+    const href = link && link.getAttribute("href");
+    if (!isLocalPageLink(href)) return;
+    const touch = e.touches[0];
+    pending = { href, x: touch.clientX, y: touch.clientY, moved: false };
+    setTimeout(() => {
+      if (pending && pending.href === href && !pending.moved) doPrefetch(href);
+    }, 120);
+  }, { capture: true, passive: true });
+  document.addEventListener("touchmove", (e) => {
+    if (!pending) return;
+    const touch = e.touches[0];
+    if (Math.abs(touch.clientX - pending.x) > 10 || Math.abs(touch.clientY - pending.y) > 10) {
+      pending.moved = true;
+    }
   }, { capture: true, passive: true });
 }
 document.addEventListener("DOMContentLoaded", wireLinkPrefetch);
@@ -209,7 +246,7 @@ function renderProducts() {
         <p class="product-desc">${p.description}</p>
         <div class="product-footer">
           <span class="product-price">${p.price}</span>
-          <a class="btn btn-whatsapp" href="${whatsappLink(productMessage)}" target="_blank" rel="noopener" data-product-name="${p.name}">Order on WhatsApp</a>
+          <a class="btn btn-whatsapp" href="${whatsappLink(productMessage)}" target="_blank" rel="noopener" data-product-name="${p.name}" data-category="${activeCategory}" data-price="${priceToNumeric(p.price)}" aria-label="Order ${p.name} on WhatsApp">Order on WhatsApp</a>
         </div>
       </div>
     </article>
@@ -231,6 +268,12 @@ function wireStaticLinks() {
     instagramEl.href = `https://instagram.com/${SITE_CONFIG.instagramHandle}`;
   } else {
     instagramEl.style.display = "none";
+  }
+
+  const aboutMakerEl = document.getElementById("about-maker-note");
+  if (aboutMakerEl && SITE_CONFIG.aboutMaker) {
+    aboutMakerEl.textContent = SITE_CONFIG.aboutMaker;
+    aboutMakerEl.hidden = false;
   }
 
   wireFooterContact();

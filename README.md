@@ -61,12 +61,14 @@ next sync, same as the sheet is the single source of truth for everything else h
 **1. Create the sheet.** Make a Google Sheet with these column headers in row 1 (order
 doesn't matter, but the names must match exactly, lowercase):
 
-| id | name | price | description | categories | photo | more_photos | whatsapp_message |
-|----|------|-------|-------------|------------|-------|-------------|-------------------|
-| *(optional)* | Lippan Mirror Wall Art | ₹1,499 | Traditional Lippan mud-mirror work... | Lippan art, Home deco | *(Drive link)* | *(optional Drive links)* | *(optional)* |
+| id | name | price | description | size | categories | photo | more_photos | whatsapp_message |
+|----|------|-------|-------------|------|------------|-------|-------------|-------------------|
+| *(optional)* | Lippan Mirror Wall Art | ₹1,499 | Traditional Lippan mud-mirror work... | *(optional)* | Lippan art, Home deco | *(Drive link)* | *(optional Drive links)* | *(optional)* |
 
 - **id**: leave blank — it's generated automatically from the name. Only fill it in if
   you want a specific web-friendly ID.
+- **size**: optional — e.g. `8 x 10 in`. Shown on the product's own page (not the grid
+  card) right under the price. Leave blank to hide it.
 - **categories**: comma-separated, using this list (a product can have more than one):
   `Painting sketch, Resin art, Lippan art, Mosaic art, Home deco, Festival special, Gift, Mirror`
 - **photo**: a Google Drive share link (see step 2) — this is the main photo, shown on

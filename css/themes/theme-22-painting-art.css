@@ -1805,6 +1805,18 @@ p {
 }
 
 
+.footer-policies {
+
+  margin: 0 0 4px;
+
+  color:
+    rgba(255,255,255,0.45);
+
+  font-size: 0.75rem;
+
+}
+
+
 .footer-note {
 
   margin: 0;

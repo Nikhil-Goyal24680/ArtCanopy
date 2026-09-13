@@ -23,6 +23,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const IMAGES_DIR = path.join(ROOT, "images");
 const OUTPUT_FILE = path.join(ROOT, "js", "products-data.js");
+// CATEGORIES lives in its own tiny file so product detail pages (which only
+// ever need CATEGORIES, for the category-nav — never PRODUCTS) don't have
+// to load the whole catalog just to get an 8-item list.
+const CATEGORIES_FILE = path.join(ROOT, "js", "categories-data.js");
 const PRODUCTS_DIR = path.join(ROOT, "products");
 
 // One themed static page per product (see generateProductPages below). Each
@@ -87,6 +91,13 @@ const ALL_PIECES_META = {
   fontsHref: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600;700&display=swap",
 };
 
+// JSON.stringify doesn't escape "</script>", which would otherwise let a
+// stray sequence in a product name/description prematurely close the
+// <script type="application/ld+json"> tag it's embedded in.
+function jsonLdSafe(obj) {
+  return JSON.stringify(obj).replace(/</g, "\\u003c");
+}
+
 function escapeHTML(str) {
   return String(str)
     .replace(/&/g, "&amp;")
@@ -106,11 +117,39 @@ function productPageHTML(product, meta, categoryName) {
   // canonical always points at the neutral page so search engines see one
   // URL per product, not several near-duplicates.
   const canonicalUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}/`;
+  const imageUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/images/${product.image}`;
   const backLinkHref = categoryName ? `../../categories/${meta.slug}/` : "../../";
   const backLinkText = categoryName || "All pieces";
   // Main photo first, then any extras — this is the gallery order, main
   // image shown by default with the rest as click-to-swap thumbnails.
   const allImages = [{ image: product.image, imageSmall: product.imageSmall }, ...(product.extraImages || [])];
+
+  // Structured data for Google's Product/Offer rich results — every field
+  // here is already real data from the sheet, nothing invented. Availability
+  // is MadeToOrder (not InStock) since that's what this whole site's copy
+  // already says about every piece. priceNumeric strips the currency
+  // symbol/commas since schema.org's price wants a bare number.
+  const priceNumeric = String(product.price).replace(/[^0-9.]/g, "");
+  const productLd = jsonLdSafe({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: imageUrl,
+    url: canonicalUrl,
+    ...(product.size ? { size: product.size } : {}),
+    ...(priceNumeric
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: canonicalUrl,
+            price: priceNumeric,
+            priceCurrency: "INR",
+            availability: "https://schema.org/MadeToOrder",
+          },
+        }
+      : {}),
+  });
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -128,7 +167,8 @@ function productPageHTML(product, meta, categoryName) {
 <meta property="og:title" content="${name} — Art Destiny">
 <meta property="og:description" content="${desc}">
 <meta property="og:url" content="${canonicalUrl}">
-<meta property="og:image" content="https://nikhil-goyal24680.github.io/ArtCanopy/images/${product.image}">
+<meta property="og:image" content="${imageUrl}">
+<script type="application/ld+json">${productLd}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="${meta.fontsHref}" rel="stylesheet">
@@ -148,7 +188,7 @@ function productPageHTML(product, meta, categoryName) {
     </div>
   </header>
 
-  <nav class="category-nav" id="category-nav"></nav>
+  <nav class="category-nav" id="category-nav" aria-label="Art categories"></nav>
 
   <main class="product-detail" id="main-content">
     <div class="container product-detail-grid">
@@ -166,7 +206,7 @@ function productPageHTML(product, meta, categoryName) {
         ${allImages.length > 1 ? `<div class="product-thumbs">
           ${allImages.map((img, i) => `
           <button type="button" class="product-thumb${i === 0 ? " active" : ""}" data-full="../../images/${img.image}" aria-label="View image ${i + 1} of ${allImages.length}">
-            <img src="../../images/${img.imageSmall || img.image}" alt="" onerror="this.closest('.product-thumb').remove()">
+            <img src="../../images/${img.imageSmall || img.image}" alt="" loading="lazy" onerror="this.closest('.product-thumb').remove()">
           </button>`).join("")}
         </div>` : ""}
       </div>
@@ -175,8 +215,10 @@ function productPageHTML(product, meta, categoryName) {
         ${tagsHTML ? `<div class="product-tags">${tagsHTML}</div>` : ""}
         <h1>${name}</h1>
         <p class="product-price product-detail-price">${escapeHTML(product.price)}</p>
+        ${product.size ? `<p class="product-detail-size">Size: ${escapeHTML(product.size)}</p>` : ""}
         <p class="product-desc product-detail-desc">${desc}</p>
-        <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="${escapeHTML(product.whatsappMessage)}">Order on WhatsApp</a>
+        <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="${escapeHTML(product.whatsappMessage)}" data-product-name="${name}" data-category="${escapeHTML(categoryName || "All")}" data-price="${priceNumeric}">Order on WhatsApp</a>
+        <p class="product-detail-note">Resin care: keep out of direct sunlight and wipe clean with a soft, dry cloth to keep the finish looking its best.</p>
       </div>
     </div>
   </main>
@@ -193,12 +235,13 @@ function productPageHTML(product, meta, categoryName) {
         <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
         <a id="footer-instagram-link" href="#" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <p class="footer-policies" id="footer-policies" hidden></p>
       <p class="footer-note">&copy; <span id="footer-year"></span> Art Destiny. All pieces handmade to order.</p>
     </div>
   </footer>
 
   <script src="../../js/config.js"></script>
-  <script src="../../js/products-data.js"></script>
+  <script src="../../js/categories-data.js"></script>
   <script src="../../js/main.js"></script>
   <script>initProductPage("category-nav", ${JSON.stringify(categoryName)}); initAnalytics();</script>
 </body>
@@ -245,6 +288,31 @@ export function generateProductPages(products) {
   return expected.size;
 }
 
+const SITE_URL = "https://nikhil-goyal24680.github.io/ArtCanopy/";
+
+// Regenerates sitemap.xml from the current catalog — homepage, all 8
+// category pages (always live regardless of current stock), and each
+// product's neutral/canonical URL only (never the per-category themed
+// variants, so the sitemap always agrees with each page's own <link
+// rel="canonical">). lastmod is "today" for every entry on every run —
+// simple and honest given this whole file regenerates from scratch each
+// sync, rather than tracking real per-page change history.
+export function generateSitemap(products) {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [
+    { loc: SITE_URL, priority: "1.0" },
+    ...Object.values(CATEGORY_META).map((meta) => ({ loc: `${SITE_URL}categories/${meta.slug}/`, priority: "0.8" })),
+    ...products.map((p) => ({ loc: `${SITE_URL}products/${p.id}/`, priority: "0.6" })),
+  ];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+    .map(
+      (u) =>
+        `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
+    )
+    .join("\n")}\n</urlset>\n`;
+  fs.writeFileSync(path.join(ROOT, "sitemap.xml"), xml);
+}
+
 const SHEET_CSV_URL = process.env.SHEET_CSV_URL || "";
 const DRIVE_API_KEY = process.env.GOOGLE_DRIVE_API_KEY || "";
 
@@ -270,6 +338,35 @@ const CATEGORIES = [
 function fail(message) {
   console.error(`[sync-products] ${message}`);
   process.exit(1);
+}
+
+// Counts products in the currently-committed js/products-data.js by
+// counting a field every product object has — cheaper and less fragile
+// than actually importing/evaluating the file just to get a length.
+function getPreviousProductCount() {
+  if (!fs.existsSync(OUTPUT_FILE)) return 0;
+  const prevSrc = fs.readFileSync(OUTPUT_FILE, "utf8");
+  const matches = prevSrc.match(/"whatsappMessage":/g);
+  return matches ? matches.length : 0;
+}
+
+// Matches exactly the filenames this script itself creates for a product:
+// <id>.ext, <id>-sm.ext, <id>-altN.ext, <id>-altN-sm.ext — never anything
+// under images/brand/ or images/decor/ (subdirectories aren't touched here).
+const PRODUCT_IMAGE_RE = /^(.+?)(-alt\d+)?(-sm)?\.(jpe?g|png)$/i;
+
+// A product removed (or renamed) from the sheet previously left its old
+// photo(s) behind forever — this only ever deletes a file whose id-prefix
+// doesn't match any product in THIS run, so it can't touch a photo for a
+// product that still exists.
+function pruneOrphanedProductImages(usedIds) {
+  for (const entry of fs.readdirSync(IMAGES_DIR, { withFileTypes: true })) {
+    if (!entry.isFile()) continue;
+    const m = entry.name.match(PRODUCT_IMAGE_RE);
+    if (!m || usedIds.has(m[1])) continue;
+    fs.unlinkSync(path.join(IMAGES_DIR, entry.name));
+    console.log(`[sync-products] pruned orphaned image: images/${entry.name} (product "${m[1]}" no longer exists)`);
+  }
 }
 
 function parseCSV(text) {
@@ -350,20 +447,46 @@ function extractDriveFolderId(link) {
   return m ? m[1] : null;
 }
 
+// Retries a flaky network call with exponential backoff — Drive's endpoints
+// (especially the anonymous download one used below) intermittently
+// rate-limit or interstitial-block bursty traffic, and a transient failure
+// here otherwise reads as a permanent one (a warning, a dropped photo).
+async function withRetry(fn, { attempts = 3, baseDelayMs = 600 } = {}) {
+  let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (i < attempts - 1) await new Promise((r) => setTimeout(r, baseDelayMs * 2 ** i));
+    }
+  }
+  throw lastErr;
+}
+
 // Lists the image files inside a publicly-shared ("Anyone with the link")
 // Drive folder, via the Drive API. Needs an API key (GOOGLE_DRIVE_API_KEY) —
 // unlike downloadDriveImage below, there's no unauthenticated endpoint for
 // listing a folder's contents. See README.md "Connecting the product sheet"
-// for how to create one.
+// for how to create one. Paginates rather than trusting a single
+// pageSize=1000 request to always be the whole folder.
 async function listDriveFolderImages(folderId, apiKey) {
   const q = `'${folderId}' in parents and trashed = false`;
-  const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=${encodeURIComponent("files(id,name,mimeType)")}&pageSize=1000&key=${apiKey}`;
-  const res = await fetch(url);
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    throw new Error(data?.error?.message || `Drive API error (status ${res.status})`);
-  }
-  return (data.files || [])
+  let files = [];
+  let pageToken = "";
+  do {
+    const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=${encodeURIComponent("nextPageToken,files(id,name,mimeType)")}&pageSize=1000&key=${apiKey}${pageToken ? `&pageToken=${pageToken}` : ""}`;
+    const data = await withRetry(async () => {
+      const res = await fetch(url);
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(body?.error?.message || `Drive API error (status ${res.status})`);
+      return body;
+    });
+    files = files.concat(data.files || []);
+    pageToken = data.nextPageToken || "";
+  } while (pageToken);
+
+  return files
     .filter((f) => (f.mimeType || "").startsWith("image/"))
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 }
@@ -403,25 +526,27 @@ async function resolveMorePhotoFileIds(raw, rowNum, name, warnings) {
 }
 
 async function downloadDriveImage(fileId) {
-  const baseUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-  let res = await fetch(baseUrl, { redirect: "follow" });
-  let contentType = res.headers.get("content-type") || "";
+  return withRetry(async () => {
+    const baseUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    let res = await fetch(baseUrl, { redirect: "follow" });
+    let contentType = res.headers.get("content-type") || "";
 
-  if (contentType.includes("text/html")) {
-    // large files show a "can't scan for viruses" interstitial with a confirm token
-    const html = await res.text();
-    const confirmMatch = html.match(/confirm=([0-9A-Za-z_-]+)/);
-    if (confirmMatch) {
-      res = await fetch(`${baseUrl}&confirm=${confirmMatch[1]}`, { redirect: "follow" });
-      contentType = res.headers.get("content-type") || "";
+    if (contentType.includes("text/html")) {
+      // large files show a "can't scan for viruses" interstitial with a confirm token
+      const html = await res.text();
+      const confirmMatch = html.match(/confirm=([0-9A-Za-z_-]+)/);
+      if (confirmMatch) {
+        res = await fetch(`${baseUrl}&confirm=${confirmMatch[1]}`, { redirect: "follow" });
+        contentType = res.headers.get("content-type") || "";
+      }
     }
-  }
 
-  if (!res.ok || !contentType.startsWith("image/")) {
-    throw new Error(`unexpected response (status ${res.status}, content-type ${contentType || "unknown"})`);
-  }
+    if (!res.ok || !contentType.startsWith("image/")) {
+      throw new Error(`unexpected response (status ${res.status}, content-type ${contentType || "unknown"})`);
+    }
 
-  return Buffer.from(await res.arrayBuffer());
+    return Buffer.from(await res.arrayBuffer());
+  });
 }
 
 // Re-encodes a downloaded photo at two widths (see IMAGE_MAIN_WIDTH /
@@ -469,6 +594,13 @@ async function main() {
   const rows = parseCSV(csvText);
   if (rows.length < 2) fail("the sheet has no data rows (only a header, or is empty).");
   const records = rowsToObjects(rows);
+
+  // A raw snapshot of every sheet fetch, overwritten each run — recovering
+  // "what did the sheet say on date X" is then just `git log`/`git show`
+  // against this one file, no need to reconstruct it from the generated
+  // js/products-data.js or dig through 30+ automated commits by hand.
+  fs.mkdirSync(path.join(ROOT, "data"), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, "data", "last-sync.csv"), csvText);
 
   fs.mkdirSync(IMAGES_DIR, { recursive: true });
 
@@ -557,6 +689,7 @@ async function main() {
       name,
       price: r.price || "",
       description: r.description || "",
+      size: r.size || r.dimensions || "",
       image,
       imageSmall,
       extraImages,
@@ -565,6 +698,38 @@ async function main() {
     });
   }
 
+  // A partial/accidental Sheet edit (a bad filter, a mass-delete) shouldn't
+  // silently collapse the live catalog — the pipeline auto-commits and
+  // pushes with no human review step, so this is the only gate. Only fires
+  // once there's a real prior catalog to compare against, and can be
+  // deliberately bypassed for a genuine intentional shrink.
+  const previousCount = getPreviousProductCount();
+  if (
+    process.env.ALLOW_CATALOG_SHRINK !== "1" &&
+    previousCount >= 3 &&
+    products.length < previousCount * 0.5
+  ) {
+    fail(
+      `catalog size dropped from ${previousCount} to ${products.length} products (more than half) — ` +
+      "this looks like an accidental sheet edit, so nothing was written or pushed. If this drop is " +
+      "genuinely intentional, re-run with ALLOW_CATALOG_SHRINK=1 set (the manual 'Run workflow' " +
+      "button has a checkbox for this)."
+    );
+  }
+
+  pruneOrphanedProductImages(usedIds);
+
+  const categoriesFileContents = `// ---------------------------------------------------------------
+// AUTO-GENERATED by scripts/sync-products.mjs. Do not hand-edit.
+// Split out from products-data.js so pages that only need the category
+// list (every product detail page) don't have to load the whole catalog.
+// ---------------------------------------------------------------
+
+// Canonical category list — a product can belong to more than one.
+const CATEGORIES = ${JSON.stringify(CATEGORIES, null, 2)};
+`;
+  fs.writeFileSync(CATEGORIES_FILE, categoriesFileContents);
+
   const fileContents = `// ---------------------------------------------------------------
 // AUTO-GENERATED by scripts/sync-products.mjs from the operator's
 // Google Sheet + Drive photos. Do not hand-edit — changes here get
@@ -572,14 +737,20 @@ async function main() {
 // Last synced: ${new Date().toISOString()}
 // ---------------------------------------------------------------
 
-// Canonical category list — a product can belong to more than one.
-const CATEGORIES = ${JSON.stringify(CATEGORIES, null, 2)};
-
 const PRODUCTS = ${JSON.stringify(products, null, 2)};
 `;
   fs.writeFileSync(OUTPUT_FILE, fileContents);
 
   const pageCount = generateProductPages(products);
+  generateSitemap(products);
+
+  // Surfaced by .github/workflows/sync-products.yml into a GitHub Issue —
+  // a run that only produced warnings still exits 0 (nothing's actually
+  // broken), so without this the only trace was a line in that day's
+  // Action log that nobody was watching.
+  const warningsFile = path.join(ROOT, "sync-warnings.txt");
+  if (warnings.length) fs.writeFileSync(warningsFile, warnings.join("\n"));
+  else if (fs.existsSync(warningsFile)) fs.unlinkSync(warningsFile);
 
   console.log(`\n[sync-products] done: ${products.length} products, ${photosDownloaded} photo(s) downloaded, ${pageCount} product page(s) generated.`);
   if (warnings.length) {
