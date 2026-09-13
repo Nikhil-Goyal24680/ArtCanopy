@@ -108,6 +108,9 @@ function productPageHTML(product, meta, categoryName) {
   const canonicalUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}.html`;
   const backLinkHref = categoryName ? `../categories/${meta.slug}.html` : "../index.html";
   const backLinkText = categoryName || "All pieces";
+  // Main photo first, then any extras — this is the gallery order, main
+  // image shown by default with the rest as click-to-swap thumbnails.
+  const allImages = [{ image: product.image, imageSmall: product.imageSmall }, ...(product.extraImages || [])];
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -148,14 +151,23 @@ function productPageHTML(product, meta, categoryName) {
 
   <main class="product-detail" id="main-content">
     <div class="container product-detail-grid">
-      <div class="product-image placeholder">
-        <span>Photo coming soon</span>
-        <img
-          src="../images/${product.image}"
-          alt="${name}"
-          onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
-          onerror="this.remove()"
-        >
+      <div class="product-gallery">
+        <div class="product-image placeholder" id="product-main-image">
+          <span>Photo coming soon</span>
+          <img
+            id="product-main-img"
+            src="../images/${product.image}"
+            alt="${name}"
+            onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
+            onerror="this.remove()"
+          >
+        </div>
+        ${allImages.length > 1 ? `<div class="product-thumbs">
+          ${allImages.map((img, i) => `
+          <button type="button" class="product-thumb${i === 0 ? " active" : ""}" data-full="../images/${img.image}" aria-label="View image ${i + 1} of ${allImages.length}">
+            <img src="../images/${img.imageSmall || img.image}" alt="" onerror="this.closest('.product-thumb').remove()">
+          </button>`).join("")}
+        </div>` : ""}
       </div>
       <div class="product-detail-body">
         <a class="back-link" href="${backLinkHref}">&larr; Back to ${escapeHTML(backLinkText)}</a>
@@ -450,6 +462,37 @@ async function main() {
       warnings.push(`row ${rowNum} ("${name}"): "${photoLink}" doesn't look like a Google Drive link — skipped photo.`);
     }
 
+    // Optional extra photos for the product's own detail-page gallery (a
+    // main image + thumbnails, like a marketplace listing) — the product
+    // grid card itself only ever shows `image` above. Same comma/semicolon
+    // list format as `categories`, each entry a Drive link.
+    const morePhotosRaw = r.more_photos || r.additional_photos || r.extra_photos || "";
+    const morePhotoLinks = morePhotosRaw.split(/[,;]/).map((l) => l.trim()).filter(Boolean);
+    const extraImages = [];
+    for (const [j, link] of morePhotoLinks.entries()) {
+      const altBase = `${id}-alt${j + 1}`;
+      let altImage = existingFiles.find((f) => f.startsWith(`${altBase}.`)) || "";
+      let altImageSmall = existingFiles.find((f) => f.startsWith(`${altBase}-sm.`)) || "";
+
+      const altFileId = extractDriveFileId(link);
+      if (altFileId) {
+        try {
+          const buffer = await downloadDriveImage(altFileId);
+          const { main, small } = await processImage(buffer, path.join(IMAGES_DIR, altBase));
+          altImage = main.filename;
+          altImageSmall = small.filename;
+          photosDownloaded++;
+          console.log(`[sync-products] downloaded + optimized extra photo ${j + 1} for "${name}" -> images/${altImage}`);
+        } catch (err) {
+          warnings.push(`row ${rowNum} ("${name}"): couldn't download additional photo ${j + 1} — ${err.message}. Keeping previous image if any.`);
+        }
+      } else {
+        warnings.push(`row ${rowNum} ("${name}"): additional photo "${link}" doesn't look like a Google Drive link — skipped.`);
+      }
+
+      if (altImage) extraImages.push({ image: altImage, imageSmall: altImageSmall });
+    }
+
     products.push({
       id,
       name,
@@ -457,6 +500,7 @@ async function main() {
       description: r.description || "",
       image,
       imageSmall,
+      extraImages,
       categories,
       whatsappMessage,
     });

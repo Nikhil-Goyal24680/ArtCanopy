@@ -20,10 +20,28 @@
   align-items: start;
 }
 
+.product-gallery { display: flex; flex-direction: column; gap: 12px; }
+
 .product-detail-grid .product-image {
   border-radius: var(--radius, 12px);
   border: 1px solid var(--border);
 }
+
+.product-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+.product-thumb {
+  padding: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: calc(var(--radius, 12px) / 2);
+  border: 2px solid var(--border);
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product-thumb.active { border-color: var(--ink); }
+.product-thumb:hover { border-color: var(--ink-soft); }
 
 .product-detail-body .product-tags { margin-bottom: 14px; }
 .product-detail-body h1 { margin-bottom: 10px; }

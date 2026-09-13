@@ -106,6 +106,34 @@ let searchQuery = "";
 // category page so image/product-link paths resolve either way.
 let pagePathPrefix = "";
 
+// products/<id>*.html — clicking a gallery thumbnail swaps the main
+// display image instead of navigating anywhere. Delegated (not wired per
+// thumbnail) so it's a harmless no-op on every page without a
+// .product-thumb, same reasoning as wireWhatsAppTracking/wireGiftUnwrap.
+function wireProductGallery() {
+  document.addEventListener("click", (e) => {
+    const thumb = e.target.closest(".product-thumb");
+    if (!thumb) return;
+    const wrap = document.getElementById("product-main-image");
+    if (!wrap) return;
+
+    let mainImg = document.getElementById("product-main-img");
+    if (!mainImg) {
+      // A prior image's onerror handler already removed the <img> — recreate it.
+      mainImg = document.createElement("img");
+      mainImg.id = "product-main-img";
+      wrap.appendChild(mainImg);
+    }
+    mainImg.onload = () => wrap.classList.remove("placeholder");
+    mainImg.onerror = () => wrap.classList.add("placeholder");
+    mainImg.src = thumb.dataset.full;
+    mainImg.alt = thumb.getAttribute("aria-label") || "";
+
+    document.querySelectorAll(".product-thumb.active").forEach((t) => t.classList.remove("active"));
+    thumb.classList.add("active");
+  });
+}
+
 function renderProducts() {
   const grid = document.getElementById("product-grid");
   const noResults = document.getElementById("no-results");
@@ -292,6 +320,7 @@ function initProductPage(navId, categoryName) {
 
   wireFooterContact();
   document.getElementById("footer-year").textContent = new Date().getFullYear();
+  wireProductGallery();
 
   if (navId) renderCategoryNav(navId, categoryName, "../categories/");
 }

@@ -37,14 +37,18 @@
 
   <main class="product-detail" id="main-content">
     <div class="container product-detail-grid">
-      <div class="product-image placeholder">
-        <span>Photo coming soon</span>
-        <img
-          src="../images/mosaic-resin-wall-piece.jpg"
-          alt="Mosaic Resin Wall Piece"
-          onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
-          onerror="this.remove()"
-        >
+      <div class="product-gallery">
+        <div class="product-image placeholder" id="product-main-image">
+          <span>Photo coming soon</span>
+          <img
+            id="product-main-img"
+            src="../images/mosaic-resin-wall-piece.jpg"
+            alt="Mosaic Resin Wall Piece"
+            onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
+            onerror="this.remove()"
+          >
+        </div>
+        
       </div>
       <div class="product-detail-body">
         <a class="back-link" href="../categories/mosaic-art.html">&larr; Back to Mosaic art</a>

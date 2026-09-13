@@ -61,15 +61,19 @@ next sync, same as the sheet is the single source of truth for everything else h
 **1. Create the sheet.** Make a Google Sheet with these column headers in row 1 (order
 doesn't matter, but the names must match exactly, lowercase):
 
-| id | name | price | description | categories | photo | whatsapp_message |
-|----|------|-------|-------------|------------|-------|-------------------|
-| *(optional)* | Lippan Mirror Wall Art | ₹1,499 | Traditional Lippan mud-mirror work... | Lippan art, Home deco | *(Drive link)* | *(optional)* |
+| id | name | price | description | categories | photo | more_photos | whatsapp_message |
+|----|------|-------|-------------|------------|-------|-------------|-------------------|
+| *(optional)* | Lippan Mirror Wall Art | ₹1,499 | Traditional Lippan mud-mirror work... | Lippan art, Home deco | *(Drive link)* | *(optional Drive links)* | *(optional)* |
 
 - **id**: leave blank — it's generated automatically from the name. Only fill it in if
   you want a specific web-friendly ID.
 - **categories**: comma-separated, using this list (a product can have more than one):
   `Painting sketch, Resin art, Lippan art, Mosaic art, Home deco, Festival special, Gift, Mirror`
-- **photo**: a Google Drive share link (see step 2).
+- **photo**: a Google Drive share link (see step 2) — this is the main photo, shown on
+  the product grid card and as the default image on the product's own page.
+- **more_photos**: optional, comma-separated Google Drive share links — extra angles/
+  close-ups shown as a click-to-swap thumbnail gallery on the product's own page
+  (`products/<id>.html`). Leave blank for a product with only one photo.
 - **whatsapp_message**: leave blank to auto-generate a reasonable default from the name.
 
 Each row = one product. Row order = display order on the site.
