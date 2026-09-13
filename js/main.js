@@ -7,6 +7,25 @@ function formatPhoneDisplay(number) {
   return `+${number.slice(0, 2)} ${number.slice(2, 7)} ${number.slice(7)}`;
 }
 
+// Wires up admin/index.html — the unlinked, internal quick-links dashboard.
+// See SITE_CONFIG.admin in js/config.js for the actual URLs.
+function wireAdminPage() {
+  document.getElementById("card-site").href = SITE_CONFIG.admin.siteUrl;
+  document.getElementById("card-sheet").href = SITE_CONFIG.admin.sheetUrl;
+  document.getElementById("card-sync").href = SITE_CONFIG.admin.syncWorkflowUrl;
+
+  const driveCard = document.getElementById("card-drive");
+  if (SITE_CONFIG.admin.driveFolderUrl) {
+    driveCard.href = SITE_CONFIG.admin.driveFolderUrl;
+  } else {
+    driveCard.removeAttribute("href");
+    driveCard.removeAttribute("target");
+    driveCard.classList.add("disabled");
+    document.getElementById("card-drive-note").textContent =
+      "Not set yet — paste the main Drive folder's link into driveFolderUrl in js/config.js.";
+  }
+}
+
 function wireFooterContact() {
   document.getElementById("footer-email-link").href = `mailto:${SITE_CONFIG.contactEmail}`;
   document.getElementById("footer-email-link").textContent = SITE_CONFIG.contactEmail;

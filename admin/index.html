@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../images/brand/favicon-32.png">
+<title>Admin — Art Destiny</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  body { padding: 48px 20px 80px; }
+  .admin-wrap { max-width: 640px; margin: 0 auto; }
+  .admin-header { margin-bottom: 36px; }
+  .admin-header .brand-logo { height: 48px; margin-bottom: 18px; }
+  .admin-header h1 { margin-bottom: 6px; }
+  .admin-header p { margin: 0; }
+
+  .admin-card {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #fff;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .admin-card:hover { border-color: var(--teal); transform: translateY(-1px); }
+  .admin-card h2 {
+    font-family: inherit;
+    font-size: 1.05rem;
+    color: var(--teal);
+    margin: 0 0 4px;
+  }
+  .admin-card p { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
+  .admin-card .admin-card-arrow {
+    float: right;
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+  }
+
+  .admin-card.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .admin-card.disabled:hover { border-color: var(--border); transform: none; }
+
+  .admin-card.admin-card-action { cursor: default; }
+  .admin-card.admin-card-action:hover { border-color: var(--border); transform: none; }
+  .admin-card-action p { margin-bottom: 16px; }
+  .admin-card-action .btn { padding: 10px 22px; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <img src="../images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo">
+      <h1>Admin</h1>
+      <p>Quick links for running the shop day to day — not linked from the site itself, just bookmark this page.</p>
+    </div>
+
+    <a class="admin-card" id="card-site" href="#" target="_blank" rel="noopener">
+      <span class="admin-card-arrow">&rarr;</span>
+      <h2>Live website</h2>
+      <p>What customers see — the actual catalog, shareable link.</p>
+    </a>
+
+    <a class="admin-card" id="card-sheet" href="#" target="_blank" rel="noopener">
+      <span class="admin-card-arrow">&rarr;</span>
+      <h2>Product spreadsheet</h2>
+      <p>Add, edit, or remove products here. Syncs to the site automatically every day at 8:30am, or instantly with the button below.</p>
+    </a>
+
+    <a class="admin-card" id="card-drive" href="#" target="_blank" rel="noopener">
+      <span class="admin-card-arrow">&rarr;</span>
+      <h2>Product photo folders</h2>
+      <p id="card-drive-note">One subfolder per product. Share a subfolder link into that product's "more_photos" column in the sheet.</p>
+    </a>
+
+    <div class="admin-card admin-card-action">
+      <h2>Run sync now</h2>
+      <p>Opens GitHub. Click the "Run workflow" dropdown, then the green "Run workflow" button, to pull in sheet/photo changes right away instead of waiting for the daily sync.</p>
+      <a class="btn btn-primary" id="card-sync" href="#" target="_blank" rel="noopener">Run sync now</a>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/main.js"></script>
+  <script>wireAdminPage();</script>
+</body>
+</html>

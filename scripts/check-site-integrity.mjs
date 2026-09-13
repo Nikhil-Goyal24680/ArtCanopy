@@ -38,7 +38,7 @@ const VOID_ELEMENTS = new Set([
 function findHtmlFiles() {
   const files = ["index.html"];
   if (fs.existsSync(path.join(ROOT, "404.html"))) files.push("404.html");
-  for (const dir of ["categories", "products", "themes"]) {
+  for (const dir of ["categories", "products", "themes", "admin"]) {
     const full = path.join(ROOT, dir);
     if (!fs.existsSync(full)) continue;
     for (const f of fs.readdirSync(full).sort()) {
