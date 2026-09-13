@@ -286,16 +286,23 @@ async function typeInto(cdp, sessionId, selector, text) {
 
 const PAGES_FOR_OVERFLOW_CHECK = [
   "/",
-  "/categories/painting-sketch.html",
-  "/categories/resin-art.html",
-  "/categories/lippan-art.html",
-  "/categories/mosaic-art.html",
-  "/categories/home-deco.html",
-  "/categories/festival-special.html",
-  "/categories/gift.html",
-  "/categories/mirror.html",
-  "/products/resin-sketch-wall-panel.html",
+  "/categories/painting-sketch/",
+  "/categories/resin-art/",
+  "/categories/lippan-art/",
+  "/categories/mosaic-art/",
+  "/categories/home-deco/",
+  "/categories/festival-special/",
+  "/categories/gift/",
+  "/categories/mirror/",
+  "/products/resin-sketch-wall-panel/",
 ];
+
+// The home link is "../../" from a nested category/product page — resolves
+// to the site root, so check the resolved pathname rather than a literal
+// "/index.html" suffix (there's no such filename in the URL anymore).
+function isHomeUrl(url) {
+  return new URL(url).pathname === "/";
+}
 
 // The classic "mobile is broken" symptom: something wider than the
 // viewport forcing a horizontal scrollbar. Cheap to check, catches a lot.
@@ -309,25 +316,25 @@ async function testNoHorizontalOverflow(cdp) {
 }
 
 async function testLogoNavigatesHome(cdp) {
-  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/categories/gift.html`);
+  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/categories/gift/`);
   await tap(cdp, sessionId, ".brand");
   await sleep(500);
   const url = await currentURL(cdp, sessionId);
-  report("tapping the header logo (from a category page) goes home", url.endsWith("/index.html"), `landed on ${url}`);
+  report("tapping the header logo (from a category page) goes home", isHomeUrl(url), `landed on ${url}`);
   await closePage(cdp, targetId);
 }
 
 async function testCategoryNavNavigation(cdp) {
   const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
-  await tap(cdp, sessionId, 'a.category-nav-item[href="categories/resin-art.html"]');
+  await tap(cdp, sessionId, 'a.category-nav-item[href="categories/resin-art/"]');
   await sleep(500);
   let url = await currentURL(cdp, sessionId);
-  report('tapping the "Resin art" chip opens that category', url.endsWith("/categories/resin-art.html"), `landed on ${url}`);
+  report('tapping the "Resin art" chip opens that category', url.endsWith("/categories/resin-art/"), `landed on ${url}`);
 
   await tap(cdp, sessionId, "a.category-nav-item.all");
   await sleep(500);
   url = await currentURL(cdp, sessionId);
-  report('tapping "All pieces" from there goes back home', url.endsWith("/index.html"), `landed on ${url}`);
+  report('tapping "All pieces" from there goes back home', isHomeUrl(url), `landed on ${url}`);
   await closePage(cdp, targetId);
 }
 
@@ -403,10 +410,10 @@ async function testFooterContactLinks(cdp) {
 
 async function testProductCardOpensDetailPageAndPhotoLoads(cdp) {
   const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
-  await tap(cdp, sessionId, 'a.product-title-link[href="products/resin-sketch-wall-panel.html"]');
+  await tap(cdp, sessionId, 'a.product-title-link[href="products/resin-sketch-wall-panel/"]');
   await sleep(700);
   const url = await currentURL(cdp, sessionId);
-  report("tapping a product card opens its own detail page", url.endsWith("/products/resin-sketch-wall-panel.html"), `landed on ${url}`);
+  report("tapping a product card opens its own detail page", url.endsWith("/products/resin-sketch-wall-panel/"), `landed on ${url}`);
 
   await sleep(500); // real photo load, not just DOM presence
   const loaded = await evaluate(cdp, sessionId, '!!document.getElementById("product-main-img")?.classList.contains("loaded")');
@@ -415,7 +422,7 @@ async function testProductCardOpensDetailPageAndPhotoLoads(cdp) {
 }
 
 async function testProductGalleryThumbnails(cdp) {
-  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/resin-sketch-wall-panel.html`);
+  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/resin-sketch-wall-panel/`);
   const before = await evaluate(cdp, sessionId, 'document.getElementById("product-main-img").src');
   const expectedFile = await evaluate(cdp, sessionId, 'document.querySelectorAll(".product-thumb")[1].dataset.full.split("/").pop()');
 
@@ -428,7 +435,7 @@ async function testProductGalleryThumbnails(cdp) {
 }
 
 async function testProductPageWhatsAppAndBackLink(cdp) {
-  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/resin-sketch-wall-panel.html`);
+  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/resin-sketch-wall-panel/`);
   const expectedMsg = await evaluate(cdp, sessionId, `document.getElementById("product-whatsapp-link").dataset.message + "\\n" + location.href`);
   const url = await tapAndCaptureNewTabUrl(cdp, sessionId, "#product-whatsapp-link");
   const actualMsg = url ? decodeURIComponent(new URL(url).searchParams.get("text") || "") : null;
@@ -437,7 +444,7 @@ async function testProductPageWhatsAppAndBackLink(cdp) {
   await tap(cdp, sessionId, ".back-link");
   await sleep(500);
   const backUrl = await currentURL(cdp, sessionId);
-  report("the product page's back-link returns to All pieces (opened from home)", backUrl.endsWith("/index.html"), `landed on ${backUrl}`);
+  report("the product page's back-link returns to All pieces (opened from home)", isHomeUrl(backUrl), `landed on ${backUrl}`);
   await closePage(cdp, targetId);
 }
 

@@ -105,8 +105,8 @@ function productPageHTML(product, meta, categoryName) {
   // neutral "All pieces" one) is the same content in a different theme —
   // canonical always points at the neutral page so search engines see one
   // URL per product, not several near-duplicates.
-  const canonicalUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}.html`;
-  const backLinkHref = categoryName ? `../categories/${meta.slug}.html` : "../index.html";
+  const canonicalUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}/`;
+  const backLinkHref = categoryName ? `../../categories/${meta.slug}/` : "../../";
   const backLinkText = categoryName || "All pieces";
   // Main photo first, then any extras — this is the gallery order, main
   // image shown by default with the rest as click-to-swap thumbnails.
@@ -118,8 +118,8 @@ function productPageHTML(product, meta, categoryName) {
 <meta charset="UTF-8">
 <meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="../images/brand/favicon-32.png">
-<link rel="apple-touch-icon" href="../images/brand/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="../../images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="../../images/brand/apple-touch-icon.png">
 <title>${name} — Art Destiny</title>
 <meta name="description" content="${desc}">
 <link rel="canonical" href="${canonicalUrl}">
@@ -132,10 +132,10 @@ function productPageHTML(product, meta, categoryName) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="${meta.fontsHref}" rel="stylesheet">
-<link rel="stylesheet" href="../${meta.themeCss}">
-<link rel="stylesheet" href="../css/category-nav.css">
-<link rel="stylesheet" href="../css/site-wide.css">
-<link rel="stylesheet" href="../css/product-detail.css">
+<link rel="stylesheet" href="../../${meta.themeCss}">
+<link rel="stylesheet" href="../../css/category-nav.css">
+<link rel="stylesheet" href="../../css/site-wide.css">
+<link rel="stylesheet" href="../../css/product-detail.css">
 </head>
 <body>
 
@@ -143,7 +143,7 @@ function productPageHTML(product, meta, categoryName) {
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="../index.html" aria-label="Art Destiny — back to home"><img src="../images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></a>
+      <a class="brand" href="../../" aria-label="Art Destiny — back to home"><img src="../../images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></a>
       <a class="btn btn-whatsapp header-cta" id="header-whatsapp-link" href="#" target="_blank" rel="noopener">Message us</a>
     </div>
   </header>
@@ -157,7 +157,7 @@ function productPageHTML(product, meta, categoryName) {
           <span>Photo coming soon</span>
           <img
             id="product-main-img"
-            src="../images/${product.image}"
+            src="../../images/${product.image}"
             alt="${name}"
             onload="this.closest('.product-image').classList.remove('placeholder'); this.classList.add('loaded')"
             onerror="this.remove()"
@@ -165,8 +165,8 @@ function productPageHTML(product, meta, categoryName) {
         </div>
         ${allImages.length > 1 ? `<div class="product-thumbs">
           ${allImages.map((img, i) => `
-          <button type="button" class="product-thumb${i === 0 ? " active" : ""}" data-full="../images/${img.image}" aria-label="View image ${i + 1} of ${allImages.length}">
-            <img src="../images/${img.imageSmall || img.image}" alt="" onerror="this.closest('.product-thumb').remove()">
+          <button type="button" class="product-thumb${i === 0 ? " active" : ""}" data-full="../../images/${img.image}" aria-label="View image ${i + 1} of ${allImages.length}">
+            <img src="../../images/${img.imageSmall || img.image}" alt="" onerror="this.closest('.product-thumb').remove()">
           </button>`).join("")}
         </div>` : ""}
       </div>
@@ -183,7 +183,7 @@ function productPageHTML(product, meta, categoryName) {
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="brand"><img src="../images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></div>
+      <div class="brand"><img src="../../images/brand/artdestiny-logo.png" alt="Art Destiny" class="brand-logo"></div>
       <p class="footer-contact">
         <a id="footer-email-link" href="#"></a>
         <span aria-hidden="true">&middot;</span>
@@ -197,45 +197,48 @@ function productPageHTML(product, meta, categoryName) {
     </div>
   </footer>
 
-  <script src="../js/config.js"></script>
-  <script src="../js/products-data.js"></script>
-  <script src="../js/main.js"></script>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/products-data.js"></script>
+  <script src="../../js/main.js"></script>
   <script>initProductPage("category-nav", ${JSON.stringify(categoryName)}); initAnalytics();</script>
 </body>
 </html>
 `;
 }
 
-// Regenerates products/<id>.html (neutral, "All pieces"-themed, canonical)
-// plus products/<id>--<category-slug>.html for every category a product is
-// tagged with. Fully generated — like js/products-data.js, never hand-edit
-// a file under products/. Stale pages (a product or a category tag removed
-// from the sheet) are deleted so products/ never drifts out of sync with
-// the current catalog.
+// Regenerates products/<id>/index.html (neutral, "All pieces"-themed,
+// canonical) plus products/<id>--<category-slug>/index.html for every
+// category a product is tagged with — each its own folder so the URL has
+// no .html extension. Fully generated — like js/products-data.js, never
+// hand-edit a file under products/. Stale folders (a product or a category
+// tag removed from the sheet) are deleted so products/ never drifts out of
+// sync with the current catalog.
 export function generateProductPages(products) {
   fs.mkdirSync(PRODUCTS_DIR, { recursive: true });
 
+  function writePage(dirName, html) {
+    const dir = path.join(PRODUCTS_DIR, dirName);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "index.html"), html);
+  }
+
   const expected = new Set();
   for (const product of products) {
-    const neutralFilename = `${product.id}.html`;
-    expected.add(neutralFilename);
-    fs.writeFileSync(
-      path.join(PRODUCTS_DIR, neutralFilename),
-      productPageHTML(product, ALL_PIECES_META, null)
-    );
+    expected.add(product.id);
+    writePage(product.id, productPageHTML(product, ALL_PIECES_META, null));
 
     for (const category of product.categories || []) {
       const meta = CATEGORY_META[category];
       if (!meta) continue; // unknown/typo'd category — sync already warns about this elsewhere
-      const filename = `${product.id}--${meta.slug}.html`;
-      expected.add(filename);
-      fs.writeFileSync(path.join(PRODUCTS_DIR, filename), productPageHTML(product, meta, category));
+      const dirName = `${product.id}--${meta.slug}`;
+      expected.add(dirName);
+      writePage(dirName, productPageHTML(product, meta, category));
     }
   }
 
-  for (const existing of fs.readdirSync(PRODUCTS_DIR)) {
-    if (existing.endsWith(".html") && !expected.has(existing)) {
-      fs.unlinkSync(path.join(PRODUCTS_DIR, existing));
+  for (const existing of fs.readdirSync(PRODUCTS_DIR, { withFileTypes: true })) {
+    if (existing.isDirectory() && !expected.has(existing.name)) {
+      fs.rmSync(path.join(PRODUCTS_DIR, existing.name), { recursive: true, force: true });
     }
   }
 

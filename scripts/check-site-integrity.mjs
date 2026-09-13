@@ -35,14 +35,26 @@ const VOID_ELEMENTS = new Set([
   "link", "meta", "param", "source", "track", "wbr",
 ]);
 
+// Recursive since categories/*/index.html and products/*/index.html now
+// nest one folder deeper than the flat themes/*.html and admin/index.html.
+function walkHtmlFiles(dir) {
+  const found = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) found.push(...walkHtmlFiles(full));
+    else if (entry.name.endsWith(".html")) found.push(full);
+  }
+  return found;
+}
+
 function findHtmlFiles() {
   const files = ["index.html"];
   if (fs.existsSync(path.join(ROOT, "404.html"))) files.push("404.html");
   for (const dir of ["categories", "products", "themes", "admin"]) {
     const full = path.join(ROOT, dir);
     if (!fs.existsSync(full)) continue;
-    for (const f of fs.readdirSync(full).sort()) {
-      if (f.endsWith(".html")) files.push(path.join(dir, f));
+    for (const f of walkHtmlFiles(full)) {
+      files.push(path.relative(ROOT, f));
     }
   }
   return files;

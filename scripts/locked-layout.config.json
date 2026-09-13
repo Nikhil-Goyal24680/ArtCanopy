@@ -26,13 +26,13 @@
 
   "pages": [
     { "html": "index.html", "css": "css/style.css", "stripClass": "home-shimmer-strip", "stripInsideHero": false },
-    { "html": "categories/lippan-art.html", "css": "css/themes/theme-17-lippan-mudwork.css", "stripClass": "mirror-border", "stripInsideHero": true },
-    { "html": "categories/mosaic-art.html", "css": "css/themes/theme-18-mosaic-fragments.css", "stripClass": "tile-strip", "stripInsideHero": false },
-    { "html": "categories/festival-special.html", "css": "css/themes/theme-20-diya-rangoli.css", "stripClass": "garland-strip", "stripInsideHero": false },
-    { "html": "categories/painting-sketch.html", "css": "css/themes/theme-22-painting-art.css", "stripClass": "paint-strip", "stripInsideHero": false },
-    { "html": "categories/resin-art.html", "css": "css/themes/theme-24-liquid-resin.css", "stripClass": "resin-shimmer-strip", "stripInsideHero": false },
-    { "html": "categories/mirror.html", "css": "css/themes/theme-26-prism-reflection.css", "stripClass": "embellished-border-strip", "stripInsideHero": false },
-    { "html": "categories/home-deco.html", "css": "css/themes/theme-29-heritage-decor.css", "stripClass": "toran-garland-strip", "stripInsideHero": false },
-    { "html": "categories/gift.html", "css": "css/themes/theme-31-wrapped-gift-story.css", "stripClass": "ribbon-strip", "stripInsideHero": false }
+    { "html": "categories/lippan-art/index.html", "css": "css/themes/theme-17-lippan-mudwork.css", "stripClass": "mirror-border", "stripInsideHero": true },
+    { "html": "categories/mosaic-art/index.html", "css": "css/themes/theme-18-mosaic-fragments.css", "stripClass": "tile-strip", "stripInsideHero": false },
+    { "html": "categories/festival-special/index.html", "css": "css/themes/theme-20-diya-rangoli.css", "stripClass": "garland-strip", "stripInsideHero": false },
+    { "html": "categories/painting-sketch/index.html", "css": "css/themes/theme-22-painting-art.css", "stripClass": "paint-strip", "stripInsideHero": false },
+    { "html": "categories/resin-art/index.html", "css": "css/themes/theme-24-liquid-resin.css", "stripClass": "resin-shimmer-strip", "stripInsideHero": false },
+    { "html": "categories/mirror/index.html", "css": "css/themes/theme-26-prism-reflection.css", "stripClass": "embellished-border-strip", "stripInsideHero": false },
+    { "html": "categories/home-deco/index.html", "css": "css/themes/theme-29-heritage-decor.css", "stripClass": "toran-garland-strip", "stripInsideHero": false },
+    { "html": "categories/gift/index.html", "css": "css/themes/theme-31-wrapped-gift-story.css", "stripClass": "ribbon-strip", "stripInsideHero": false }
   ]
 }

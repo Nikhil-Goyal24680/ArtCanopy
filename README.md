@@ -51,7 +51,7 @@ Two files matter:
 Products can be managed from a Google Sheet instead of editing files. A script
 (`scripts/sync-products.mjs`) reads the sheet, downloads each product's photo from
 Google Drive, regenerates `js/products-data.js`, and generates a themed detail page for
-every product at `products/<id>.html` (styled by that product's own category — colors,
+every product at `products/<id>/` (styled by that product's own category — colors,
 fonts, the lot — so it reads as part of that category, not a generic bolt-on page). It
 runs automatically once a day via GitHub Actions, and can also be triggered manually any
 time. Product pages are fully generated — like `js/products-data.js`, never hand-edit a
@@ -72,7 +72,7 @@ doesn't matter, but the names must match exactly, lowercase):
 - **photo**: a Google Drive share link (see step 2) — this is the main photo, shown on
   the product grid card and as the default image on the product's own page.
 - **more_photos**: optional — extra angles/close-ups shown as a click-to-swap
-  thumbnail gallery on the product's own page (`products/<id>.html`). Leave blank
+  thumbnail gallery on the product's own page (`products/<id>/`). Leave blank
   for a product with only one photo. Two ways to fill it in:
   - **A Drive folder link** (recommended once a product has several extra photos —
     see step 2 below). Every image inside that folder becomes an extra photo,

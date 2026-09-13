@@ -81,14 +81,15 @@ function wireWhatsAppTracking() {
 // Prefetches a local page's HTML the moment a pointer/touch shows intent to
 // follow its link — by the time the click actually lands, the next page is
 // usually already cached, so navigation feels instant instead of a fresh
-// network round trip. Skips anything not a same-page local .html link
-// (external sites, mailto:, tel:, wa.me) since those shouldn't be pre-fetched.
+// network round trip. Skips anything that isn't a same-site relative page
+// link (external sites, mailto:, tel:, wa.me, "#...") since those shouldn't
+// be pre-fetched.
 function wireLinkPrefetch() {
   const alreadyPrefetched = new Set();
   function schedule(link) {
     const href = link.getAttribute("href");
-    if (!href || alreadyPrefetched.has(href)) return;
-    if (!href.endsWith(".html") || /^([a-z]+:)?\/\//i.test(href)) return;
+    if (!href || href.startsWith("#") || alreadyPrefetched.has(href)) return;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(href) || href.startsWith("//")) return;
     alreadyPrefetched.add(href);
     const tag = document.createElement("link");
     tag.rel = "prefetch";
@@ -120,12 +121,13 @@ function wireGiftUnwrap() {
 
 let activeCategory = "All";
 let searchQuery = "";
-// index.html sits next to images/ and products/; categories/*.html sit one
-// level down. initCategoryPage() flips this before the first render on a
-// category page so image/product-link paths resolve either way.
+// index.html sits next to images/ and products/; categories/<slug>/index.html
+// and products/<id>/index.html sit two levels down. initCategoryPage() flips
+// this before the first render on a category page so image/product-link
+// paths resolve either way.
 let pagePathPrefix = "";
 
-// products/<id>*.html — clicking a gallery thumbnail swaps the main
+// products/<id>*/index.html — clicking a gallery thumbnail swaps the main
 // display image instead of navigating anywhere. Delegated (not wired per
 // thumbnail) so it's a harmless no-op on every page without a
 // .product-thumb, same reasoning as wireWhatsAppTracking/wireGiftUnwrap.
@@ -181,8 +183,8 @@ function renderProducts() {
     // the one you were just browsing felt wrong (see scripts/sync-products.mjs
     // generateProductPages() for how both variants get generated).
     const productPath = activeCategory === "All"
-      ? `products/${p.id}.html`
-      : `products/${p.id}--${categorySlug(activeCategory)}.html`;
+      ? `products/${p.id}/`
+      : `products/${p.id}--${categorySlug(activeCategory)}/`;
     const detailHref = `${pagePathPrefix}${productPath}`;
     const productMessage = `${p.whatsappMessage}\n${SITE_CONFIG.siteUrl}${productPath}`;
     return `
@@ -282,7 +284,7 @@ function wireSearch() {
 }
 
 // ---------------------------------------------------------------
-// Category pages (categories/*.html) — each is locked to one
+// Category pages (categories/<slug>/index.html) — each is locked to one
 // category and themed differently; no "All"/other-category chips,
 // just that category's products, a search box, and a nav to the
 // other 7 category pages.
@@ -291,24 +293,25 @@ function categorySlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-// linkPrefix defaults to "" for categories/*.html calling this about its
-// sibling category pages; products/*.html (one directory deeper than the
-// categories it links to are relative to) passes "../categories/" instead.
-function renderCategoryNav(navId, currentCategory, linkPrefix = "") {
+// linkPrefix defaults to "../" for categories/<slug>/index.html calling
+// this about its sibling category folders; products/<id>/index.html (one
+// directory deeper than the categories it links to are relative to) passes
+// "../../categories/" instead.
+function renderCategoryNav(navId, currentCategory, linkPrefix = "../") {
   const nav = document.getElementById(navId);
   if (!nav || typeof CATEGORIES === "undefined") return;
   const links = CATEGORIES.map((c) => {
     const isCurrent = c === currentCategory;
     return isCurrent
       ? `<span class="category-nav-item current">${c}</span>`
-      : `<a class="category-nav-item" href="${linkPrefix}${categorySlug(c)}.html">${c}</a>`;
+      : `<a class="category-nav-item" href="${linkPrefix}${categorySlug(c)}/">${c}</a>`;
   }).join("");
-  nav.innerHTML = `<a class="category-nav-item all" href="../index.html">All pieces</a>${links}`;
+  nav.innerHTML = `<a class="category-nav-item all" href="../../">All pieces</a>${links}`;
 }
 
 function initCategoryPage(categoryName, navId) {
   activeCategory = categoryName;
-  pagePathPrefix = "../";
+  pagePathPrefix = "../../";
   renderProducts();
   wireStaticLinks();
   wireSearch();
@@ -316,7 +319,7 @@ function initCategoryPage(categoryName, navId) {
   if (categoryName === "Gift") wireGiftUnwrap();
 }
 
-// products/<id>.html — a single product's own page, statically generated
+// products/<id>/index.html — a single product's own page, statically generated
 // by scripts/sync-products.mjs and styled by that product's category theme.
 // Content (name/price/description/image) is already baked into the page;
 // this just wires the same dynamic bits every page wires (WhatsApp links,
@@ -343,7 +346,7 @@ function initProductPage(navId, categoryName) {
   document.getElementById("footer-year").textContent = new Date().getFullYear();
   wireProductGallery();
 
-  if (navId) renderCategoryNav(navId, categoryName, "../categories/");
+  if (navId) renderCategoryNav(navId, categoryName, "../../categories/");
 }
 
 // index.html specifically: uses the same shared category-nav bar as every
@@ -359,7 +362,7 @@ function renderHomeCategoryNav(navId) {
   );
 
   const links = present
-    .map((c) => `<a class="category-nav-item" href="categories/${categorySlug(c)}.html">${c}</a>`)
+    .map((c) => `<a class="category-nav-item" href="categories/${categorySlug(c)}/">${c}</a>`)
     .join("");
   nav.innerHTML = `<span class="category-nav-item all current">All pieces</span>${links}`;
 }
