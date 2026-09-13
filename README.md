@@ -201,6 +201,31 @@ automatically in CI (`.github/workflows/check-site-integrity.yml`) on any
 push/PR touching `index.html`, `categories/**`, `themes/**`, `css/**`, or
 `js/**`.
 
+## Mobile experience check
+
+The two checks above are static analysis — they read HTML/CSS as text and
+never open a real browser, so they can't tell you whether a button actually
+does anything. `node scripts/check-mobile-experience.mjs` (or
+`npm run check:mobile`) is the interactive counterpart: it drives an actual
+headless Chrome at a true phone-width viewport (390×844, a real mobile
+device emulation — not just a shrunk desktop window) against a local copy
+of the site, and performs the same taps/typing a real visitor would —
+tapping the header logo, picking a category, typing a search, opening a
+product, swapping gallery photos, tapping every "Order on WhatsApp" button
+— verifying the actual result each time (did the URL change, did the real
+photo load instead of staying on the placeholder, did WhatsApp actually
+open), not just that the element exists in the markup. It also checks
+every page for the classic "mobile is broken" symptom — something wider
+than the viewport forcing a horizontal scrollbar.
+
+Needs a local Chrome or Chromium install (set `CHROME_PATH` to point at a
+specific binary if one isn't found automatically) — otherwise zero new
+dependencies, talking to Chrome directly over its DevTools Protocol.
+Slower than the other two checks since it spins up a real browser, so it's
+not bundled into the default `npm run check` — run it on its own,
+especially after any change to `js/main.js`, `css/category-nav.css`, or a
+theme's mobile (`@media`) rules.
+
 ## Analytics
 
 Off by default — nothing is tracked and no script loads until you turn it on.
