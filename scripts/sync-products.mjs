@@ -74,6 +74,19 @@ const CATEGORY_META = {
   },
 };
 
+// A product can carry more than one category tag, and can be clicked from
+// more than one context: its own category's grid, or the neutral "All
+// pieces" homepage grid. Rather than pick one fixed theme per product
+// (which felt jarring — clicking from the neutral homepage into a
+// heavily-themed category page), every product gets a themed variant per
+// category it's tagged with, PLUS this neutral "All pieces"-styled variant
+// as its canonical page and the one used when clicked from the homepage.
+const ALL_PIECES_META = {
+  slug: null,
+  themeCss: "css/style.css",
+  fontsHref: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600;700&display=swap",
+};
+
 function escapeHTML(str) {
   return String(str)
     .replace(/&/g, "&amp;")
@@ -82,12 +95,19 @@ function escapeHTML(str) {
     .replace(/"/g, "&quot;");
 }
 
-function productPageHTML(product, meta) {
+function productPageHTML(product, meta, categoryName) {
   const name = escapeHTML(product.name);
   const desc = escapeHTML(product.description);
   const tagsHTML = (product.categories || [])
     .map((c) => `<span class="tag">${escapeHTML(c)}</span>`)
     .join("");
+  // Every variant of a product's page (one per category tag, plus the
+  // neutral "All pieces" one) is the same content in a different theme —
+  // canonical always points at the neutral page so search engines see one
+  // URL per product, not several near-duplicates.
+  const canonicalUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}.html`;
+  const backLinkHref = categoryName ? `../categories/${meta.slug}.html` : "../index.html";
+  const backLinkText = categoryName || "All pieces";
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -98,11 +118,12 @@ function productPageHTML(product, meta) {
 <link rel="apple-touch-icon" href="../images/brand/apple-touch-icon.png">
 <title>${name} — Art Destiny</title>
 <meta name="description" content="${desc}">
+<link rel="canonical" href="${canonicalUrl}">
 <meta property="og:type" content="product">
 <meta property="og:site_name" content="Art Destiny">
 <meta property="og:title" content="${name} — Art Destiny">
 <meta property="og:description" content="${desc}">
-<meta property="og:url" content="https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}.html">
+<meta property="og:url" content="${canonicalUrl}">
 <meta property="og:image" content="https://nikhil-goyal24680.github.io/ArtCanopy/images/${product.image}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,7 +158,7 @@ function productPageHTML(product, meta) {
         >
       </div>
       <div class="product-detail-body">
-        <a class="back-link" href="../categories/${meta.slug}.html">&larr; Back to ${escapeHTML(product.categories[0] || "All pieces")}</a>
+        <a class="back-link" href="${backLinkHref}">&larr; Back to ${escapeHTML(backLinkText)}</a>
         ${tagsHTML ? `<div class="product-tags">${tagsHTML}</div>` : ""}
         <h1>${name}</h1>
         <p class="product-price product-detail-price">${escapeHTML(product.price)}</p>
@@ -166,28 +187,37 @@ function productPageHTML(product, meta) {
   <script src="../js/config.js"></script>
   <script src="../js/products-data.js"></script>
   <script src="../js/main.js"></script>
-  <script>initProductPage("category-nav", ${JSON.stringify(product.categories[0] || null)}); initAnalytics();</script>
+  <script>initProductPage("category-nav", ${JSON.stringify(categoryName)}); initAnalytics();</script>
 </body>
 </html>
 `;
 }
 
-// Regenerates products/<id>.html for every product, styled by that
-// product's primary category theme. Fully generated — like
-// js/products-data.js, never hand-edit these files. Stale pages (products
-// removed from the sheet) are deleted so products/ never drifts out of
-// sync with the current catalog.
+// Regenerates products/<id>.html (neutral, "All pieces"-themed, canonical)
+// plus products/<id>--<category-slug>.html for every category a product is
+// tagged with. Fully generated — like js/products-data.js, never hand-edit
+// a file under products/. Stale pages (a product or a category tag removed
+// from the sheet) are deleted so products/ never drifts out of sync with
+// the current catalog.
 export function generateProductPages(products) {
   fs.mkdirSync(PRODUCTS_DIR, { recursive: true });
 
   const expected = new Set();
   for (const product of products) {
-    const category = (product.categories || [])[0];
-    const meta = CATEGORY_META[category];
-    if (!meta) continue; // uncategorized products get no detail page
-    const filename = `${product.id}.html`;
-    expected.add(filename);
-    fs.writeFileSync(path.join(PRODUCTS_DIR, filename), productPageHTML(product, meta));
+    const neutralFilename = `${product.id}.html`;
+    expected.add(neutralFilename);
+    fs.writeFileSync(
+      path.join(PRODUCTS_DIR, neutralFilename),
+      productPageHTML(product, ALL_PIECES_META, null)
+    );
+
+    for (const category of product.categories || []) {
+      const meta = CATEGORY_META[category];
+      if (!meta) continue; // unknown/typo'd category — sync already warns about this elsewhere
+      const filename = `${product.id}--${meta.slug}.html`;
+      expected.add(filename);
+      fs.writeFileSync(path.join(PRODUCTS_DIR, filename), productPageHTML(product, meta, category));
+    }
   }
 
   for (const existing of fs.readdirSync(PRODUCTS_DIR)) {

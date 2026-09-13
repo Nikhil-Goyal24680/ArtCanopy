@@ -127,7 +127,15 @@ function renderProducts() {
   if (noResults) noResults.hidden = visible.length > 0;
 
   grid.innerHTML = visible.map((p) => {
-    const detailHref = `${pagePathPrefix}products/${p.id}.html`;
+    // A product can carry more than one category tag. Clicking it from the
+    // neutral "All pieces" grid opens the neutral/"All pieces"-themed page;
+    // clicking it from a specific category's grid opens that category's
+    // own themed variant instead — landing in a different visual world than
+    // the one you were just browsing felt wrong (see scripts/sync-products.mjs
+    // generateProductPages() for how both variants get generated).
+    const detailHref = activeCategory === "All"
+      ? `${pagePathPrefix}products/${p.id}.html`
+      : `${pagePathPrefix}products/${p.id}--${categorySlug(activeCategory)}.html`;
     return `
     <article class="product-card">
       <a class="product-image placeholder" id="img-wrap-${p.id}" href="${detailHref}" aria-label="View ${p.name}">
