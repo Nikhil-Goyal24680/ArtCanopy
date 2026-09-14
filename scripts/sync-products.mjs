@@ -663,7 +663,18 @@ async function main() {
     // folder link, or the older comma/semicolon list of individual Drive
     // links — see resolveMorePhotoFileIds above.
     const morePhotosRaw = r.more_photos || r.additional_photos || r.extra_photos || "";
-    const morePhotoFileIds = await resolveMorePhotoFileIds(morePhotosRaw, rowNum, name, warnings);
+    const allMorePhotoFileIds = await resolveMorePhotoFileIds(morePhotosRaw, rowNum, name, warnings);
+    // The main photo and the extra-photos folder are two separate sheet
+    // columns pointing at Drive independently — if the operator's main photo
+    // also happens to sit inside that folder, drop it here rather than
+    // showing the same picture twice in the product gallery. Also collapses
+    // any accidental duplicate file within the folder/list itself.
+    const seenFileIds = new Set(fileId ? [fileId] : []);
+    const morePhotoFileIds = allMorePhotoFileIds.filter((fid) => {
+      if (seenFileIds.has(fid)) return false;
+      seenFileIds.add(fid);
+      return true;
+    });
     const extraImages = [];
     for (const [j, altFileId] of morePhotoFileIds.entries()) {
       const altBase = `${id}-alt${j + 1}`;
