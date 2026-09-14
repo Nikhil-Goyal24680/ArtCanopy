@@ -12,7 +12,7 @@ const SITE_CONFIG = {
   whatsappNumber: "917878457307",
 
   // Message pre-filled when someone taps a general "message us" button.
-  whatsappDefaultMessage: "Hi! I saw your resin art page and wanted to ask about your pieces.",
+  whatsappDefaultMessage: "Hi! I saw your page and wanted to ask about your pieces.",
 
   // Contact email shown in the footer of every page. Placeholder until the
   // real business address is ready.
