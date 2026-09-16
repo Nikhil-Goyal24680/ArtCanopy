@@ -43,10 +43,15 @@ const SITE_CONFIG = {
   // sent anywhere.
   gaMeasurementId: "G-ET7WH2EWLT",
 
-  // Links shown on the internal quick-links dashboard (admin/index.html) —
-  // that page isn't linked from the site nav, just a bookmark-worthy one-page
-  // control panel for whoever runs the shop day to day. If the site or sheet
-  // ever moves, update the URLs here rather than editing admin/index.html.
+  // Links shown on the internal quick-links dashboard
+  // (console-29fab579/index.html) — that page isn't linked from the site
+  // nav, just a bookmark-worthy one-page control panel for whoever runs the
+  // shop day to day. Its folder name is a deliberately unguessable slug
+  // rather than "admin" — though since this repo is public, that's a minor
+  // speed bump at best, not real access control. The actual protection is
+  // the Sheet/Drive share settings themselves (Viewer for "anyone with the
+  // link", not Editor) — see README. If the site or sheet ever moves,
+  // update the URLs here rather than editing console-29fab579/index.html.
   admin: {
     sheetUrl: "https://docs.google.com/spreadsheets/d/1V3sK8m3xLPBX8cRl6o7BK54Sp3KKJnoqLD4l1gAgetk/edit",
     // The Drive folder that holds one subfolder per product's photos. Paste

@@ -47,6 +47,18 @@ a.product-image { display: block; text-decoration: none; }
   text-decoration: underline;
 }
 
+/* Optional pre-discount price (js/main.js renderProducts / sync-products.mjs
+   productPageHTML) — struck through and de-emphasized next to the real
+   price, on the grid card and the product's own page. Uses --ink-soft
+   rather than each theme's accent color so it never competes with the
+   actual price for attention. */
+.price-original {
+  color: var(--ink-soft);
+  font-weight: 400;
+  font-size: 0.85em;
+  text-decoration: line-through;
+}
+
 @media (max-width: 600px) {
   /* The email/phone pair in the footer wraps awkwardly mid-line on a narrow
      phone screen — stack them instead, and drop the middle dot separator

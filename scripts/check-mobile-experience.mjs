@@ -472,7 +472,7 @@ async function test404Page(cdp) {
 }
 
 async function testAdminPageLinks(cdp) {
-  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/admin/`);
+  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/console-29fab579/`);
   const hrefs = await evaluate(
     cdp,
     sessionId,

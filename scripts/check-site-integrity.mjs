@@ -36,7 +36,9 @@ const VOID_ELEMENTS = new Set([
 ]);
 
 // Recursive since categories/*/index.html and products/*/index.html now
-// nest one folder deeper than the flat themes/*.html and admin/index.html.
+// nest one folder deeper than the flat themes/*.html and the admin
+// dashboard's index.html (deliberately unguessable path — see its own
+// directory name for why "admin" isn't literal here).
 function walkHtmlFiles(dir) {
   const found = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
@@ -50,7 +52,7 @@ function walkHtmlFiles(dir) {
 function findHtmlFiles() {
   const files = ["index.html"];
   if (fs.existsSync(path.join(ROOT, "404.html"))) files.push("404.html");
-  for (const dir of ["categories", "products", "themes", "admin"]) {
+  for (const dir of ["categories", "products", "themes", "console-29fab579"]) {
     const full = path.join(ROOT, dir);
     if (!fs.existsSync(full)) continue;
     for (const f of walkHtmlFiles(full)) {

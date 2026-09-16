@@ -61,12 +61,17 @@ next sync, same as the sheet is the single source of truth for everything else h
 **1. Create the sheet.** Make a Google Sheet with these column headers in row 1 (order
 doesn't matter, but the names must match exactly, lowercase):
 
-| id | name | price | description | size | categories | photo | more_photos | whatsapp_message |
-|----|------|-------|-------------|------|------------|-------|-------------|-------------------|
-| *(optional)* | Lippan Mirror Wall Art | ₹1,499 | Traditional Lippan mud-mirror work... | *(optional)* | Lippan art, Home deco | *(Drive link)* | *(optional Drive links)* | *(optional)* |
+| id | name | price | original_price | description | size | categories | photo | more_photos | whatsapp_message |
+|----|------|-------|----------------|-------------|------|------------|-------|-------------|-------------------|
+| *(optional)* | Lippan Mirror Wall Art | 1499 | *(optional)* | Traditional Lippan mud-mirror work... | *(optional)* | Lippan art, Home deco | *(Drive link)* | *(optional Drive links)* | *(optional)* |
 
 - **id**: leave blank — it's generated automatically from the name. Only fill it in if
   you want a specific web-friendly ID.
+- **price** / **original_price**: just the number (e.g. `1499`, or `1,499` — commas are
+  fine) — the ₹ symbol is added automatically, no need to type it.
+- **original_price**: optional — the pre-discount price, shown struck through right
+  next to the real price on the grid card and the product's own page. Leave blank for
+  a product that isn't discounted; it should always be higher than `price`.
 - **size**: optional — e.g. `8 x 10 in`. Shown on the product's own page (not the grid
   card) right under the price. Leave blank to hide it.
 - **categories**: comma-separated, using this list (a product can have more than one):
@@ -98,14 +103,19 @@ recommended layout is one folder per product:
    re-encodes every photo it downloads (resized, compressed, plus a smaller version
    for phones viewing the site) before it's ever used on the live site.
 3. Pick one photo as the main one: right-click it → **Share** → change access to
-   **"Anyone with the link"** → **Copy link**. Paste that link into the `photo`
-   column for that row, same as before.
+   **"Anyone with the link"**, permission **Viewer** → **Copy link**. Paste that
+   link into the `photo` column for that row, same as before.
 4. For the rest of that product's photos (the gallery ones): right-click the
-   **subfolder itself** → **Share** → **"Anyone with the link"** → **Copy link**.
-   Paste that one folder link into the `more_photos` column. Every image inside the
-   folder becomes a gallery photo — no need to share or paste each one individually.
-   (Photos display in filename order — name them `1-...`, `2-...` etc. if you care
-   which comes first.)
+   **subfolder itself** → **Share** → **"Anyone with the link"**, permission
+   **Viewer** → **Copy link**. Paste that one folder link into the `more_photos`
+   column. Every image inside the folder becomes a gallery photo — no need to share
+   or paste each one individually. (Photos display in filename order — name them
+   `1-...`, `2-...` etc. if you care which comes first.)
+
+   **Viewer, not Editor** — the sync script only ever reads/downloads from this
+   folder, it never writes to it. "Anyone with the link can Edit" would let anyone
+   who finds the link (and it *will* be findable — see the security note below)
+   delete or replace your product photos.
 
    Reading a folder's contents needs one extra piece of setup, since — unlike
    downloading a single shared photo — Google requires an API key for it:
@@ -126,8 +136,10 @@ recommended layout is one folder per product:
    sync. The older per-photo-link style in `more_photos` still works without this key.
 
 **3. Get the sheet's CSV link.**
-1. Make sure the sheet's sharing is set to **"Anyone with the link"** (Share button,
-   top right) — same as the Drive photos above.
+1. Make sure the sheet's sharing is set to **"Anyone with the link"**, permission
+   **Viewer** (Share button, top right). Not Editor — the CSV export below only
+   needs read access, and Editor would let anyone who finds this link (see the
+   security note below) rewrite your whole catalog directly.
 2. Copy the sheet's ID from its normal URL — the long string between `/d/` and
    `/edit`, e.g. `docs.google.com/spreadsheets/d/`**`THIS_PART`**`/edit`.
 3. The CSV link is: `https://docs.google.com/spreadsheets/d/THE_ID/export?format=csv&gid=0`
@@ -156,6 +168,16 @@ SHEET_CSV_URL="<your published CSV URL>" GOOGLE_DRIVE_API_KEY="<your API key>" n
 
 (`GOOGLE_DRIVE_API_KEY` is only needed if any `more_photos` column uses a folder link —
 omit it otherwise.)
+
+**Security note — this repo is public.** The Sheet and Drive folder URLs are stored
+in plaintext in `js/config.js`, which means they're visible to anyone who looks at
+this repo, not just people who happen to guess the admin dashboard's URL. The actual
+thing standing between "anyone with these links" and your live catalog is the
+**permission level** on that link — always **Viewer**, never **Editor**, on both the
+Sheet and the Drive folder. Editor access would let anyone who finds either link
+rewrite product data or delete/replace photos directly; Viewer only lets them read,
+which is all the automated sync itself ever needs. Double-check both whenever you
+reshare either one.
 
 The script only ever adds or overwrites images/data — it never deletes a photo you've
 placed manually, so it's safe to try.

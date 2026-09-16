@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
 
 Sitemap: https://nikhil-goyal24680.github.io/ArtCanopy/sitemap.xml

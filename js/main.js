@@ -13,8 +13,8 @@ function formatPhoneDisplay(number) {
   return `+${number.slice(0, 2)} ${number.slice(2, 7)} ${number.slice(7)}`;
 }
 
-// Wires up admin/index.html — the unlinked, internal quick-links dashboard.
-// See SITE_CONFIG.admin in js/config.js for the actual URLs.
+// Wires up console-29fab579/index.html — the unlinked, internal quick-links
+// dashboard. See SITE_CONFIG.admin in js/config.js for the actual URLs.
 function wireAdminPage() {
   document.getElementById("card-site").href = SITE_CONFIG.siteUrl;
   document.getElementById("card-sheet").href = SITE_CONFIG.admin.sheetUrl;
@@ -245,7 +245,7 @@ function renderProducts() {
         }
         <p class="product-desc">${p.description}</p>
         <div class="product-footer">
-          <span class="product-price">${p.price}</span>
+          <span class="product-price">${p.originalPrice ? `<span class="price-original">${p.originalPrice}</span> ` : ""}${p.price}</span>
           <a class="btn btn-whatsapp" href="${whatsappLink(productMessage)}" target="_blank" rel="noopener" data-product-name="${p.name}" data-category="${activeCategory}" data-price="${priceToNumeric(p.price)}" aria-label="Order ${p.name} on WhatsApp">Order on WhatsApp</a>
         </div>
       </div>

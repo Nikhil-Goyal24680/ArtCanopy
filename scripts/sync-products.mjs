@@ -78,6 +78,21 @@ const CATEGORY_META = {
   },
 };
 
+// Resin Art is its own category — not every product is resin, so the
+// product-detail-page care note can't default to resin-care advice for
+// everyone. Keyed by the same category names as CATEGORY_META.
+const CARE_BY_CATEGORY = {
+  "Painting sketch": "Care: keep out of direct sunlight and dust gently with a soft, dry cloth — avoid wiping pastel or charcoal areas directly.",
+  "Resin art": "Resin care: keep out of direct sunlight and wipe clean with a soft, dry cloth to keep the glossy finish looking its best.",
+  "Lippan art": "Care: keep away from moisture and handle gently — dust the mud relief with a soft, dry brush and wipe the mirror inlay with a soft cloth.",
+  "Mosaic art": "Care: wipe clean with a soft, damp cloth and avoid abrasive cleaners on the grout lines.",
+  "Home deco": "Care: dust regularly with a soft, dry cloth and keep away from direct moisture.",
+  "Festival special": "Care: handle clay pieces gently, and wipe metal or embellished surfaces with a soft, dry cloth.",
+  "Gift": "Care: dust with a soft, dry cloth and keep engraved or wooden pieces away from direct moisture.",
+  "Mirror": "Care: clean the mirror surface with a soft, lint-free cloth and dust the frame gently — avoid excess moisture on macrame or wood.",
+};
+const DEFAULT_CARE_NOTE = "Care: dust gently with a soft, dry cloth and keep out of direct sunlight.";
+
 // A product can carry more than one category tag, and can be clicked from
 // more than one context: its own category's grid, or the neutral "All
 // pieces" homepage grid. Rather than pick one fixed theme per product
@@ -96,6 +111,20 @@ const ALL_PIECES_META = {
 // <script type="application/ld+json"> tag it's embedded in.
 function jsonLdSafe(obj) {
   return JSON.stringify(obj).replace(/</g, "\\u003c");
+}
+
+// The sheet's price/original_price columns hold a bare number (e.g. "799" or
+// "1,199") — the admin shouldn't have to type the ₹ symbol themselves, so
+// this adds it (plus thousand separators) here instead. Tolerates a symbol
+// or stray comma already being present in case an old row still has one.
+function formatPrice(raw) {
+  const cleaned = String(raw || "").replace(/[^0-9.]/g, "");
+  if (!cleaned) return "";
+  const num = parseFloat(cleaned);
+  if (Number.isNaN(num)) return "";
+  const hasDecimal = cleaned.includes(".");
+  const formatted = num.toLocaleString("en-IN", hasDecimal ? { minimumFractionDigits: 2, maximumFractionDigits: 2 } : {});
+  return `₹${formatted}`;
 }
 
 function escapeHTML(str) {
@@ -130,6 +159,11 @@ function productPageHTML(product, meta, categoryName) {
   // already says about every piece. priceNumeric strips the currency
   // symbol/commas since schema.org's price wants a bare number.
   const priceNumeric = String(product.price).replace(/[^0-9.]/g, "");
+  // On the neutral "All pieces" page categoryName is null — fall back to the
+  // product's own first category tag so the care note still matches its
+  // real category instead of silently defaulting to resin-care advice.
+  const careCategory = categoryName || (product.categories || [])[0];
+  const careNote = CARE_BY_CATEGORY[careCategory] || DEFAULT_CARE_NOTE;
   const productLd = jsonLdSafe({
     "@context": "https://schema.org",
     "@type": "Product",
@@ -214,11 +248,12 @@ function productPageHTML(product, meta, categoryName) {
         <a class="back-link" href="${backLinkHref}">&larr; Back to ${escapeHTML(backLinkText)}</a>
         ${tagsHTML ? `<div class="product-tags">${tagsHTML}</div>` : ""}
         <h1>${name}</h1>
-        <p class="product-price product-detail-price">${escapeHTML(product.price)}</p>
+        <p class="product-price product-detail-price">${product.originalPrice ? `<span class="price-original">${escapeHTML(product.originalPrice)}</span> ` : ""}${escapeHTML(product.price)}</p>
         ${product.size ? `<p class="product-detail-size">Size: ${escapeHTML(product.size)}</p>` : ""}
+        <p class="product-detail-delivery-note">A small delivery charge applies — kept minimal, and confirmed with you before shipping.</p>
         <p class="product-desc product-detail-desc">${desc}</p>
         <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="${escapeHTML(product.whatsappMessage)}" data-product-name="${name}" data-category="${escapeHTML(categoryName || "All")}" data-price="${priceNumeric}">Order on WhatsApp</a>
-        <p class="product-detail-note">Resin care: keep out of direct sunlight and wipe clean with a soft, dry cloth to keep the finish looking its best.</p>
+        <p class="product-detail-note">${careNote}</p>
       </div>
     </div>
   </main>
@@ -629,6 +664,18 @@ async function main() {
     const whatsappMessage = r.whatsapp_message ||
       `Hi! I'm interested in the ${name} — can you share more details?`;
 
+    // Optional pre-discount price, shown struck through next to the current
+    // price (see productPageHTML/renderProducts) — the admin adds it only
+    // when a product is actually discounted, so most rows leave it blank.
+    const originalPrice = formatPrice(r.original_price);
+    if (originalPrice) {
+      const currentNumeric = parseFloat(String(r.price || "").replace(/[^0-9.]/g, ""));
+      const originalNumeric = parseFloat(String(r.original_price).replace(/[^0-9.]/g, ""));
+      if (!Number.isNaN(currentNumeric) && !Number.isNaN(originalNumeric) && originalNumeric <= currentNumeric) {
+        warnings.push(`row ${rowNum} ("${name}"): "original_price" (${r.original_price}) should be higher than "price" (${r.price}) since it's shown struck through as the pre-discount price — check for a typo.`);
+      }
+    }
+
     let image = `${id}.jpg`; // default guess; overwritten below if a photo downloads successfully
     let imageSmall = ""; // only set for photos this script has itself resized (see IMAGE_SMALL_WIDTH above)
     const existingFiles = fs.readdirSync(IMAGES_DIR);
@@ -698,7 +745,8 @@ async function main() {
     products.push({
       id,
       name,
-      price: r.price || "",
+      price: formatPrice(r.price),
+      originalPrice,
       description: r.description || "",
       size: r.size || r.dimensions || "",
       image,
