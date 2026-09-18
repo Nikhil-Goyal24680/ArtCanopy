@@ -19,7 +19,7 @@ function priceToNumeric(price) {
   return String(price || "").replace(/[^0-9.]/g, "");
 }
 
-// Formats "917878457307" as "+91 78784 57307" for footer display.
+// Formats "918824990336" as "+91 88249 90336" for footer display.
 function formatPhoneDisplay(number) {
   return `+${number.slice(0, 2)} ${number.slice(2, 7)} ${number.slice(7)}`;
 }

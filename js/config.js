@@ -9,17 +9,16 @@ const SITE_CONFIG = {
 
   // WhatsApp number in international format, no "+", no spaces.
   // Example: 91 followed by the 10-digit number.
-  whatsappNumber: "917878457307",
+  whatsappNumber: "918824990336",
 
   // Message pre-filled when someone taps a general "message us" button.
   whatsappDefaultMessage: "Hi! I saw your page and wanted to ask about your pieces.",
 
-  // Contact email shown in the footer of every page. Placeholder until the
-  // real business address is ready.
-  contactEmail: "nikhilgoyal24680@gmail.com",
+  // Contact email shown in the footer of every page.
+  contactEmail: "ajartdestiny@gmail.com",
 
   // Leave blank ("") to hide the Instagram link in the footer.
-  instagramHandle: "",
+  instagramHandle: "aj__artdestiny",
 
   // Optional one-line policy notes shown together in the footer, separated
   // by " · ", once you fill them in. Left blank by default — nothing here
