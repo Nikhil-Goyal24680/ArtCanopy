@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nikhil-goyal24680.github.io/ArtCanopy/sitemap.xml
+Sitemap: https://artdestiny.in/sitemap.xml

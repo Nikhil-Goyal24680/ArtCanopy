@@ -145,8 +145,8 @@ function productPageHTML(product, meta, categoryName) {
   // neutral "All pieces" one) is the same content in a different theme —
   // canonical always points at the neutral page so search engines see one
   // URL per product, not several near-duplicates.
-  const canonicalUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/products/${product.id}/`;
-  const imageUrl = `https://nikhil-goyal24680.github.io/ArtCanopy/images/${product.image}`;
+  const canonicalUrl = `https://artdestiny.in/products/${product.id}/`;
+  const imageUrl = `https://artdestiny.in/images/${product.image}`;
   const backLinkHref = categoryName ? `../../categories/${meta.slug}/` : "../../";
   const backLinkText = categoryName || "All pieces";
   // Main photo first, then any extras — this is the gallery order, main
@@ -323,7 +323,7 @@ export function generateProductPages(products) {
   return expected.size;
 }
 
-const SITE_URL = "https://nikhil-goyal24680.github.io/ArtCanopy/";
+const SITE_URL = "https://artdestiny.in/";
 
 // Regenerates sitemap.xml from the current catalog — homepage, all 8
 // category pages (always live regardless of current stock), and each

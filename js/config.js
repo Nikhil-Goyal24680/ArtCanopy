@@ -5,7 +5,7 @@ const SITE_CONFIG = {
   // The site's own live URL, trailing slash included. Used to turn a
   // product's page into an absolute link (e.g. so a WhatsApp order message
   // can point back to the exact product being asked about).
-  siteUrl: "https://nikhil-goyal24680.github.io/ArtCanopy/",
+  siteUrl: "https://artdestiny.in/",
 
   // WhatsApp number in international format, no "+", no spaces.
   // Example: 91 followed by the 10-digit number.
