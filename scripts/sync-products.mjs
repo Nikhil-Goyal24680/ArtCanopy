@@ -252,7 +252,7 @@ function productPageHTML(product, meta, categoryName) {
         ${product.size ? `<p class="product-detail-size">Size: ${escapeHTML(product.size)}</p>` : ""}
         <p class="product-detail-delivery-note">A small delivery charge applies — kept minimal, and confirmed with you before shipping.</p>
         <p class="product-desc product-detail-desc">${desc}</p>
-        <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="${escapeHTML(product.whatsappMessage)}" data-product-name="${name}" data-category="${escapeHTML(categoryName || "All")}" data-price="${priceNumeric}">Order on WhatsApp</a>
+        <a class="btn btn-whatsapp" id="product-whatsapp-link" href="#" target="_blank" rel="noopener" data-message="${escapeHTML(product.whatsappMessage)}" data-price-display="${escapeHTML(product.price)}" data-description="${desc}" data-product-name="${name}" data-category="${escapeHTML(categoryName || "All")}" data-price="${priceNumeric}">Order on WhatsApp</a>
         <p class="product-detail-note">${careNote}</p>
       </div>
     </div>
@@ -661,8 +661,12 @@ async function main() {
       }
     });
 
-    const whatsappMessage = r.whatsapp_message ||
-      `Hi! I'm interested in the ${name} — can you share more details?`;
+    // The "Order on WhatsApp" button always sends a fixed message — the
+    // product link, a "Buy" line, price, and description (built client-side,
+    // see buildProductWhatsappMessage in js/main.js) — so this is no longer a
+    // whole-message replacement. Optional: appended as an extra line after
+    // that fixed message when the admin fills it in.
+    const whatsappMessage = r.whatsapp_message || "";
 
     // Optional pre-discount price, shown struck through next to the current
     // price (see productPageHTML/renderProducts) — the admin adds it only

@@ -86,7 +86,10 @@ doesn't matter, but the names must match exactly, lowercase):
     in filename order.
   - Or the older style: comma-separated individual Drive share links, one per photo,
     same as the `photo` column.
-- **whatsapp_message**: leave blank to auto-generate a reasonable default from the name.
+- **whatsapp_message**: optional. Every "Order on WhatsApp" button always sends a fixed
+  message first — the product's link, then `Buy "<name>"`, then price, then description.
+  Fill this in only if you want an extra line appended after that (e.g. a note about a
+  size option); leave blank otherwise.
 
 Each row = one product. Row order = display order on the site.
 

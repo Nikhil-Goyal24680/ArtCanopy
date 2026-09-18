@@ -28,7 +28,7 @@ const PRODUCTS = [
     "categories": [
       "Painting sketch"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Resin Sketch Wall Panel — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "abstract-resin-pour-art",
@@ -48,7 +48,7 @@ const PRODUCTS = [
     "categories": [
       "Resin art"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Abstract Resin Pour Art — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "lippan-mirror-wall-art",
@@ -63,7 +63,7 @@ const PRODUCTS = [
     "categories": [
       "Lippan art"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Lippan Mirror Wall Art — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "mosaic-resin-wall-piece",
@@ -78,7 +78,7 @@ const PRODUCTS = [
     "categories": [
       "Mosaic art"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Mosaic Resin Wall Piece — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "resin-trinket-tray",
@@ -93,7 +93,7 @@ const PRODUCTS = [
     "categories": [
       "Home deco"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Resin Trinket Tray — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "shubh-labh-door-hanging",
@@ -108,7 +108,7 @@ const PRODUCTS = [
     "categories": [
       "Festival special"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Shubh Labh Door Hanging — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "resin-keepsake-gift-set",
@@ -123,7 +123,7 @@ const PRODUCTS = [
     "categories": [
       "Gift"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Resin Keepsake Gift Set — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "resin-framed-mirror",
@@ -138,7 +138,7 @@ const PRODUCTS = [
     "categories": [
       "Mirror"
     ],
-    "whatsappMessage": "Hi! I'm interested in the Resin Framed Mirror — can you share more details?"
+    "whatsappMessage": ""
   },
   {
     "id": "resin-bangle",

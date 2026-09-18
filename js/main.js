@@ -2,6 +2,17 @@ function whatsappLink(message) {
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
+// Fixed default for every "Order on WhatsApp" button: the product link first
+// (so it's always there, even if the rest gets edited away in the chat), then
+// a "Buy" line, price, and description. A sheet row's optional custom
+// whatsapp_message (customMessage here) is never a replacement for this —
+// it only ever appends as an extra line after it.
+function buildProductWhatsappMessage({ link, name, price, description, customMessage }) {
+  let message = `${link}\nBuy "${name}"\n${price}\n${description}`;
+  if (customMessage) message += `\n${customMessage}`;
+  return message;
+}
+
 // "₹1,499" -> "1499" — for GA4's numeric value param, which can't take a
 // currency symbol or thousands separator.
 function priceToNumeric(price) {
@@ -223,7 +234,13 @@ function renderProducts() {
       ? `products/${p.id}/`
       : `products/${p.id}--${categorySlug(activeCategory)}/`;
     const detailHref = `${pagePathPrefix}${productPath}`;
-    const productMessage = `${p.whatsappMessage}\n${SITE_CONFIG.siteUrl}${productPath}`;
+    const productMessage = buildProductWhatsappMessage({
+      link: `${SITE_CONFIG.siteUrl}${productPath}`,
+      name: p.name,
+      price: p.price,
+      description: p.description,
+      customMessage: p.whatsappMessage,
+    });
     return `
     <article class="product-card">
       <a class="product-image placeholder" id="img-wrap-${p.id}" href="${detailHref}" aria-label="View ${p.name}">
@@ -374,8 +391,14 @@ function initProductPage(navId, categoryName) {
 
   const productLink = document.getElementById("product-whatsapp-link");
   if (productLink) {
-    const message = productLink.dataset.message || SITE_CONFIG.whatsappDefaultMessage;
-    productLink.href = whatsappLink(`${message}\n${location.href}`);
+    const message = buildProductWhatsappMessage({
+      link: location.href,
+      name: productLink.dataset.productName,
+      price: productLink.dataset.priceDisplay,
+      description: productLink.dataset.description,
+      customMessage: productLink.dataset.message,
+    });
+    productLink.href = whatsappLink(message);
   }
 
   const instagramEl = document.getElementById("footer-instagram-link");
