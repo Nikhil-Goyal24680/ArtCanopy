@@ -91,12 +91,17 @@ function trackEvent(name, params) {
 // hero, custom-cta, footer, error page, and every per-product card — without
 // needing a listener re-attached each time the product grid re-renders.
 //
-// It also sends the current tab on to /thank-you/ right after opening
-// WhatsApp (which happens in a new tab via target="_blank", unaffected by
-// this tab navigating away). The actual order happens off-site in a WhatsApp
-// chat, so there's no real "purchase" page for ad platforms to detect —
-// this redirect gives Google Ads (and anything else watching for a page
-// visit) a page on our own domain to count as the conversion.
+// It also opens WhatsApp itself (via window.open(), not the link's own
+// target="_blank") and sends the current tab on to /thank-you/ right after.
+// Letting the browser's native target="_blank" handle the new tab while we
+// also change the current tab's location in the same click turned out to be
+// unreliable — many browsers treat the immediate navigation as racing the
+// pending new-tab action and drop it, so window.open() is called explicitly
+// here first, synchronously in the click handler, before we navigate away.
+// The actual order happens off-site in a WhatsApp chat, so there's no real
+// "purchase" page for ad platforms to detect — the redirect gives Google Ads
+// (and anything else watching for a page visit) a page on our own domain to
+// count as the conversion.
 function wireWhatsAppTracking() {
   document.addEventListener("click", (e) => {
     const link = e.target.closest('a[href^="https://wa.me/"]');
@@ -108,6 +113,8 @@ function wireWhatsAppTracking() {
       ...(link.dataset.price ? { value: Number(link.dataset.price), currency: "INR" } : {}),
       page_path: location.pathname,
     });
+    e.preventDefault();
+    window.open(link.href, "_blank", "noopener");
     window.location.href = "/thank-you/";
   });
 }
