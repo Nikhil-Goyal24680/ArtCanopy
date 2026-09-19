@@ -294,7 +294,6 @@ const PAGES_FOR_OVERFLOW_CHECK = [
   "/categories/festival-special/",
   "/categories/gift/",
   "/categories/mirror/",
-  "/products/resin-sketch-wall-panel/",
 ];
 
 // The home link is "../../" from a nested category/product page — resolves
@@ -304,10 +303,33 @@ function isHomeUrl(url) {
   return new URL(url).pathname === "/";
 }
 
+// Reads the live catalog off the homepage rather than hardcoding a product
+// ID — the sheet is the actual source of truth and its contents change
+// (a slug that exists today can be gone after the next sync), so a fixed
+// slug here goes stale silently until every product-page check starts
+// failing for an unrelated reason.
+async function getFirstProductId(cdp) {
+  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
+  const id = await evaluate(cdp, sessionId, "PRODUCTS[0]?.id || null");
+  await closePage(cdp, targetId);
+  return id;
+}
+
+// The gallery-thumbnail check specifically needs a product with more than
+// one photo — PRODUCTS[0] might not have any, so this looks for one that
+// does rather than assuming the first product qualifies.
+async function getProductIdWithGallery(cdp) {
+  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
+  const id = await evaluate(cdp, sessionId, "(PRODUCTS.find((p) => (p.extraImages || []).length > 0) || {}).id || null");
+  await closePage(cdp, targetId);
+  return id;
+}
+
 // The classic "mobile is broken" symptom: something wider than the
 // viewport forcing a horizontal scrollbar. Cheap to check, catches a lot.
-async function testNoHorizontalOverflow(cdp) {
-  for (const p of PAGES_FOR_OVERFLOW_CHECK) {
+async function testNoHorizontalOverflow(cdp, productId) {
+  const pages = productId ? [...PAGES_FOR_OVERFLOW_CHECK, `/products/${productId}/`] : PAGES_FOR_OVERFLOW_CHECK;
+  for (const p of pages) {
     const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}${p}`);
     const overflow = await evaluate(cdp, sessionId, "document.documentElement.scrollWidth - document.documentElement.clientWidth");
     report(`no horizontal overflow: ${p}`, overflow <= 1, overflow > 1 ? `scrollWidth exceeds the viewport by ${overflow}px` : undefined);
@@ -369,14 +391,19 @@ async function testSearchNoResults(cdp) {
 }
 
 async function testWhatsAppButtons(cdp) {
-  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
-  const waPrefix = await evaluate(cdp, sessionId, '`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=`');
-
   for (const [label, selector] of [
     ['hero "Browse & order on WhatsApp" button', "#hero-whatsapp-link"],
     ["footer WhatsApp link", "#footer-whatsapp-link"],
     ['"Ask about a custom order" button', "#custom-whatsapp-link"],
   ]) {
+    // A fresh page per link, not one page reused for all three — tapping a
+    // WhatsApp link now also sends the CURRENT tab on to /thank-you/ (see
+    // wireWhatsAppTracking in js/main.js), so reusing one page across all
+    // three taps would leave the 2nd/3rd iterations running against the
+    // thank-you page instead of home.
+    const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
+    const waPrefix = await evaluate(cdp, sessionId, '`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=`');
+
     // Two separate, deterministic assertions instead of one racy one:
     // wa.me links redirect through WhatsApp's own servers to
     // api.whatsapp.com, and exactly when that redirect has settled by the
@@ -388,8 +415,8 @@ async function testWhatsAppButtons(cdp) {
 
     const newTabUrl = await tapAndCaptureNewTabUrl(cdp, sessionId, selector);
     report(`tapping ${label} actually opens a new WhatsApp tab`, Boolean(newTabUrl), `got ${newTabUrl}`);
+    await closePage(cdp, targetId);
   }
-  await closePage(cdp, targetId);
 }
 
 async function testFooterContactLinks(cdp) {
@@ -408,7 +435,7 @@ async function testFooterContactLinks(cdp) {
   await closePage(cdp, targetId);
 }
 
-async function testProductCardOpensDetailPageAndPhotoLoads(cdp) {
+async function testProductCardOpensDetailPageAndPhotoLoads(cdp, productId) {
   const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/`);
   await sleep(700); // real photo load on the grid card itself, not just DOM presence
 
@@ -426,10 +453,10 @@ async function testProductCardOpensDetailPageAndPhotoLoads(cdp) {
   );
   report("at least one product card's real photo loads on the grid itself (not stuck on the placeholder)", gridPhotoLoaded);
 
-  await tap(cdp, sessionId, 'a.product-title-link[href="products/resin-sketch-wall-panel/"]');
+  await tap(cdp, sessionId, `a.product-title-link[href="products/${productId}/"]`);
   await sleep(700);
   const url = await currentURL(cdp, sessionId);
-  report("tapping a product card opens its own detail page", url.endsWith("/products/resin-sketch-wall-panel/"), `landed on ${url}`);
+  report("tapping a product card opens its own detail page", url.endsWith(`/products/${productId}/`), `landed on ${url}`);
 
   await sleep(500); // real photo load, not just DOM presence
   const loaded = await evaluate(cdp, sessionId, '!!document.getElementById("product-main-img")?.classList.contains("loaded")');
@@ -437,8 +464,8 @@ async function testProductCardOpensDetailPageAndPhotoLoads(cdp) {
   await closePage(cdp, targetId);
 }
 
-async function testProductGalleryThumbnails(cdp) {
-  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/resin-sketch-wall-panel/`);
+async function testProductGalleryThumbnails(cdp, productId) {
+  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/${productId}/`);
   const before = await evaluate(cdp, sessionId, 'document.getElementById("product-main-img").src');
   const expectedFile = await evaluate(cdp, sessionId, 'document.querySelectorAll(".product-thumb")[1].dataset.full.split("/").pop()');
 
@@ -450,18 +477,43 @@ async function testProductGalleryThumbnails(cdp) {
   await closePage(cdp, targetId);
 }
 
-async function testProductPageWhatsAppAndBackLink(cdp) {
-  const { targetId, sessionId } = await openPage(cdp, `http://localhost:${SERVER_PORT}/products/resin-sketch-wall-panel/`);
-  const expectedMsg = await evaluate(cdp, sessionId, `document.getElementById("product-whatsapp-link").dataset.message + "\\n" + location.href`);
-  const url = await tapAndCaptureNewTabUrl(cdp, sessionId, "#product-whatsapp-link");
-  const actualMsg = url ? decodeURIComponent(new URL(url).searchParams.get("text") || "") : null;
-  report("the product page's WhatsApp button opens with that product's own message and page link", actualMsg === expectedMsg, `expected "${expectedMsg}", got "${actualMsg}"`);
+async function testProductPageWhatsAppAndBackLink(cdp, productId) {
+  const productUrl = `http://localhost:${SERVER_PORT}/products/${productId}/`;
 
-  await tap(cdp, sessionId, ".back-link");
-  await sleep(500);
-  const backUrl = await currentURL(cdp, sessionId);
-  report("the product page's back-link returns to All pieces (opened from home)", isHomeUrl(backUrl), `landed on ${backUrl}`);
-  await closePage(cdp, targetId);
+  {
+    const { targetId, sessionId } = await openPage(cdp, productUrl);
+    // Calls the real buildProductWhatsappMessage() (already loaded via
+    // js/main.js) with the button's own dataset, rather than re-deriving
+    // the message format by hand here — that's what let this check go
+    // stale the last time the format changed elsewhere.
+    const expectedMsg = await evaluate(
+      cdp,
+      sessionId,
+      `buildProductWhatsappMessage({
+        link: location.href,
+        name: document.getElementById("product-whatsapp-link").dataset.productName,
+        price: document.getElementById("product-whatsapp-link").dataset.priceDisplay,
+        description: document.getElementById("product-whatsapp-link").dataset.description,
+        customMessage: document.getElementById("product-whatsapp-link").dataset.message,
+      })`
+    );
+    const url = await tapAndCaptureNewTabUrl(cdp, sessionId, "#product-whatsapp-link");
+    const actualMsg = url ? decodeURIComponent(new URL(url).searchParams.get("text") || "") : null;
+    report("the product page's WhatsApp button opens with that product's own message and page link", actualMsg === expectedMsg, `expected "${expectedMsg}", got "${actualMsg}"`);
+    await closePage(cdp, targetId);
+  }
+
+  {
+    // Fresh page rather than continuing on the one above — that WhatsApp
+    // tap also sends the current tab on to /thank-you/ (see
+    // wireWhatsAppTracking in js/main.js), which has no ".back-link".
+    const { targetId, sessionId } = await openPage(cdp, productUrl);
+    await tap(cdp, sessionId, ".back-link");
+    await sleep(500);
+    const backUrl = await currentURL(cdp, sessionId);
+    report("the product page's back-link returns to All pieces (opened from home)", isHomeUrl(backUrl), `landed on ${backUrl}`);
+    await closePage(cdp, targetId);
+  }
 }
 
 async function test404Page(cdp) {
@@ -511,16 +563,19 @@ async function main() {
     const cdp = await connectCDP();
     await cdp.send("Target.setDiscoverTargets", { discover: true });
 
-    await safeRun("layout: no horizontal overflow", () => testNoHorizontalOverflow(cdp));
+    const firstProductId = await getFirstProductId(cdp);
+    const galleryProductId = await getProductIdWithGallery(cdp);
+
+    await safeRun("layout: no horizontal overflow", () => testNoHorizontalOverflow(cdp, firstProductId));
     await safeRun("header logo", () => testLogoNavigatesHome(cdp));
     await safeRun("category nav", () => testCategoryNavNavigation(cdp));
     await safeRun("search (finds results)", () => testSearchFindsExpectedResults(cdp));
     await safeRun("search (no results)", () => testSearchNoResults(cdp));
     await safeRun("WhatsApp buttons", () => testWhatsAppButtons(cdp));
     await safeRun("footer contact links", () => testFooterContactLinks(cdp));
-    await safeRun("product card -> detail page", () => testProductCardOpensDetailPageAndPhotoLoads(cdp));
-    await safeRun("product gallery thumbnails", () => testProductGalleryThumbnails(cdp));
-    await safeRun("product page WhatsApp + back-link", () => testProductPageWhatsAppAndBackLink(cdp));
+    await safeRun("product card -> detail page", () => testProductCardOpensDetailPageAndPhotoLoads(cdp, firstProductId));
+    await safeRun("product gallery thumbnails", () => testProductGalleryThumbnails(cdp, galleryProductId));
+    await safeRun("product page WhatsApp + back-link", () => testProductPageWhatsAppAndBackLink(cdp, firstProductId));
     await safeRun("404 page", () => test404Page(cdp));
     await safeRun("admin page links", () => testAdminPageLinks(cdp));
   } finally {
