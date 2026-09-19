@@ -90,6 +90,13 @@ function trackEvent(name, params) {
 // Delegated click tracking catches every WhatsApp link on the page — header,
 // hero, custom-cta, footer, error page, and every per-product card — without
 // needing a listener re-attached each time the product grid re-renders.
+//
+// It also sends the current tab on to /thank-you/ right after opening
+// WhatsApp (which happens in a new tab via target="_blank", unaffected by
+// this tab navigating away). The actual order happens off-site in a WhatsApp
+// chat, so there's no real "purchase" page for ad platforms to detect —
+// this redirect gives Google Ads (and anything else watching for a page
+// visit) a page on our own domain to count as the conversion.
 function wireWhatsAppTracking() {
   document.addEventListener("click", (e) => {
     const link = e.target.closest('a[href^="https://wa.me/"]');
@@ -101,6 +108,7 @@ function wireWhatsAppTracking() {
       ...(link.dataset.price ? { value: Number(link.dataset.price), currency: "INR" } : {}),
       page_path: location.pathname,
     });
+    window.location.href = "/thank-you/";
   });
 }
 
@@ -321,6 +329,32 @@ function initErrorPage() {
   });
 }
 
+// thank-you/index.html — the page wireWhatsAppTracking() sends people to
+// right after they click any WhatsApp button (see comment there). Its own
+// WhatsApp link is a fallback for the rare case the new tab didn't open.
+function initThankYouPage() {
+  initAnalytics();
+
+  const defaultLink = whatsappLink(SITE_CONFIG.whatsappDefaultMessage);
+  document.getElementById("header-whatsapp-link").href = defaultLink;
+  document.getElementById("footer-whatsapp-link").href = defaultLink;
+  document.getElementById("thankyou-whatsapp-link").href = defaultLink;
+
+  const instagramEl = document.getElementById("footer-instagram-link");
+  if (SITE_CONFIG.instagramHandle) {
+    instagramEl.href = `https://instagram.com/${SITE_CONFIG.instagramHandle}`;
+  } else {
+    instagramEl.style.display = "none";
+  }
+
+  wireFooterContact();
+  document.getElementById("footer-year").textContent = new Date().getFullYear();
+
+  trackEvent("thank_you_view", {
+    referrer: document.referrer || "(direct)",
+  });
+}
+
 function wireSearch() {
   const input = document.getElementById("product-search");
   if (!input) return;
@@ -438,3 +472,4 @@ function renderHomeCategoryNav(navId) {
 //   renderHomeCategoryNav("category-nav"); renderProducts(); wireStaticLinks(); wireSearch(); initAnalytics();  (index.html — shared nav bar links out to themed category pages)
 //   initCategoryPage("Gift", "category-nav"); initAnalytics();                     (categories/*.html — locked to one category)
 //   initErrorPage();                                                              (404.html — also tracks the 404_hit event)
+//   initThankYouPage();                                                           (thank-you/index.html — also tracks the thank_you_view event)
