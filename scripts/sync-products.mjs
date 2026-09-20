@@ -651,15 +651,19 @@ async function main() {
 
     const id = r.id ? slugify(r.id, usedIds) : slugify(name, usedIds);
 
-    const categories = (r.categories || "")
-      .split(/[,;]/)
-      .map((c) => c.trim())
-      .filter(Boolean);
-    categories.forEach((c) => {
-      if (!CATEGORIES.some((known) => known.toLowerCase() === c.toLowerCase())) {
-        warnings.push(`row ${rowNum} ("${name}"): category "${c}" isn't in the known list (${CATEGORIES.join(", ")}) — check for a typo.`);
-      }
+    // One checkbox column per category (sheet header "Resin art" -> the
+    // normalized key "resin_art", same lowercase-with-underscores rule
+    // rowsToObjects() applies to every header) instead of a free-typed
+    // comma-separated list — a checkbox can't be misspelled, so this is
+    // structurally immune to the exact-match typos a text column invited.
+    // See README.md "Connecting the product sheet" for the sheet setup.
+    const categories = CATEGORIES.filter((cat) => {
+      const key = cat.toLowerCase().replace(/\s+/g, "_");
+      return String(r[key] || "").trim().toUpperCase() === "TRUE";
     });
+    if (!categories.length) {
+      warnings.push(`row ${rowNum} ("${name}"): no category checkbox is ticked — this product will only ever show up on the homepage, not any category page.`);
+    }
 
     // The "Order on WhatsApp" button always sends a fixed message — the
     // product link, a "Buy" line, price, and description (built client-side,

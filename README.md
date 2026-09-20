@@ -61,9 +61,9 @@ next sync, same as the sheet is the single source of truth for everything else h
 **1. Create the sheet.** Make a Google Sheet with these column headers in row 1 (order
 doesn't matter, but the names must match exactly, lowercase):
 
-| id | name | price | original_price | description | size | categories | photo | more_photos | whatsapp_message |
-|----|------|-------|----------------|-------------|------|------------|-------|-------------|-------------------|
-| *(optional)* | Lippan Mirror Wall Art | 1499 | *(optional)* | Traditional Lippan mud-mirror work... | *(optional)* | Lippan art, Home deco | *(Drive link)* | *(optional Drive links)* | *(optional)* |
+| id | name | price | original_price | description | size | Painting sketch | Resin art | Lippan art | Mosaic art | Home deco | Festival special | Gift | Mirror | photo | more_photos | whatsapp_message |
+|----|------|-------|----------------|-------------|------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|-------|-------------|-------------------|
+| *(optional)* | Lippan Mirror Wall Art | 1499 | *(optional)* | Traditional Lippan mud-mirror work... | *(optional)* | ☐ | ☐ | ☑ | ☐ | ☑ | ☐ | ☐ | ☐ | *(Drive link)* | *(optional Drive links)* | *(optional)* |
 
 - **id**: leave blank — it's generated automatically from the name. Only fill it in if
   you want a specific web-friendly ID.
@@ -74,8 +74,14 @@ doesn't matter, but the names must match exactly, lowercase):
   a product that isn't discounted; it should always be higher than `price`.
 - **size**: optional — e.g. `8 x 10 in`. Shown on the product's own page (not the grid
   card) right under the price. Leave blank to hide it.
-- **categories**: comma-separated, using this list (a product can have more than one):
-  `Painting sketch, Resin art, Lippan art, Mosaic art, Home deco, Festival special, Gift, Mirror`
+- **Painting sketch / Resin art / Lippan art / Mosaic art / Home deco / Festival
+  special / Gift / Mirror**: one checkbox column per category — tick every category a
+  product belongs to (a product can have more than one, like the Lippan Mirror example
+  above). These must be real checkboxes, not typed text: select the column's data range
+  → **Insert → Checkbox**. A checkbox can't be misspelled, so there's no typo risk the
+  way there was with the old single `categories` text column — if a product has none
+  ticked, the sync warns that it'll only ever show up on the homepage, not any category
+  page.
 - **photo**: a Google Drive share link (see step 2) — this is the main photo, shown on
   the product grid card and as the default image on the product's own page.
 - **more_photos**: optional — extra angles/close-ups shown as a click-to-swap
