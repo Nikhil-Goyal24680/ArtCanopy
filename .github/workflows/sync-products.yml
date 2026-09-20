@@ -48,7 +48,7 @@ jobs:
         run: |
           git config user.name "artcanopy-sync-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add js/products-data.js images/ products/ sitemap.xml data/last-sync.csv
+          git add js/products-data.js js/categories-data.js images/ products/ sitemap.xml data/last-sync.csv
           if git diff --cached --quiet; then
             echo "No product changes since last sync."
           else

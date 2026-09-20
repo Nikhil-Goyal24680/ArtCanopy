@@ -20,5 +20,6 @@ const CATEGORIES = [
 // the category nav (js/main.js renderCategoryNav/renderHomeCategoryNav) to
 // hide empty categories instead of linking to a dead-looking empty grid.
 const CATEGORIES_WITH_PRODUCTS = [
-  "Resin art"
+  "Resin art",
+  "Gift"
 ];
