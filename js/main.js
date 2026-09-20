@@ -401,7 +401,13 @@ function categorySlug(name) {
 function renderCategoryNav(navId, currentCategory, linkPrefix = "../") {
   const nav = document.getElementById(navId);
   if (!nav || typeof CATEGORIES === "undefined") return;
-  const links = CATEGORIES.map((c) => {
+  // Hides categories with no products (same rule as renderHomeCategoryNav
+  // below) — except the one you're already looking at, which always stays
+  // so the nav doesn't lose its own "current" entry out from under you.
+  const shown = CATEGORIES.filter(
+    (c) => c === currentCategory || (typeof CATEGORIES_WITH_PRODUCTS !== "undefined" && CATEGORIES_WITH_PRODUCTS.includes(c))
+  );
+  const links = shown.map((c) => {
     const isCurrent = c === currentCategory;
     return isCurrent
       ? `<span class="category-nav-item current">${c}</span>`
@@ -464,9 +470,7 @@ function renderHomeCategoryNav(navId) {
   const nav = document.getElementById(navId);
   if (!nav || typeof CATEGORIES === "undefined") return;
 
-  const present = CATEGORIES.filter((c) =>
-    PRODUCTS.some((p) => (p.categories || []).includes(c))
-  );
+  const present = typeof CATEGORIES_WITH_PRODUCTS !== "undefined" ? CATEGORIES_WITH_PRODUCTS : CATEGORIES;
 
   const links = present
     .map((c) => `<a class="category-nav-item" href="categories/${categorySlug(c)}/">${c}</a>`)

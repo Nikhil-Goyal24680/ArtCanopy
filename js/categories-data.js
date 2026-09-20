@@ -15,3 +15,10 @@ const CATEGORIES = [
   "Gift",
   "Mirror"
 ];
+
+// Just the categories that currently have at least one product — used by
+// the category nav (js/main.js renderCategoryNav/renderHomeCategoryNav) to
+// hide empty categories instead of linking to a dead-looking empty grid.
+const CATEGORIES_WITH_PRODUCTS = [
+  "Resin art"
+];
