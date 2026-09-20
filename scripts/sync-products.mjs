@@ -644,10 +644,22 @@ async function main() {
   const warnings = [];
   let photosDownloaded = 0;
 
+  // Checkbox cells always contain "FALSE"/"TRUE" — never truly blank — so a
+  // trailing row that's otherwise empty (Google Sheets pre-fills checkbox
+  // columns for every row in the sheet's grid, often hundreds past the
+  // last real one) still has non-empty cells and survives parseCSV's
+  // blank-row filter. Without this, every one of those rows would
+  // individually warn as "missing name" below.
+  const categoryKeys = new Set(CATEGORIES.map((c) => c.toLowerCase().replace(/\s+/g, "_")));
+
   for (const [i, r] of records.entries()) {
     const rowNum = i + 2; // +1 for header, +1 for 1-indexing
     const name = r.name || "";
-    if (!name) { warnings.push(`row ${rowNum}: missing "name", skipped.`); continue; }
+    if (!name) {
+      const hasOtherContent = Object.entries(r).some(([key, value]) => !categoryKeys.has(key) && value);
+      if (hasOtherContent) warnings.push(`row ${rowNum}: missing "name", skipped.`);
+      continue;
+    }
 
     const id = r.id ? slugify(r.id, usedIds) : slugify(name, usedIds);
 
