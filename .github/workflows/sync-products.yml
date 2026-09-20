@@ -84,6 +84,28 @@ jobs:
               });
             }
 
+      # Mirror image of "Report failure" — without this, a failure issue
+      # from days ago sits open forever even after the very next run
+      # succeeds, misleadingly implying an ongoing problem.
+      - name: Clear failure issue on success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const label = "automated-sync-failure";
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: "open", labels: label,
+            });
+            for (const issue of existing.data) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number,
+                body: `Resolved — [this run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) completed successfully.`,
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, state: "closed",
+              });
+            }
+
       # A run that only produced warnings (a bad photo link, an unknown
       # category typo) still exits 0 — nothing's actually broken — so
       # without this the only trace was a line in that day's Action log
