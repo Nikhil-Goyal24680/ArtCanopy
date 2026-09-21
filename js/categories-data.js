@@ -21,5 +21,8 @@ const CATEGORIES = [
 // hide empty categories instead of linking to a dead-looking empty grid.
 const CATEGORIES_WITH_PRODUCTS = [
   "Resin art",
-  "Gift"
+  "Home deco",
+  "Festival special",
+  "Gift",
+  "Mirror"
 ];
